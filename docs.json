@@ -1,12 +1,18 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "almond",
-  "name": "Product Guide",
-  "description": "Step-by-step guides for every product—platform setup, analytics, and integrations in one place.",
+  "name": "[Your Name]",
+  "description": "Design engineer building AI-native interfaces.",
   "colors": {
-    "primary": "#166E3F",
-    "light": "#26BD6C",
-    "dark": "#166E3F"
+    "primary": "#ea580c",
+    "light": "#f97316",
+    "dark": "#c2410c"
+  },
+  "background": {
+    "color": {
+      "light": "#F8F5EF",
+      "dark": "#1C1917"
+    }
   },
   "favicon": "/favicon.ico",
   "icons": {
@@ -27,51 +33,47 @@
           "href": "/"
         },
         {
-          "anchor": "Changelog",
-          "icon": "scroll-text",
-          "href": "https://www.mintlify.com/docs/changelog"
+          "anchor": "Agent view",
+          "icon": "terminal",
+          "href": "/agent"
         },
         {
-          "anchor": "Help",
-          "icon": "life-buoy",
-          "href": "https://www.mintlify.com/docs/contact-support"
+          "anchor": "Resume",
+          "icon": "file-text",
+          "href": "https://placeholder.example.com/resume.pdf"
         }
       ]
     },
-    "directory": "card",
     "groups": [
       {
-        "group": "Platform",
-        "icon": "layers",
+        "group": "Case Studies",
+        "icon": "briefcase",
         "expanded": true,
         "pages": [
-          "platform/quickstart",
-          "platform/key-concepts",
-          "platform/configuration/settings",
-          "platform/configuration/user-management",
-          "platform/administration/roles-permissions"
+          "work/overview",
+          "work/placeholder-case-study-1",
+          "work/placeholder-case-study-2"
         ]
       },
       {
-        "group": "Analytics",
-        "icon": "chart-bar",
+        "group": "Writing",
+        "icon": "pen-line",
         "expanded": true,
         "pages": [
-          "analytics/quickstart",
-          "analytics/connect-data",
-          "analytics/dashboards/create-dashboard",
-          "analytics/reports/scheduled-reports"
+          "writing/overview",
+          "writing/article-1",
+          "writing/article-2",
+          "writing/article-3"
         ]
       },
       {
-        "group": "Integrations",
-        "icon": "plug",
+        "group": "Reference",
+        "icon": "code-xml",
         "expanded": true,
         "pages": [
-          "integrations/quickstart",
-          "integrations/authentication",
-          "integrations/connectors/crm",
-          "integrations/webhooks/configure"
+          "reference/skills",
+          "reference/experience",
+          "reference/contact"
         ]
       }
     ]
@@ -81,17 +83,29 @@
     "dark": "/logo/dark.svg"
   },
   "navbar": {
-    "links": [],
-    "primary": {
-      "type": "button",
-      "label": "Dashboard",
-      "href": "https://dashboard.mintlify.com"
-    }
+    "links": [
+      {
+        "label": "GitHub",
+        "href": "https://github.com/placeholder",
+        "icon": "github"
+      },
+      {
+        "label": "LinkedIn",
+        "href": "https://linkedin.com/in/placeholder",
+        "icon": "linkedin"
+      },
+      {
+        "label": "Email",
+        "href": "mailto:placeholder@example.com",
+        "icon": "mail"
+      }
+    ]
   },
   "footer": {
     "socials": {
-      "x": "https://x.com/yourcompany",
-      "linkedin": "https://linkedin.com/company/yourcompany"
+      "github": "https://github.com/placeholder",
+      "linkedin": "https://linkedin.com/in/placeholder",
+      "x": "https://x.com/placeholder"
     }
   }
 }
