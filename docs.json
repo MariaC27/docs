@@ -51,8 +51,9 @@
         "expanded": true,
         "pages": [
           "work/overview",
-          "work/placeholder-case-study-1",
-          "work/placeholder-case-study-2"
+          "work/canvas-annotation-revamp",
+          "work/turn-based-audio-annotation",
+          "work/apilens"
         ]
       },
       {
@@ -61,9 +62,8 @@
         "expanded": true,
         "pages": [
           "writing/overview",
-          "writing/article-1",
-          "writing/article-2",
-          "writing/article-3"
+          "writing/the-design-process-shift",
+          "writing/ux-friction-coefficient"
         ]
       },
       {
