@@ -1,0 +1,74 @@
+---
+title: "Turn-Based Audio Annotation"
+description: "My sketches, prototyping, and iteration process for a new annotation canvas as a design engineer at Ocular."
+---
+
+<div className="font-mono text-xs text-gray-500 dark:text-gray-400 mb-8">Maria Cristoforo · Feb 16, 2026 · 6 min read</div>
+
+The "new" design process. My sketches, prototyping, and iteration process for a new annotation canvas as a design engineer at Ocular. Work done in late 2025.
+
+{/* IMAGE 1: "the new turn-based audio annotation canvas" */}
+![The new turn-based audio annotation canvas](/images/audio_study1_blurred.png)
+
+## Problem
+
+Previously, the Ocular platform had been set up for coordinate-based image and video annotation only, but we now needed a way to annotate multi-speaker audios.
+
+## Requirements
+
+The new annotation interface and edits to our platform would depend heavily on the kind of data and output that our partner company needed.
+
+We first had to discuss the timing and format of the annotations and the kind of data we were hoping to capture with them. Where on the audio would we actually "make" an annotation? Would it be for the entire audio or specific portions? If it was specific portions, would the user choose those themselves or would they be preset? What were the characteristics that needed to be captured and how could we best quantify them?
+
+In this case, according to our partner's requirements, the multi-speaker audio would be segmented into "turns." Each turn is composed of one instance of each speaker talking (turn = speaker 1 + speaker 2), capturing one back and forth exchange. Annotation would be done "by turn," so each turn would have standardized annotation data.
+
+For the amount of data we wanted to capture about each turn, we decided that a "rubric" structure would be most effective, allowing us to capture a variety of customizable metrics for the turns, which would each be annotated against the same rubric. Within the rubric, we hoped to capture tool call behavior, appropriateness and speed of the responses, and whether there were any misspoken or nonsensical elements of the responses, among other things.
+
+## Label Redesign
+
+First, the decision to use rubric-style annotation brought up the need for an interesting redesign of the label system on Ocular. For coordinate-based annotation, the "labels" only needed to be a single word which described to the user what the label should apply to. Each file would use multiple of these single-word labels as the users created annotations. But for this type of turn-based audio annotation, we now needed a flexible structure to capture multiple elements for the same "chunk" of the audio.
+
+In the interest of having minimal edits to our backend models and routes, we decided to keep the format of having many possible "labels," except for audio labelling, only one label would be used at a time. The label would store an additional "form" attribute where multiple customizable elements could be added, including range, multi-select, boolean, and text formats. This way, we could keep the same label setup on the platform and backend, except conditionally use the "form" attribute for audio annotation projects.
+
+{/* IMAGE 2: "an early sketch of the new labelling system" */}
+![An early sketch of the new labelling system](/images/audio_study2_sketch1.jpg)
+
+{/* IMAGE 3: "the later implementation of the new labelling system" */}
+![The later implementation of the new labelling system](/images/audio_study3_labelui.png)
+
+## Annotation Interface Sketches
+
+When making the sketches, I first added a full-width waveform visualization of the audio with highlighted sections for the turns. This would be crucial for allowing the user to quickly scan and understand the file's structure and turn breakdown. On the technical side, I knew we had the appropriate transcript and timestamp data and could pre-segment the audio beforehand.
+
+For the annotation flow, I wanted to find the most optimal way to guide the users through filling out the form for each turn while requiring the least amount of clicks. I considered several options, including preserving the main flow from the image-based annotation (which required clicking on a section and then filling out a popup) or trying out a new different view.
+
+After some thought and discussion with teammates, we thought it best to try to show everything initially on one screen, allowing for minimal clicks and also quick visual assessment of the work to be done. The grid system, sketched below, has each turn as a row in the grid and the columns show the transcript and also elements of the rubric to fill out. When a row is complete, the user marks it as done with a button at the end of the row. The row and the associated turn section on the waveform then turn green to indicate completed status.
+
+{/* IMAGE 4: "early sketch of the grid annotation system" */}
+![Early sketch of the grid annotation system](/images/audio_study4_sketch2.jpg)
+
+I could have iterated more on the specifics here, but instead chose to make a simple functional prototype that we could show to our partner and get their feedback on immediately.
+
+## Prototype
+
+This is where the design process starts to differ significantly from the "old" process detailed in Study 1. Instead of taking the sketches to Figma and making various iterations, I just briefly discussed the sketches with the team and then prompted an AI prototyping tool (in this case v0, but I have also used Magic Patterns and Figma Make)
+
+{/* IMAGE 5: "v0 output of the grid annotation system" */}
+![v0 output of the grid annotation system](/images/audio_study5_prototype.png)
+
+Although the waveform visualization was absent here, the ability to rapidly create an interactive prototype was game-changing. We were able to send this to the partner and validate that the row system looked good to start development.
+
+## Development and Iteration
+
+I then began building the "real" version of this interface in our codebase. As I was developing, I made various changes to the v0 prototype (mostly based on my own intuition at this point), including moving the transcripts to be side by side, moving the play button to the left, and adding hover states to visually link the rows to the sections on the waveform.
+
+Once the first version was ready, we then began the process of iteratively collecting feedback and making edits. We would deploy a version for people to test with, ask them how it went, and I would make changes in code right away and push the edits for them to test again. This process continues even today as we find more bugs and areas where the user experience can be streamlined.
+
+{/* IMAGE 6: "the new turn-based audio annotation canvas (polished version)" */}
+![The new turn-based audio annotation canvas (polished version)](/images/audio_study1_blurred.png)
+
+## Conclusion
+
+This study showcases how I go about the design engineering process for a new feature as of late 2025 / early 2026. As the coding and prototyping turnaround time has sped up considerably, we can now have much faster iteration cycles with customers. I leverage new tools to get feedback asap, rather than spend lots of upfront time in Figma as I did before. Although I do sometimes miss and definitely see the value of being able to complete the old, longer process, I think that on small startup teams, this new process is much more efficient and allows us to gather feedback and ship user-friendly features much more effectively. And this all may change again in the next few months or years with new tools!
+
+Though the tools and methods are changing, I think the constant here is to maintain an empathetic, user-focused, and iterative mindset. Although it would be tempting to just vibe code the annotation interface in Cursor immediately, I think that the small bits of time I invested into making paper sketches and discussing with the team first, especially about how to extend the current labelling system rather than making a whole new model & router on the backend, is crucial for making this process work and avoiding a later time-consuming redo.

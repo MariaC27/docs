@@ -1,0 +1,120 @@
+---
+title: "ApiLens: version, diff, and visualize OpenAPI specs"
+description: "A versioning + visual diffs system for OpenAPI endpoint documentation."
+---
+
+<div className="font-mono text-xs text-gray-500 dark:text-gray-400 mb-6">Maria Cristoforo · Apr 23, 2026 · 7 min read</div>
+
+<div className="flex gap-3 mb-8">
+  <a href="https://github.com/MariaC27/api-lens" target="_blank" className="inline-flex items-center gap-2 rounded-lg border border-gray-900/15 dark:border-gray-50/15 bg-white/60 dark:bg-gray-900/50 px-4 py-2 text-sm font-medium text-gray-800 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors no-underline">
+    <Icon icon="github" size={16} />
+    MariaC27/api-lens
+  </a>
+  <a href="https://pypi.org/project/openapi-lens/" target="_blank" className="inline-flex items-center gap-2 rounded-lg border border-gray-900/15 dark:border-gray-50/15 bg-white/60 dark:bg-gray-900/50 px-4 py-2 text-sm font-medium text-gray-800 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors no-underline">
+    <Icon icon="package" size={16} />
+    openapi-lens on PyPI
+  </a>
+</div>
+
+I designed and built a tool that automatically versions and visually diffs OpenAPI specs, making new api changes instantly visible without needing to run manual scripts or make handwritten handoff tickets. The entire experience was designed to be developer-friendly with a simple installation process, automated workflows, and copyable AI-chat prompts for making changes. This article details my entire process, including researching current tools, refining the idea, and eventually implementation and iterations.
+
+{/* IMAGE 1: hero — ApiLens UI */}
+![ApiLens](/images/apilens_study1_polished.png)
+
+## Problem
+
+TLDR: difficult communication between backend + frontend about endpoint structure changes.
+
+When endpoint docs are updated, it's hard to tell what exactly changed in the most recent update. Frontend teams need an easy way to see what changed in the api in order to update types and pages accordingly. Good handoff documentation is essential, but often tedious, manual, and repetitive to create and use.
+
+## My Experience
+
+I'm a design engineer who works mostly with the frontend code. Oftentimes, when there is an update made to our api, it is hard for me to tell exactly what changed just from looking at our auto-generated endpoint documentation, which only shows the most recent version.
+
+With remote teammates in different time zones, it can be hard to get ahold of people to ask clarifying questions about handoffs. Previously, our backend engineers would compile tickets detailing endpoint changes, but these were time-consuming to create and still didn't have line-by-line visibility into the differences from the old version.
+
+Without an easy way to see differences, I often resorted to comparing old and new endpoint structures by eye, which was very inefficient. Another option was just to paste the entire new structure into an AI prompt, which worked but reduced my visibility and knowledge of what changed.
+
+## The Need
+
+I needed a way to easily see the "diff" of what changed between the previous endpoints and the updated endpoints. And not just for the most recent update; I wanted to be able to compare the endpoints at different points in time as well.
+
+I also wanted a smooth automatic system that doesn't require manual downloading and script running. It should update and provide visibility automatically when updates are made, reducing time spent creating handoff tickets and making the diff information immediately available and skimmable without extra work each time.
+
+## Idea
+
+A tool to take "snapshots" of the docs at certain points (say at each merge to main) and then compare snapshots with a color-coded diff. This would allow frontend teams to see at-a-glance which endpoints changed and field-level changes in payload and response structures.
+
+## Initial Research
+
+Our team uses FastAPI, which already handles automatic openapi documentation updates. There is a json file (openapi.json) that stores all the current api endpoint info, which is rendered on the docs site using Swagger UI. Having the json file already makes the diff and versioning process relatively more straightforward, I just needed to figure out how to snapshot and diff that json and display the results in a user-friendly manner.
+
+I found a few existing tools which handle diffing the openapi json: openapi-diff and swagger-diff. However, it seems that both are focused on creating a good diff but aren't very user-friendly; users need to run script in terminal and manually paste in different json files, then take the html diff output and render it themselves for each comparison.
+
+At this point, I realized that the key differentiator of this project is not the idea of the api diff itself, it's about making the diff process user-friendly through versioning, automatically running workflows, and a user-friendly interface. I could even leverage the existing tools for the diffing logic, as my project would be focused on creating a good experience.
+
+## V1 Implementation: Diffing Logic and PR Comment
+
+To start, I asked myself — where do devs actually look? No one wants and will remember to manually download and run something, then interpret raw output. The versioning system and diff output needs to be in an easy-to-find location and require minimal supervision.
+
+Some options include: a PR comment (useful to have but lacks flexibility in visualization), a Slack notification (we tried this and was too busy / hard to read, got lost), or a lightweight UI (ideal solution).
+
+I decided to start with the PR comment — allowing me to focus on the logic of getting and comparing the two json files first before worrying about file storage or a UI which could come later.
+
+General steps (implemented in a github actions workflow):
+
+1. Get the OpenAPI spec from both the base branch and the PR branch
+2. Compare the two specs at the field level
+3. Post a comment on the PR summarizing what changed
+
+{/* IMAGE 2: "an example of a PR comment" */}
+![An example of a PR comment](/images/apilens_study2_comment.png)
+
+**Implementation notes:**
+
+- I found that the existing package openapi-diff didn't provide enough detail; it doesn't show field-level changes in the json. So I built custom logic to compare the schemas
+- I initially wanted to run a workflow comparing any feature branch with the main branch. But while testing (before the changes are in main), I had to modify the logic to compare between two separate branches first without touching the main branch. Once everything had been tested, I then changed the comparison trigger back to the main branch right before merging.
+
+## V2 Implementation: Version Storage and Diff UI
+
+The next step was to take "snapshots" (versions) of the openapi json on each merge to main, so those snapshots can then be compared and visualized on a UI. The automated nature of this is key, as this ties back to the initial goal of reducing developers' manual work and differentiating ApiLens from existing tools.
+
+The workflow runs whenever anything that touches the backend folder is merged into the main branch (we have a monorepo). It snapshots the current openapi json file, gives it a name with a unique timestamp, and puts it into a folder in the repo called openapi-snapshots. I decided to store the json snapshots in the repo (not a separate s3 bucket as I had originally planned) as this reduces setup time, has easier visibility, and makes the workflows easier to adopt and run within any repository. Once at least two snapshots are accumulated, the user can use the UI to compare and diff two different snapshots.
+
+For the UI, I added a new router to our app with endpoints to list and get snapshot content, then render simple html on a new route for the UI. For the display itself, I tried to roughly follow the UI of our existing documentation site (for the sake of maintaining familiarity for users) except with highlighting to show field-level diffs.
+
+{/* IMAGE 3: "the initial version of the UI" */}
+![The initial version of the UI](/images/apilens_study3_blurred.png)
+
+## V3: UI Edits and Developer-Friendliness
+
+Made a few edits to make the UI more user friendly:
+
+- Show the entire payload + response with modified fields highlighted. Allows for at-a-glance assessment of what changed in relation to the previous structures.
+- Make each endpoint's details collapsible
+- Ensure the first dropdown always contains the older version
+- Making one-click copyable snippets ready that have instructions to give an AI tool about what changed. Available on each endpoint and for all of the modified endpoints between the two versions. Important for making this developer-friendly!
+
+{/* IMAGE 4: "a later version of the UI" */}
+![A later version of the UI](/images/apilens_study1_polished.png)
+
+## Modularizing
+
+Up until this point, I had been developing this within our team's repo, but I eventually wanted to make this into a modular and open source repo + package that anyone can easily install and run to get the same result.
+
+I took some time to separate out some of the diff logic and files into a new repository. To run, users just need to add a toml file and some workflow files into their repository, then install and run a python package.
+
+<CardGroup cols={2}>
+  <Card title="PyPI Package" icon="package" href="https://pypi.org/project/openapi-lens/">
+    openapi-lens on PyPI
+  </Card>
+  <Card title="GitHub Repo" icon="github" href="https://github.com/MariaC27/api-lens">
+    MariaC27/api-lens
+  </Card>
+</CardGroup>
+
+## Notes
+
+After reading all of this, the question may arise — what's the point of providing all this visibility into field-level api changes if developers will use an AI tool to make those changes anyway? I guess it varies based on personal preference. Some people may not need this type of visibility and that's valid, especially as AI tools can basically own the entire development process now and answer questions about it if needed. But for me, I like to keep a general mental model of the state of the project even if I don't make many of the changes by hand. Providing a simple glimpse of the changes allows me to "update" my mental model and maintain a general awareness what changes were made and when. This has proven to be a big time-saver when debugging.
+
+I've found this tool incredibly useful in my day to day work and I also hope it can be helpful to others. Would love feedback and ideas at mcristoforo.medium@gmail.com. Thanks for reading!
