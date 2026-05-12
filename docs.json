@@ -51,9 +51,9 @@
         "expanded": true,
         "pages": [
           "work/overview",
+          "work/apilens",
           "work/canvas-annotation-revamp",
-          "work/turn-based-audio-annotation",
-          "work/apilens"
+          "work/turn-based-audio-annotation"
         ]
       },
       {

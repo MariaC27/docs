@@ -1,0 +1,103 @@
+---
+title: "The Design Process Shift"
+description: "How the design and engineering process on small teams has changed: design as a mindset rather than a separate step."
+---
+
+<div className="font-mono text-xs text-gray-500 dark:text-gray-400 mb-8">Maria Cristoforo · Feb 17, 2026 · 8 min read</div>
+
+As a design engineer on a small team, I take features from an initial idea to final implementation on the product. I've worked through this process on many small teams over the past few years and in the past few months I have observed that there has been a major shift in the design & engineering processes. I know that this shift is no surprise to really anyone working in web design or adjacent spaces, but I wanted to share specifically what my experience has been like.
+
+## TLDR
+
+**Old:** longer process with separated des/dev teams. Designers do user research, sketches, figma wireframes, hifis, prototyping, and then hand off to developers. See [Study 1](/work/canvas-annotation-revamp) for an example of my work.
+
+**New:** des + dev teams are integrated and can even be the same person (design engineer). Define basic requirements, use tools to prototype and get a version in front of a customer or client asap if possible, iterate based on their feedback, then rapidly implement using AI tools like Cursor. More about high-level thinking and rapid prototyping rather than intense details and mockup designs. See [Study 2](/work/turn-based-audio-annotation) for an example of my work.
+
+**Why the shift?** The coding and prototyping turnaround time has sped up considerably, allowing for much faster iteration cycles. Especially for small fast-moving teams, it doesn't make sense to spend a lot of overhead time in Figma when edits on the actual product can be made and tested so quickly.
+
+{/* IMAGE 1: "a visual of the two different processes" */}
+![A visual of the two different processes](/images/design_article1_graphic.png)
+
+## Old Process
+
+*feel free to skip if this is already familiar*
+
+Before the advent of tools which could rapidly prototype and code an idea based on a single-sentence prompt, there was an established design to development process that many product teams followed, including small student teams that I worked on while at Dartmouth / DALI Lab. Design and development tasks were pretty cleanly split between subteams, with designers handling much of the user research, ideation, and iteration process, before working on Figma designs and then handing them over to developers to implement.
+
+**Designers:** Problem Statement → User Personas → User Journey Mapping → HMW Qs/ POV Statements → Sketches → Wireframes → HiFis → Figma Prototypes → Handoff to dev team
+
+**Developers:** Receive Figma handoff → implement the given designs
+
+This system, while slow, was thorough and largely ensured that teams:
+
+- Spent an adequate amount of time doing user research and thinking intentionally about the user's journey while using the product
+- (Ideally) created and stuck to organized design systems on Figma
+- Usually allowed for time to focus on unique branding and UI details
+- Went through multiple iterations of screens, incorporating feedback from other designers and users, before settling on a vetted and polished version to hand off
+
+However some drawbacks of having design and dev teams mostly separate:
+
+- Wait times on both sides. Developers would first be waiting for designs, then once the handoff happened, designers would not have much to do while the developers had to rapidly ship in the remaining time.
+- Disconnect between people who only did one specific thing, oftentimes with lack of knowledge and empathy between designers and developers
+
+An example of my old design process: [Study 1](/work/canvas-annotation-revamp)
+
+## The Shift & New Process
+
+The design step is often the first thing to be dropped when time is tight. With the advent of tools that can prototype a fully functional interface in just a few minutes, it becomes even less appealing and practical for small teams to spend a lot of time on a separate design "step". Rather, design becomes more about having the right mindset while going through any development process, whether that be AI-assisted prototyping, product discussions, or even vibe coding.
+
+Instead of spending time creating time-consuming Figma mockups, many design engineers now use AI tools to get prototypes, test immediately with the team or users if possible, make edits, and then rapidly implement or update the feature using AI tools. The line between design and engineering is blurred, with the same people often working through the entire feature development process — thus the rise of the design engineer who can implement and iterate quickly while keeping design principles in mind.
+
+From what I have observed and done myself, the new design process on small teams is as follows:
+
+1. Articulate idea
+2. Get demo from an AI tool (v0, magic patterns)
+3. Test with users or customers if possible
+4. Use cursor to implement in codebase
+
+{/* IMAGE 2: "an example of an AI-tool-assisted prototype as part of the 'new' design process" */}
+![An example of an AI-tool-assisted prototype as part of the "new" design process. Doesn't have to be polished, just to validate an idea with a user or client before actual implementation.](/images/design_article2_prototype.png)
+
+This approach emphasizes a high-level view of problem solving and there is less focus on the intense details of designs, as these can now be changed rapidly and can also become obsolete rapidly.
+
+This new system gives rise to a new, faster iteration process with users. We can get users to test a prototype asap, get feedback, then iterate from there, all at a relatively low cost. We can essentially co-design with users, rather than spending an entire design + development cycle before a user even sees the product.
+
+## My Personal Experience
+
+For my first few months at Ocular, I stuck relentlessly to the "old" design framework, alt-dragging iteration after iteration in Figma to settle on a solid design before I switched over to implementation. As you can see in [Study 1](/work/canvas-annotation-revamp), I used to make Figma boards of competitor research, create user personas and user journeys, and pore over greyscale mockups and hifis designs on Figma, before finally moving to implement these in code.
+
+However as my usage of Cursor and other AI prototyping tools increased, I noticed my usage of Figma was becoming less and less about prototyping entire screens and more about validating user flows, putting together rough ideas to show the team, and moving directly to hifis by reusing existing components and backgrounds, rather than starting from mockups for every single new design.
+
+I would sketch basic layouts on paper first, run them by the team, and then just use hifi components to make simple screens on Figma. And even those screens were only briefly used to validate the idea and confirm what data would be necessary from the backend, before jumping right to development.
+
+{/* IMAGE 3: "an example of rapid flows on figma" */}
+![An example of rapid flows on Figma — no wireframes beforehand, and more about validating user flow and general appearance of screens rather than details.](/images/design_article3_flows.png)
+
+And once I started to develop, if I noticed a design improvement that could be made, I would just immediately make the changes in code. In most cases, no need to go back to the Figma and make the edits there. The only times I would return to Figma to make the corresponding edits would be if I needed to keep the Figma and platform designs in sync for the purpose of making marketing assets using the Figma frames.
+
+As time went on and the team began to move faster on completely new products, the need for Figma screens fell away completely. With a brand new platform to develop, the amount of overhead effort needed to set up a complete Figma design system and prototype out each screen was far too much work and time. I tended instead to mock up pages with either Cursor of a variety of other prototyping tools (Magic Patterns, v0) and then make modifications from there based on what we wanted or what users needed.
+
+See [Study 2](/work/turn-based-audio-annotation), where I describe an instance of the "new" design process — discussions with a client to determine the specifications, making a prototype using v0, then incorporating client feedback into the implementation.
+
+## My Thoughts
+
+The reason that fully iterating on designs with Figma beforehand was widespread is that once designs were passed to developers, they needed to be "ready," with not a lot of future edits to be made. Once the developers started developing, it was relatively harder to work in an entire design shift or revamp. So having a long and thorough design process beforehand was good and necessary to avoid costly later changes.
+
+But now as engineering work has sped up considerably, it's not a big deal to have a developer revamp and rework designs and pages as they go. It doesn't make sense to spend all that time beforehand if the page can easily be reworked in code.
+
+In some cases, as in my case, the designer and developer are even the same person, so there is absolutely no disconnect in going back and forth between design and development. The two can be done simultaneously; as I prototype in code, I also think about design edits and implement those right away. No longer a need for a long, prior design process.
+
+Though it is tempting to just immediately begin writing code, I think there are still some small design steps that can be taken beforehand that can potentially have a big payoff later. We should strive to preserve at least the skeleton of the design process while still moving quickly, in order to ensure that the end result is user-friendly and will not require starting over from scratch once a usability issue is found. For example, one of these small steps (which I explain in [Study 2](/work/turn-based-audio-annotation)) is taking the time to make brief sketches and discuss with the team before starting to prototype and build.
+
+## Tipping Point
+
+I think there is a design vs. speed tipping point.
+
+- On one extreme: initially moving too fast and ignoring design planning entirely leads to losing more time later (needing a costly rework due to previously overlooked issues)
+- On the other end: over-spending time on design in the beginning only for it to not really matter later
+
+Finding a balance between these is crucial. Even though reworking is relatively easier than in the past, there comes a point where more time can be saved in the long run by spending just a comparably small amount of time thinking through the designs beforehand. And conversely, over-spending time on designs beforehand can make for unnecessarily slow progress in context of a rapidly evolving industry. I think it's very team-dependent and worth it for all teams to have a discussion about where to strike this balance.
+
+## Disclaimers
+
+I acknowledge that the design shift and design process changes are likely taking different forms at different companies depending on size, proximity of users, type of product, etc. What I've written here is based purely on my own experiences and I don't expect it to apply to everyone. Would love to hear about how other teams are approaching design and usage of Figma, etc. Thanks for reading!

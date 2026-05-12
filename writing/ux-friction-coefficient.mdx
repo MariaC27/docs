@@ -1,0 +1,80 @@
+---
+title: "UX Friction Coefficient"
+description: "A metric used to quantify UX friction on a task-based interface — and why it's more useful as a conceptual reminder than a strict calculation."
+---
+
+<div className="font-mono text-xs text-gray-500 dark:text-gray-400 mb-8">Maria Cristoforo · Mar 4, 2026 · 5 min read</div>
+
+A metric used to quantify UX friction on a task-based interface.
+
+I will discuss assumptions, normalization methods, and limitations of the formula and how I use it as more of a conceptual reminder rather than strict calculation to be made.
+
+{/* IMAGE 1: hero */}
+![UX Friction Coefficient](/images/ux_article1_overall.png)
+
+## Inspiration
+
+When I first began as a design engineer, I was once asked how I would attempt to model or quantify UX friction on an interface. I came up with a formula to attempt to capture this and shared it with my team, who immediately dubbed it the "Maria Coefficient." The name has stuck and we still occasionally bring it up today, not as something to explicitly calculate, but just as a reminder of things to keep in mind when designing and testing new interfaces.
+
+In this article, I will explain the components of the formula, assumptions and issues with it, and later improvements made. I also want to mention right away that I think the primary use of the coefficient is more as a conceptual reminder rather than a strict calculation. Interfaces are so varied that it's not possible for one formula to appropriately capture and quantify user interactions everywhere. The concept of having a coefficient at all is the main takeaway — a reminder of the many factors that go into making a user-friendly interface and what we should seek to minimize and maximize when designing user flows. However, I do think that the specifics of the formula make for a great article and discussion so here we are.
+
+## Old/Original Formula
+
+This is what I came up with when asked to try to quantify UX on the spot. This was with no prior research and also in context of a task-based interface where a user would land on this page and need to complete a task or set of tasks ASAP. This was also meant to be judged in the general sense that "lower is better"; this version does not yet weigh specific components (as explained later, this leads to total time T dominating everything)
+
+{/* IMAGE 2: original formula */}
+![The original UX friction formula](/images/ux_article2_original.png)
+
+Here, UX friction = interaction cost (B) + time cost (T) + hesitation cost (B), penalized by inaccuracy (fast but wrong task is worse than a slow but correct one). This original formula has many issues, detailed below.
+
+**Assumptions:**
+
+- UX cost grows linearly, each additional click adds equal friction
+- Inaccuracy amplifies all friction
+- Early hesitation = confusion (additional time before first click is bad)
+
+**Issues:**
+
+- The units are inconsistent — some numbers are in seconds and others are in clicks. Things need to be normalized or else one thing will dominate. Without normalization, time T dominates (ex. 120 seconds vs 3 clicks). What we actually want to capture is: how much slower was this task than it should have been? There are a few ways this could be addressed: normalizing T using the expected completion time (T / T_expected) or using "excess time" instead of raw time (T — T_expected).
+- Time before the first click isn't always bad; depending on the task, the user might be thinking and planning. So this formula only works in a "task flow" page where there's an end goal to accomplish ASAP, it's not good for research/learning interfaces, where longer time on the page may indicate more thoughtfulness.
+- In this version of the formula, everything is weighted equally. We could later add weights for tuning, if we want one element to carry more weight than another for a specific type of interface.
+
+## Improvement 1: Component-Based Normalization
+
+Based on the issues described, one way the formula could be improved is to normalize and weigh each of the elements separately based on expected values. This prevents one element from dominating and also allows for customization using the weights.
+
+{/* IMAGE 3: component-based normalization formula */}
+![Component-based normalization formula](/images/ux_article3_component.png)
+
+## Improvement 2: Metric-Based Normalization
+
+Another way to normalize would be at the metric level: divide the actual by the expected value of M. This answers the question "how far is this experience from our expected friction?"
+
+![Metric-based normalization formula](/images/ux_article4_metric.png)
+
+## Which type of normalization?
+
+Component-based normalization or metric-level normalization? → structural vs. outcome normalization.
+
+**Component-Based:**
+
+*Overall: Better as a tool / for ux research — have more control and insight*
+
+- **Pro:** Since we normalize each variable before combining them, all components are on the same unitless "scale" and can be easily compared. You easily can see which component most affects the final score, giving insight into where the friction came from
+- **Pro:** We can control the influence of each variable with weights. The formula is customizable for different interfaces or priorities
+- **Con:** What does this number actually mean? Lower is better, but "7.5" might not mean much to people. This is only useful if comparing variations of the same interface to each other.
+
+**Metric-Based:**
+
+*Overall: Easier to understand for business / presentation purposes*
+
+- **Pro or Con:** Preserves original dominance of components (could be good or not depending on what you want to capture)
+- **Pro:** Easier to say "interface was X% worse than normal". This is good if you just want a single metric to use in a presentation or a quick reference. Answers the question "how much different was the experience than expected?"
+
+## Conclusion
+
+To me, this metric is more a conceptual reminder of things to consider when designing and testing user flows for a task-based interface. As mentioned, this type of quantification doesn't work well for research or learning interfaces which do not seek to have the user complete a task as fast as possible.
+
+For the purposes of being a conceptual reminder, I think the original formula works fine. But if you do actually want to calculate the number, it's better to use a normalized version of the formula. Between the two types of normalization, component-based is better for research purposes, as it has more visibility into where the friction happened and the ability to customize with the weights. Metric-based normalization is good for providing a single understandable number to use in a presentation or conversation that indicates the general performance of the interface in comparison to the optimal experience.
+
+I don't think this coefficient is meant to be taken seriously as any kind of business metric, at least for now. This coefficient is really only relevant for a very narrow use case and I'm sure there are still issues and things left out, depending on what you want to capture. I'm also sure that other designers might think about quantifying UX differently, if at all. These were just my thoughts as a first pass and I would love to hear other thoughts and opinions on this topic. Thank you for reading!
