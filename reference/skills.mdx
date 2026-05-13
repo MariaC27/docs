@@ -1,142 +1,305 @@
 ---
-title: Skills
+title: Skills API
 description: A structured API-style reference of my capabilities, tools, and proficiency levels.
 ---
 
-<div className="font-mono text-sm font-semibold uppercase tracking-wider mb-2 portfolio-primary-text">
-  API Reference
+<div className="rounded-xl bg-gray-50 dark:bg-gray-900/50 border border-gray-200 dark:border-gray-800 px-5 py-4 mb-8 flex flex-col gap-3">
+  <div className="font-mono text-[10px] font-semibold uppercase tracking-widest text-gray-400 mb-1">Proficiency key</div>
+  <div className="flex items-center gap-3">
+    <div className="w-24 shrink-0"><span className="skill-badge-active">ACTIVE</span></div>
+    <span className="text-sm text-gray-600 dark:text-gray-400">Currently used daily, shipping production features</span>
+  </div>
+  <div className="flex items-center gap-3">
+    <div className="w-24 shrink-0"><span className="skill-badge-fluent">FLUENT</span></div>
+    <span className="text-sm text-gray-600 dark:text-gray-400">Comfortable shipping with but not currently used</span>
+  </div>
+  <div className="flex items-center gap-3">
+    <div className="w-24 shrink-0"><span className="skill-badge-familiar">FAMILIAR</span></div>
+    <span className="text-sm text-gray-600 dark:text-gray-400">Solid foundations but not used recently</span>
+  </div>
 </div>
 
-# Skills reference
+## Development
 
-A structured reference of capabilities, treated as API endpoints. Proficiency levels, years of experience, and real project usage as example code.
+<div className="my-8" id="skill-typescript">
+  <div className="mb-4 flex items-center gap-3">
+    <span className="skill-badge-active">ACTIVE</span>
+    <code className="text-base font-semibold text-gray-900 dark:text-gray-50">/skills/development/typescript</code>
+  </div>
+  <p className="mb-6 text-gray-600 dark:text-gray-400">My primary language for frontend work. Comfortable using across large codebases with complex component props and API response types.</p>
+
+  **Parameters**
+
+  | Name | Value |
+  |------|-------|
+  | `years_experience` | 3 |
+  | `last_used` | Now |
+  | `context` | Typed component props, API interfaces, shared types |
+  | `used_at` | Ocular AI, NoxuData, side projects |
+</div>
+
+---
+
+<div className="my-8" id="skill-javascript">
+  <div className="mb-4 flex items-center gap-3">
+    <span className="skill-badge-fluent">FLUENT</span>
+    <code className="text-base font-semibold text-gray-900 dark:text-gray-50">/skills/development/javascript</code>
+  </div>
+  <p className="mb-6 text-gray-600 dark:text-gray-400">Fluent in async patterns, event handling, and DOM manipulation. Most active JavaScript work has since migrated to TypeScript.</p>
+
+  **Parameters**
+
+  | Name | Value |
+  |------|-------|
+  | `years_experience` | 5 |
+  | `last_used` | Early 2025 |
+  | `context` | Core scripting, async logic, DOM manipulation |
+  | `used_at` | DALI Lab, JHU APL, startup internship, Atlassian |
+</div>
+
+---
+
+<div className="my-8" id="skill-react">
+  <div className="mb-4 flex items-center gap-3">
+    <span className="skill-badge-active">ACTIVE</span>
+    <code className="text-base font-semibold text-gray-900 dark:text-gray-50">/skills/development/react</code>
+  </div>
+  <p className="mb-6 text-gray-600 dark:text-gray-400">Comfortable with hooks, context, component structuring, and state management. Most of my shipped product work uses React.</p>
+
+  **Parameters**
+
+  | Name | Value |
+  |------|-------|
+  | `years_experience` | 5 |
+  | `last_used` | Now |
+  | `context` | Component architecture, state management, UI composition |
+  | `used_at` | Ocular AI, NoxuData, DALI Lab |
+</div>
+
+---
+
+<div className="my-8" id="skill-nextjs">
+  <div className="mb-4 flex items-center gap-3">
+    <span className="skill-badge-active">ACTIVE</span>
+    <code className="text-base font-semibold text-gray-900 dark:text-gray-50">/skills/development/nextjs</code>
+  </div>
+  <p className="mb-6 text-gray-600 dark:text-gray-400">Comfortable with folder based routing system, server components, and route handlers.</p>
+
+  **Parameters**
+
+  | Name | Value |
+  |------|-------|
+  | `years_experience` | 2 |
+  | `last_used` | Now |
+  | `context` | Full-stack routing, API routes, SSR |
+  | `used_at` | Ocular AI, side projects |
+</div>
+
+---
+
+<div className="my-8" id="skill-tailwind">
+  <div className="mb-4 flex items-center gap-3">
+    <span className="skill-badge-active">ACTIVE</span>
+    <code className="text-base font-semibold text-gray-900 dark:text-gray-50">/skills/development/tailwind</code>
+  </div>
+  <p className="mb-6 text-gray-600 dark:text-gray-400">Prefer Tailwind for intuitive classnames and seamless integration with js components.</p>
+
+  **Parameters**
+
+  | Name | Value |
+  |------|-------|
+  | `years_experience` | 2 |
+  | `last_used` | Now |
+  | `context` | Rapid UI styling, responsive layouts, design system tokens |
+  | `used_at` | Ocular AI, NoxuData, this portfolio |
+</div>
+
+---
+
+<div className="my-8" id="skill-htmlcss">
+  <div className="mb-4 flex items-center gap-3">
+    <span className="skill-badge-active">ACTIVE</span>
+    <code className="text-base font-semibold text-gray-900 dark:text-gray-50">/skills/development/html-css</code>
+  </div>
+  <p className="mb-6 text-gray-600 dark:text-gray-400">Solid command of semantic HTML and CSS fundamentals — flexbox, grid, animations, custom properties. Useful for knowing what Tailwind is doing under the hood and for cases where raw CSS is the right tool.</p>
+
+  **Parameters**
+
+  | Name | Value |
+  |------|-------|
+  | `years_experience` | 5 |
+  | `last_used` | Now |
+  | `context` | Semantic markup, layout, custom overrides |
+  | `used_at` | Throughout career |
+</div>
+
+---
+
+<div className="my-8" id="skill-python">
+  <div className="mb-4 flex items-center gap-3">
+    <span className="skill-badge-fluent">FLUENT</span>
+    <code className="text-base font-semibold text-gray-900 dark:text-gray-50">/skills/development/python</code>
+  </div>
+  <p className="mb-6 text-gray-600 dark:text-gray-400">Comfortable with Python for scripting, tooling, and backend logic. Most recent substantial Python work was building and packaging ApiLens as a PyPI package.</p>
+
+  **Parameters**
+
+  | Name | Value |
+  |------|-------|
+  | `years_experience` | 6 |
+  | `last_used` | Early 2025 |
+  | `context` | Scripting, backend logic, CLI tooling, data processing |
+  | `used_at` | ApiLens, Atlassian, Dartmouth coursework |
+</div>
+
+---
+
+<div className="my-8" id="skill-java">
+  <div className="mb-4 flex items-center gap-3">
+    <span className="skill-badge-familiar">FAMILIAR</span>
+    <code className="text-base font-semibold text-gray-900 dark:text-gray-50">/skills/development/java</code>
+  </div>
+  <p className="mb-6 text-gray-600 dark:text-gray-400">Where I first learned to code. Used extensively through Dartmouth CS coursework and FIRST Robotics. Not in active use but the foundations are there.</p>
+
+  **Parameters**
+
+  | Name | Value |
+  |------|-------|
+  | `years_experience` | 4 |
+  | `last_used` | College coursework, 2022 |
+  | `context` | Data structures, algorithms, robotics control systems |
+  | `used_at` | Dartmouth CS coursework, FIRST Robotics |
+</div>
 
 ---
 
 ## Design
 
-<div className="my-8" id="skill-design-systems">
+<div className="my-8" id="skill-figma">
   <div className="mb-4 flex items-center gap-3">
-    <span className="skill-badge-expert">EXPERT</span>
-    <code className="text-base font-semibold text-gray-900 dark:text-gray-50">/skills/[skill-name]</code>
+    <span className="skill-badge-fluent">FLUENT</span>
+    <code className="text-base font-semibold text-gray-900 dark:text-gray-50">/skills/design/figma</code>
   </div>
-  <p className="mb-6 text-gray-600 dark:text-gray-400">[Description of this skill and how you apply it in real work.]</p>
+  <p className="mb-6 text-gray-600 dark:text-gray-400">Use it for wireframes, hifi prototypes, and design systems, though my workflow has shifted toward using Figma more for validation and handoff assets than for full mockup suites.</p>
 
   **Parameters**
 
   | Name | Value |
   |------|-------|
-  | `years_experience` | [X+] |
-  | `last_used` | Current |
-  | `primary_tools` | [Tool A, Tool B, Tool C] |
-
-  **Example usage**
-
-  ```typescript
-  // [Brief comment describing what this demonstrates]
-  [placeholder code showing how you'd use this skill in practice]
-  ```
+  | `years_experience` | 4 |
+  | `last_used` | Mid 2025 |
+  | `context` | Wireframes, hifi prototypes, design systems, marketing assets |
+  | `used_at` | Ocular AI, NoxuData, DALI Lab |
 </div>
 
 ---
 
-<div className="my-8" id="skill-prototyping">
+<div className="my-8" id="skill-ai-design">
   <div className="mb-4 flex items-center gap-3">
-    <span className="skill-badge-proficient">PROFICIENT</span>
-    <code className="text-base font-semibold text-gray-900 dark:text-gray-50">/skills/[skill-name]</code>
+    <span className="skill-badge-active">ACTIVE</span>
+    <code className="text-base font-semibold text-gray-900 dark:text-gray-50">/skills/design/ai-assisted-design</code>
   </div>
-  <p className="mb-6 text-gray-600 dark:text-gray-400">[Description of this skill.]</p>
+  <p className="mb-6 text-gray-600 dark:text-gray-400">My current design process centers on AI prototyping tools to get interactive demos in front of users fast, then iterating directly in code. This approach has replaced most Figma work for new features on small teams.</p>
 
   **Parameters**
 
   | Name | Value |
   |------|-------|
-  | `years_experience` | [X+] |
-  | `last_used` | Current |
-  | `primary_tools` | [Tool A, Tool B] |
-
-  **Example usage**
-
-  ```typescript
-  // [Brief comment]
-  [placeholder code]
-  ```
+  | `last_used` | Now |
+  | `context` | Rapid prototyping, design validation, co-design with clients |
+  | `tools` | v0, Magic Patterns, Figma Make, Cursor |
 </div>
 
 ---
 
-## Engineering
-
-<div className="my-8" id="skill-react">
+<div className="my-8" id="skill-ux-research">
   <div className="mb-4 flex items-center gap-3">
-    <span className="skill-badge-expert">EXPERT</span>
-    <code className="text-base font-semibold text-gray-900 dark:text-gray-50">/skills/[skill-name]</code>
+    <span className="skill-badge-fluent">FLUENT</span>
+    <code className="text-base font-semibold text-gray-900 dark:text-gray-50">/skills/design/ux-research</code>
   </div>
-  <p className="mb-6 text-gray-600 dark:text-gray-400">[Description of this skill.]</p>
+  <p className="mb-6 text-gray-600 dark:text-gray-400">Trained in design thinking through Dartmouth's HCD program and DALI Lab. Comfortable running user interviews, mapping user flows, writing problems statements, and synthesizing feedback into design decisions.</p>
 
   **Parameters**
 
   | Name | Value |
   |------|-------|
-  | `years_experience` | [X+] |
-  | `last_used` | Current |
-  | `primary_tools` | [Tool A, Tool B, Tool C] |
-
-  **Example usage**
-
-  ```typescript
-  // [Brief comment]
-  [placeholder code]
-  ```
+  | `last_used` | 2025 |
+  | `context` | User flows, competitor research, design crits, feedback synthesis |
+  | `used_at` | DALI Lab, Ocular AI, Design Corps |
 </div>
 
 ---
 
-<div className="my-8" id="skill-ai-native">
+## Workflows
+
+<div className="my-8" id="skill-collab">
   <div className="mb-4 flex items-center gap-3">
-    <span className="skill-badge-proficient">PROFICIENT</span>
-    <code className="text-base font-semibold text-gray-900 dark:text-gray-50">/skills/[skill-name]</code>
+    <span className="skill-badge-active">ACTIVE</span>
+    <code className="text-base font-semibold text-gray-900 dark:text-gray-50">/skills/workflows/cross-functional-collaboration</code>
   </div>
-  <p className="mb-6 text-gray-600 dark:text-gray-400">[Description of this skill.]</p>
+  <p className="mb-6 text-gray-600 dark:text-gray-400">Experienced working across design, frontend, and backend on distributed teams. Comfortable bridging the gap between design ideas and implementation constraints and succinctly articulating complex problems.</p>
 
   **Parameters**
 
   | Name | Value |
   |------|-------|
-  | `years_experience` | [X+] |
-  | `last_used` | Current |
-  | `primary_tools` | [Tool A, Tool B] |
-
-  **Example usage**
-
-  ```typescript
-  // [Brief comment]
-  [placeholder code]
-  ```
+  | `last_used` | Now |
+  | `context` | FE/BE handoff, async remote teams, partner-facing communication |
+  | `used_at` | Ocular AI, NoxuData, Atlassian, DALI Lab |
 </div>
 
 ---
 
-## Collaboration & craft
-
-<div className="my-8" id="skill-writing">
+<div className="my-8" id="skill-design-to-code">
   <div className="mb-4 flex items-center gap-3">
-    <span className="skill-badge-familiar">FAMILIAR</span>
-    <code className="text-base font-semibold text-gray-900 dark:text-gray-50">/skills/[skill-name]</code>
+    <span className="skill-badge-active">ACTIVE</span>
+    <code className="text-base font-semibold text-gray-900 dark:text-gray-50">/skills/workflows/design-to-code</code>
   </div>
-  <p className="mb-6 text-gray-600 dark:text-gray-400">[Description.]</p>
+  <p className="mb-6 text-gray-600 dark:text-gray-400">Own the process from design to implementation. Design with development feasibility constraints in mind, handle adding pattern-consistent and modular code to an existing codebase.</p>
 
   **Parameters**
 
   | Name | Value |
   |------|-------|
-  | `years_experience` | [X+] |
-  | `last_used` | [Recent date] |
-  | `primary_tools` | [Tool A] |
+  | `last_used` | Now |
+  | `context` | End-to-end feature ownership, design system consistency, implementation fidelity |
+  | `used_at` | Ocular AI, NoxuData, DALI Lab |
 </div>
 
 ---
 
-<Note>
-  **Proficiency key** — `EXPERT`: fluent, reach for this daily, can teach it. `PROFICIENT`: confident, shipped production work with this. `FAMILIAR`: working knowledge, actively deepening.
-</Note>
+<div className="my-8" id="skill-technical-writing">
+  <div className="mb-4 flex items-center gap-3">
+    <span className="skill-badge-active">ACTIVE</span>
+    <code className="text-base font-semibold text-gray-900 dark:text-gray-50">/skills/workflows/technical-writing</code>
+  </div>
+  <p className="mb-6 text-gray-600 dark:text-gray-400">Write clearly about technical and design work for mixed audiences. Covers case studies, blog essays, internal documentation, and structured references like this page.</p>
+
+  **Parameters**
+
+  | Name | Value |
+  |------|-------|
+  | `last_used` | Now |
+  | `context` | Case studies, essays, documentation, structured references |
+  | `used_at` | Medium blog, this portfolio, Ocular AI |
+</div>
+
+---
+
+<div className="my-8" id="skill-customer-communication">
+  <div className="mb-4 flex items-center gap-3">
+    <span className="skill-badge-active">ACTIVE</span>
+    <code className="text-base font-semibold text-gray-900 dark:text-gray-50">/skills/workflows/customer-facing-communication</code>
+  </div>
+  <p className="mb-6 text-gray-600 dark:text-gray-400">Direct customer interaction from support engineering at Atlassian — translating product friction into actionable feedback, communicating technical issues clearly and professionally.</p>
+
+  **Parameters**
+
+  | Name | Value |
+  |------|-------|
+  | `last_used` | 2023 |
+  | `context` | Customer support, feedback synthesis, technical communication |
+  | `used_at` | Atlassian |
+</div>
+
+---
