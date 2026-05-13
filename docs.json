@@ -46,6 +46,16 @@
     },
     "groups": [
       {
+        "group": "About",
+        "icon": "user",
+        "expanded": true,
+        "pages": [
+          "reference/skills",
+          "reference/experience",
+          "reference/changelog"
+        ]
+      },
+      {
         "group": "Case Studies",
         "icon": "briefcase",
         "expanded": true,
@@ -65,16 +75,6 @@
           "writing/the-design-process-shift",
           "writing/ux-friction-coefficient"
         ]
-      },
-      {
-        "group": "Reference",
-        "icon": "code-xml",
-        "expanded": true,
-        "pages": [
-          "reference/skills",
-          "reference/experience",
-          "reference/contact"
-        ]
       }
     ]
   },
@@ -85,18 +85,23 @@
   "navbar": {
     "links": [
       {
-        "label": "GitHub",
-        "href": "https://github.com/placeholder",
+        "label": "",
+        "href": "https://github.com/MariaC27",
         "icon": "github"
       },
       {
-        "label": "LinkedIn",
-        "href": "https://linkedin.com/in/placeholder",
+        "label": "",
+        "href": "https://www.linkedin.com/in/maria-cristoforo/",
         "icon": "linkedin"
       },
       {
-        "label": "Email",
-        "href": "mailto:placeholder@example.com",
+        "label": "",
+        "href": "https://medium.com/@maria_cristoforo",
+        "icon": "book-open"
+      },
+      {
+        "label": "",
+        "href": "mailto:maria.h.cristoforo@gmail.com",
         "icon": "mail"
       }
     ]
