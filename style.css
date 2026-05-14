@@ -328,6 +328,18 @@ body:has([data-portfolio-index]) #sidebar a.nav-anchor[href='/'] svg {
   border-color: color-mix(in srgb, rgb(var(--primary)) 30%, transparent);
 }
 
+/* ─── Changelog: interactive entry + detail window ─────────────────────────── */
+
+.cl-entry.cl-active {
+  border-color: rgb(234 88 12 / 0.45) !important;
+  background-color: rgb(234 88 12 / 0.04) !important;
+}
+
+.dark .cl-entry.cl-active {
+  border-color: rgb(234 88 12 / 0.45) !important;
+  background-color: rgb(234 88 12 / 0.08) !important;
+}
+
 /* Drop cap — float-left large italic initial */
 .portfolio-dropcap {
   float: left;
