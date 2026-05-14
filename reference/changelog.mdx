@@ -3,171 +3,183 @@ title: "Changelog"
 description: "A version history of my career, education, and growth as a designer and engineer."
 ---
 
+export const entries = [
+  {
+    version: "v3.3.0", date: "Winter 2026",
+    title: "Began Medium blog series about design engineering",
+    sub: null,
+    desc: "Started publishing design engineering essays on Medium. Covers AI's impact on the design process, UX friction measurement, and the evolving role of the design engineer on small teams.",
+    link: "https://medium.com/@maria_cristoforo", linkLabel: "View on Medium"
+  },
+  {
+    version: "v3.2.0", date: "Fall 2025",
+    title: "Shipped turn-based audio annotation canvas",
+    sub: null,
+    desc: "Designed and built a new annotation interface for multi-speaker audio at Ocular — a turn-based model for labeling complex overlapping audio segments.",
+    link: "/work/turn-based-audio-annotation", linkLabel: "View case study"
+  },
+  {
+    version: "v3.1.0", date: "Summer 2025",
+    title: "Shipped redesigned image annotation canvas",
+    sub: null,
+    desc: "Led the full redesign of Ocular's image annotation canvas — from user research and sketching through to shipping production code. Optimizing the image labeling workflow.",
+    link: "/work/canvas-annotation-revamp", linkLabel: "View case study"
+  },
+  {
+    version: "v3.0.0", date: "Winter 2025",
+    title: "Moved to SF, joined Ocular AI as a design engineer",
+    sub: "5-person team; designing and building features end-to-end",
+    desc: "Operate at the intersection of product design and software engineering on this small fast-paced founding team. Take features from initial concept to full implementation on Ocular's data processing platforms.",
+    link: null
+  },
+  {
+    version: "v2.1.0", date: "Fall 2024",
+    title: "Fullstack SWE at NoxuData",
+    sub: "3-person team; learning fullstack frameworks and shipping fast",
+    desc: "Learned API design fundamentals, full-stack implementation process for new features, and shipped clean code on a large existing codebase. Reported directly to the two founders with technical contributions and product ideas.",
+    link: null
+  },
+  {
+    version: "v2.0.0", date: "Spring 2024",
+    title: "Graduated Dartmouth, CS + Human-Centered Design",
+    sub: "Honors thesis on accessible development practices",
+    desc: "Graduated from Dartmouth with a dual concentration in Computer Science and Human-Centered Design. Honors thesis focused on accessible development practices.",
+    link: null
+  },
+  {
+    version: "v1.4.0", date: "Summer 2023",
+    title: "Support Engineering internship at Atlassian",
+    sub: "Talk directly with customers, observe areas of product friction",
+    desc: "Talked directly with customers, debugged issues, and conducted user research. Got a sense of what product support looks like at scale and how to politely interact with customers and accept feedback.",
+    link: null
+  },
+  {
+    version: "v1.3.0", date: "Fall 2022",
+    title: "First UI/UX design class at Dartmouth",
+    sub: "Later switched major to CS + Human-Centered Design",
+    desc: "After JHU APL internship, made an effort to get involved in design opportunities at Dartmouth. Took several human-centered design classes, joined student Design Corps org, worked as a designer at DALI Lab.",
+    link: null
+  },
+  {
+    version: "v1.2.0", date: "Spring 2022",
+    title: "SWE internship at JHU Applied Physics Lab",
+    sub: "Building visualization tools for global health data",
+    desc: "Built data visualization tools for global health research at Johns Hopkins Applied Physics Lab. Auditing a legacy internal tool sparked an interest in UX that changed my career direction.",
+    link: null
+  },
+  {
+    version: "v1.1.0", date: "Summer 2021",
+    title: "First startup internship — building company website",
+    sub: "Building a new version of the company website",
+    desc: "Built the redesigned company website from scratch. First real experience working with a small startup team and shipping a customer-facing site.",
+    link: null
+  },
+  {
+    version: "v1.0.0", date: "Spring 2021",
+    title: "Start design & development work at the DALI Lab, Dartmouth",
+    sub: "Learned web dev for the first time via a student-taught mini course",
+    desc: "First learned web development and ui/ux design fundamentals through a student-taught mini course. Later became a full-stack software developer and designer working on small student teams. As a senior, mentored a group of first-year female students through Dartmouth Women in Science Program.",
+    link: null
+  },
+  {
+    version: "v0.2.0", date: "Fall 2020",
+    title: "Enrolled at Dartmouth College, CS + Math",
+    sub: null,
+    desc: "Enrolled at Dartmouth College, initially studying Computer Science and Mathematics.",
+    link: null
+  },
+  {
+    version: "v0.1.0", date: "Spring 2017",
+    title: "First line of code — Java, FIRST Robotics Competition",
+    sub: null,
+    desc: "First lines of code in Java, written for the FIRST Robotics Competition in high school.",
+    link: null
+  },
+];
+
+export const openEntry = (el, data) => {
+  document.querySelectorAll('.cl-entry').forEach(e => e.classList.remove('cl-active'));
+  el.classList.add('cl-active');
+  window._clEntry = el;
+  window._clLinkTarget = data.link || null;
+
+  if (!document.getElementById('cl-portal')) {
+    const isDark = document.documentElement.classList.contains('dark');
+    const p = document.createElement('div');
+    p.id = 'cl-portal';
+    p.style.cssText = 'position:fixed;z-index:99999;display:none;';
+    p.innerHTML = `
+      <div style="border-radius:12px;border:1px solid rgba(${isDark?'255,255,255,0.1':'0,0,0,0.08'});background:${isDark?'#111827':'#fff'};box-shadow:0 4px 24px rgba(0,0,0,${isDark?'0.4':'0.1'});overflow:hidden;">
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid rgba(${isDark?'255,255,255,0.08':'0,0,0,0.08'});background:${isDark?'rgba(31,41,55,0.5)':'#f9fafb'};">
+          <span id="clp-ver" style="font-family:ui-monospace,monospace;font-size:11px;font-weight:600;color:#ea580c;"></span>
+          <button onclick="window._clClose()" style="width:20px;height:20px;border-radius:50%;background:${isDark?'#374151':'#e5e7eb'};border:none;cursor:pointer;font-size:10px;color:${isDark?'#9ca3af':'#6b7280'};line-height:1;flex-shrink:0;">✕</button>
+        </div>
+        <div style="padding:16px;display:flex;flex-direction:column;gap:10px;">
+          <span id="clp-date" style="font-family:ui-monospace,monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:#9ca3af;"></span>
+          <div id="clp-title" style="font-family:'Instrument Serif',Georgia,serif;font-size:14px;font-style:italic;color:${isDark?'#f9fafb':'#111827'};line-height:1.4;"></div>
+          <p id="clp-desc" style="font-size:12px;color:${isDark?'#9ca3af':'#6b7280'};line-height:1.6;margin:0;"></p>
+          <button id="clp-link" onclick="if(window._clLinkTarget)window.location.href=window._clLinkTarget" style="display:none;font-family:ui-monospace,monospace;font-size:12px;color:#ea580c;background:none;border:none;padding:0;cursor:pointer;text-align:left;margin-top:2px;"></button>
+        </div>
+      </div>`;
+    document.body.appendChild(p);
+
+    window._clClose = () => {
+      p.style.display = 'none';
+      document.querySelectorAll('.cl-entry').forEach(e => e.classList.remove('cl-active'));
+      window._clEntry = null;
+    };
+
+    document.addEventListener('scroll', () => {
+      if (window._clRaf) return;
+      window._clRaf = requestAnimationFrame(() => {
+        window._clRaf = null;
+        if (!window._clEntry || p.style.display === 'none') return;
+        const r = window._clEntry.getBoundingClientRect();
+        p.style.top = Math.max(80, Math.min(r.top, window.innerHeight - 280)) + 'px';
+      });
+    }, { passive: true, capture: true });
+  }
+
+  const portal = document.getElementById('cl-portal');
+  const ca = document.getElementById('content-area');
+  if (ca) {
+    const cr = ca.getBoundingClientRect();
+    portal.style.left = (cr.right + 12) + 'px';
+    portal.style.width = Math.min(300, window.innerWidth - cr.right - 24) + 'px';
+  } else {
+    portal.style.right = '16px';
+    portal.style.width = '280px';
+  }
+  const er = el.getBoundingClientRect();
+  portal.style.top = Math.max(80, Math.min(er.top, window.innerHeight - 280)) + 'px';
+  portal.style.display = 'block';
+
+  document.getElementById('clp-ver').textContent = data.version;
+  document.getElementById('clp-date').textContent = data.date;
+  document.getElementById('clp-title').textContent = data.title;
+  document.getElementById('clp-desc').textContent = data.desc;
+  const lnk = document.getElementById('clp-link');
+  if (data.link) { lnk.textContent = data.linkLabel + ' →'; lnk.style.display = 'block'; }
+  else { lnk.style.display = 'none'; }
+};
+
 <div className="font-mono text-sm font-semibold uppercase tracking-wider mb-2 portfolio-primary-text">
   About
 </div>
 
 <div className="flex flex-col gap-2 mt-6">
-  <div className="flex items-start justify-between rounded-xl border border-gray-900/10 dark:border-gray-50/10 bg-white/60 dark:bg-gray-900/50 px-4 py-3 gap-4">
-    <div className="flex items-start gap-3 min-w-0">
-      <span className="font-mono text-xs font-medium portfolio-primary-text shrink-0 mt-0.5">v3.3.0</span>
-
-      <div className="flex flex-col gap-0.5 min-w-0">
-        <span className="font-serif text-sm italic text-gray-900 dark:text-gray-50">Began Medium blog series about design engineering</span>
+  {entries.map((e) => (
+    <div key={e.version}
+      className="cl-entry flex items-start justify-between rounded-xl border px-4 py-3 gap-4 cursor-pointer"
+      onClick={(ev) => openEntry(ev.currentTarget, e)}>
+      <div className="flex items-start gap-3 min-w-0">
+        <span className="font-mono text-xs font-medium portfolio-primary-text shrink-0 mt-0.5">{e.version}</span>
+        <div className="flex flex-col gap-0.5 min-w-0">
+          <span className="font-serif text-sm italic text-gray-900 dark:text-gray-50">{e.title}</span>
+          {e.sub && <span className="text-xs text-gray-400 dark:text-gray-500">{e.sub}</span>}
+        </div>
       </div>
+      <span className="font-mono text-xs text-gray-600 dark:text-gray-300 shrink-0 mt-0.5">{e.date}</span>
     </div>
-
-    <span className="font-mono text-xs text-gray-600 dark:text-gray-300 shrink-0 mt-0.5">Winter 2026</span>
-  </div>
-
-  <div className="flex items-start justify-between rounded-xl border border-gray-900/10 dark:border-gray-50/10 bg-white/60 dark:bg-gray-900/50 px-4 py-3 gap-4">
-    <div className="flex items-start gap-3 min-w-0">
-      <span className="font-mono text-xs font-medium portfolio-primary-text shrink-0 mt-0.5">v3.2.0</span>
-
-      <div className="flex flex-col gap-0.5 min-w-0">
-        <span className="font-serif text-sm italic text-gray-900 dark:text-gray-50">Shipped turn-based audio annotation canvas</span>
-      </div>
-    </div>
-
-    <span className="font-mono text-xs text-gray-600 dark:text-gray-300 shrink-0 mt-0.5">Fall 2025</span>
-  </div>
-
-  <div className="flex items-start justify-between rounded-xl border border-gray-900/10 dark:border-gray-50/10 bg-white/60 dark:bg-gray-900/50 px-4 py-3 gap-4">
-    <div className="flex items-start gap-3 min-w-0">
-      <span className="font-mono text-xs font-medium portfolio-primary-text shrink-0 mt-0.5">v3.1.0</span>
-
-      <div className="flex flex-col gap-0.5 min-w-0">
-        <span className="font-serif text-sm italic text-gray-900 dark:text-gray-50">Shipped redesigned image annotation canvas</span>
-      </div>
-    </div>
-
-    <span className="font-mono text-xs text-gray-600 dark:text-gray-300 shrink-0 mt-0.5">Summer 2025</span>
-  </div>
-
-  <div className="flex items-start justify-between rounded-xl border border-gray-900/10 dark:border-gray-50/10 bg-white/60 dark:bg-gray-900/50 px-4 py-3 gap-4">
-    <div className="flex items-start gap-3 min-w-0">
-      <span className="font-mono text-xs font-medium portfolio-primary-text shrink-0 mt-0.5">v3.0.0</span>
-
-      <div className="flex flex-col gap-0.5 min-w-0">
-        <span className="font-serif text-sm italic text-gray-900 dark:text-gray-50">Moved to SF, joined Ocular AI as a design engineer</span>
-        <span className="text-xs text-gray-400 dark:text-gray-500">6-person team; designing and building features end-to-end</span>
-      </div>
-    </div>
-
-    <span className="font-mono text-xs text-gray-600 dark:text-gray-300 shrink-0 mt-0.5">Winter 2025</span>
-  </div>
-
-  <div className="flex items-start justify-between rounded-xl border border-gray-900/10 dark:border-gray-50/10 bg-white/60 dark:bg-gray-900/50 px-4 py-3 gap-4">
-    <div className="flex items-start gap-3 min-w-0">
-      <span className="font-mono text-xs font-medium portfolio-primary-text shrink-0 mt-0.5">v2.1.0</span>
-
-      <div className="flex flex-col gap-0.5 min-w-0">
-        <span className="font-serif text-sm italic text-gray-900 dark:text-gray-50">Fullstack SWE at NoxuData</span>
-        <span className="text-xs text-gray-400 dark:text-gray-500">3-person team; learning fullstack frameworks and shipping fast</span>
-      </div>
-    </div>
-
-    <span className="font-mono text-xs text-gray-600 dark:text-gray-300 shrink-0 mt-0.5">Fall 2024</span>
-  </div>
-
-  <div className="flex items-start justify-between rounded-xl border border-gray-900/10 dark:border-gray-50/10 bg-white/60 dark:bg-gray-900/50 px-4 py-3 gap-4">
-    <div className="flex items-start gap-3 min-w-0">
-      <span className="font-mono text-xs font-medium portfolio-primary-text shrink-0 mt-0.5">v2.0.0</span>
-
-      <div className="flex flex-col gap-0.5 min-w-0">
-        <span className="font-serif text-sm italic text-gray-900 dark:text-gray-50">Graduated Dartmouth, CS + Human-Centered Design</span>
-        <span className="text-xs text-gray-400 dark:text-gray-500">Honors thesis on accessible development practices</span>
-      </div>
-    </div>
-
-    <span className="font-mono text-xs text-gray-600 dark:text-gray-300 shrink-0 mt-0.5">Spring 2024</span>
-  </div>
-
-  <div className="flex items-start justify-between rounded-xl border border-gray-900/10 dark:border-gray-50/10 bg-white/60 dark:bg-gray-900/50 px-4 py-3 gap-4">
-    <div className="flex items-start gap-3 min-w-0">
-      <span className="font-mono text-xs font-medium portfolio-primary-text shrink-0 mt-0.5">v1.4.0</span>
-
-      <div className="flex flex-col gap-0.5 min-w-0">
-        <span className="font-serif text-sm italic text-gray-900 dark:text-gray-50">Support Engineering internship at Atlassian</span>
-        <span className="text-xs text-gray-400 dark:text-gray-500">Talk directly with customers, observe areas of product friction</span>
-      </div>
-    </div>
-
-    <span className="font-mono text-xs text-gray-600 dark:text-gray-300 shrink-0 mt-0.5">Summer 2023</span>
-  </div>
-
-  <div className="flex items-start justify-between rounded-xl border border-gray-900/10 dark:border-gray-50/10 bg-white/60 dark:bg-gray-900/50 px-4 py-3 gap-4">
-    <div className="flex items-start gap-3 min-w-0">
-      <span className="font-mono text-xs font-medium portfolio-primary-text shrink-0 mt-0.5">v1.3.0</span>
-
-      <div className="flex flex-col gap-0.5 min-w-0">
-        <span className="font-serif text-sm italic text-gray-900 dark:text-gray-50">First UI/UX design class at Dartmouth</span>
-        <span className="text-xs text-gray-400 dark:text-gray-500">Later switched major to CS + Human-Centered Design</span>
-      </div>
-    </div>
-
-    <span className="font-mono text-xs text-gray-600 dark:text-gray-300 shrink-0 mt-0.5">Fall 2022</span>
-  </div>
-
-  <div className="flex items-start justify-between rounded-xl border border-gray-900/10 dark:border-gray-50/10 bg-white/60 dark:bg-gray-900/50 px-4 py-3 gap-4">
-    <div className="flex items-start gap-3 min-w-0">
-      <span className="font-mono text-xs font-medium portfolio-primary-text shrink-0 mt-0.5">v1.2.0</span>
-
-      <div className="flex flex-col gap-0.5 min-w-0">
-        <span className="font-serif text-sm italic text-gray-900 dark:text-gray-50">SWE internship at JHU APL — the design epiphany</span>
-        <span className="text-xs text-gray-400 dark:text-gray-500">Building data visualization apps for global health; discovers passion for UX while auditing a legacy tool</span>
-      </div>
-    </div>
-
-    <span className="font-mono text-xs text-gray-600 dark:text-gray-300 shrink-0 mt-0.5">Spring 2022</span>
-  </div>
-
-  <div className="flex items-start justify-between rounded-xl border border-gray-900/10 dark:border-gray-50/10 bg-white/60 dark:bg-gray-900/50 px-4 py-3 gap-4">
-    <div className="flex items-start gap-3 min-w-0">
-      <span className="font-mono text-xs font-medium portfolio-primary-text shrink-0 mt-0.5">v1.1.0</span>
-
-      <div className="flex flex-col gap-0.5 min-w-0">
-        <span className="font-serif text-sm italic text-gray-900 dark:text-gray-50">First startup internship — building company website</span>
-      </div>
-    </div>
-
-    <span className="font-mono text-xs text-gray-600 dark:text-gray-300 shrink-0 mt-0.5">Summer 2021</span>
-  </div>
-
-  <div className="flex items-start justify-between rounded-xl border border-gray-900/10 dark:border-gray-50/10 bg-white/60 dark:bg-gray-900/50 px-4 py-3 gap-4">
-    <div className="flex items-start gap-3 min-w-0">
-      <span className="font-mono text-xs font-medium portfolio-primary-text shrink-0 mt-0.5">v1.0.0</span>
-
-      <div className="flex flex-col gap-0.5 min-w-0">
-        <span className="font-serif text-sm italic text-gray-900 dark:text-gray-50">First design and webdev at the DALI Lab, Dartmouth</span>
-        <span className="text-xs text-gray-400 dark:text-gray-500">Learns web dev for the first time via a student-taught mini course</span>
-      </div>
-    </div>
-
-    <span className="font-mono text-xs text-gray-600 dark:text-gray-300 shrink-0 mt-0.5">Spring 2021</span>
-  </div>
-
-  <div className="flex items-start justify-between rounded-xl border border-gray-900/10 dark:border-gray-50/10 bg-white/60 dark:bg-gray-900/50 px-4 py-3 gap-4">
-    <div className="flex items-start gap-3 min-w-0">
-      <span className="font-mono text-xs font-medium portfolio-primary-text shrink-0 mt-0.5">v0.2.0</span>
-
-      <div className="flex flex-col gap-0.5 min-w-0">
-        <span className="font-serif text-sm italic text-gray-900 dark:text-gray-50">Enrolled at Dartmouth College, CS + Math</span>
-      </div>
-    </div>
-
-    <span className="font-mono text-xs text-gray-600 dark:text-gray-300 shrink-0 mt-0.5">Fall 2020</span>
-  </div>
-
-  <div className="flex items-start justify-between rounded-xl border border-gray-900/10 dark:border-gray-50/10 bg-white/60 dark:bg-gray-900/50 px-4 py-3 gap-4">
-    <div className="flex items-start gap-3 min-w-0">
-      <span className="font-mono text-xs font-medium portfolio-primary-text shrink-0 mt-0.5">v0.1.0</span>
-
-      <div className="flex flex-col gap-0.5 min-w-0">
-        <span className="font-serif text-sm italic text-gray-900 dark:text-gray-50">First line of code — Java, FIRST Robotics Competition</span>
-      </div>
-    </div>
-
-    <span className="font-mono text-xs text-gray-600 dark:text-gray-300 shrink-0 mt-0.5">Spring 2017</span>
-  </div>
+  ))}
 </div>

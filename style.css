@@ -328,6 +328,37 @@ body:has([data-portfolio-index]) #sidebar a.nav-anchor[href='/'] svg {
   border-color: color-mix(in srgb, rgb(var(--primary)) 30%, transparent);
 }
 
+/* ─── Changelog: interactive entry + detail window ─────────────────────────── */
+
+.cl-entry {
+  background-color: rgba(255, 255, 255, 0.6);
+  border-color: rgba(0, 0, 0, 0.07);
+  transition: background-color 0.15s;
+}
+
+.dark .cl-entry {
+  background-color: rgba(17, 24, 39, 0.5);
+  border-color: rgba(255, 255, 255, 0.07);
+}
+
+.cl-entry:hover {
+  background-color: #fff;
+}
+
+.dark .cl-entry:hover {
+  background-color: rgba(17, 24, 39, 0.8);
+}
+
+.cl-entry.cl-active {
+  border-color: rgb(234 88 12 / 0.45) !important;
+  background-color: rgb(234 88 12 / 0.04) !important;
+}
+
+.dark .cl-entry.cl-active {
+  border-color: rgb(234 88 12 / 0.45) !important;
+  background-color: rgb(234 88 12 / 0.08) !important;
+}
+
 /* Drop cap — float-left large italic initial */
 .portfolio-dropcap {
   float: left;
@@ -338,4 +369,18 @@ body:has([data-portfolio-index]) #sidebar a.nav-anchor[href='/'] svg {
   margin-right: 0.2em;
   margin-top: 0.1em;
   color: rgb(var(--primary));
+}
+
+/* ─── Muted link (grey, no primary color bleed) ────────────────────────────── */
+
+a.muted-link,
+a.muted-link:visited {
+  color: #9ca3af !important;
+  text-decoration-color: #9ca3af !important;
+  font-weight: 400 !important;
+}
+
+a.muted-link:hover {
+  color: #6b7280 !important;
+  text-decoration-color: #6b7280 !important;
 }
