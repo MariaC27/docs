@@ -7,59 +7,72 @@ export const openEntry = (el, data) => {
   document.querySelectorAll('.cl-entry').forEach(e => e.classList.remove('cl-active'));
   el.classList.add('cl-active');
   window._clEntry = el;
+  window._clLinkTarget = data.link || null;
 
-  const win = document.getElementById('cl-window');
+  // Build portal once, appended to <body> so it's outside any Mintlify stacking context
+  if (!document.getElementById('cl-portal')) {
+    const isDark = document.documentElement.classList.contains('dark');
+    const p = document.createElement('div');
+    p.id = 'cl-portal';
+    p.style.cssText = 'position:fixed;z-index:99999;display:none;';
+    p.innerHTML = `
+      <div style="border-radius:12px;border:1px solid rgba(${isDark?'255,255,255,0.1':'0,0,0,0.08'});background:${isDark?'#111827':'#fff'};box-shadow:0 4px 24px rgba(0,0,0,${isDark?'0.4':'0.1'});overflow:hidden;">
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid rgba(${isDark?'255,255,255,0.08':'0,0,0,0.08'});background:${isDark?'rgba(31,41,55,0.5)':'#f9fafb'};">
+          <span id="clp-ver" style="font-family:ui-monospace,monospace;font-size:11px;font-weight:600;color:#ea580c;"></span>
+          <button onclick="window._clClose()" style="width:20px;height:20px;border-radius:50%;background:${isDark?'#374151':'#e5e7eb'};border:none;cursor:pointer;font-size:10px;color:${isDark?'#9ca3af':'#6b7280'};line-height:1;flex-shrink:0;">✕</button>
+        </div>
+        <div style="padding:16px;display:flex;flex-direction:column;gap:10px;">
+          <span id="clp-date" style="font-family:ui-monospace,monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:#9ca3af;"></span>
+          <div id="clp-title" style="font-family:'Instrument Serif',Georgia,serif;font-size:14px;font-style:italic;color:${isDark?'#f9fafb':'#111827'};line-height:1.4;"></div>
+          <p id="clp-desc" style="font-size:12px;color:${isDark?'#9ca3af':'#6b7280'};line-height:1.6;margin:0;"></p>
+          <button id="clp-link" onclick="if(window._clLinkTarget)window.location.href=window._clLinkTarget" style="display:none;font-family:ui-monospace,monospace;font-size:12px;color:#ea580c;background:none;border:none;padding:0;cursor:pointer;text-align:left;margin-top:2px;"></button>
+        </div>
+      </div>`;
+    document.body.appendChild(p);
 
-  // Position horizontally in the whitespace to the right of the content column
-  const contentArea = document.getElementById('content-area');
-  if (contentArea) {
-    const cRect = contentArea.getBoundingClientRect();
-    win.style.left = (cRect.right + 12) + 'px';
-    win.style.width = Math.min(300, window.innerWidth - cRect.right - 24) + 'px';
-  } else {
-    win.style.right = '16px';
-    win.style.width = '280px';
-  }
+    window._clClose = () => {
+      p.style.display = 'none';
+      document.querySelectorAll('.cl-entry').forEach(e => e.classList.remove('cl-active'));
+      window._clEntry = null;
+    };
 
-  // Align vertically with the clicked entry
-  const eRect = el.getBoundingClientRect();
-  win.style.top = Math.max(80, Math.min(eRect.top, window.innerHeight - 260)) + 'px';
-  win.style.display = 'block';
-
-  // Attach scroll listener once; rAF-throttled so it runs at most once per paint frame
-  if (!window._clScrollBound) {
+    // rAF-throttled scroll tracking
     document.addEventListener('scroll', () => {
       if (window._clRaf) return;
       window._clRaf = requestAnimationFrame(() => {
         window._clRaf = null;
-        const entry = window._clEntry;
-        const w = document.getElementById('cl-window');
-        if (!entry || !w || w.style.display === 'none') return;
-        const r = entry.getBoundingClientRect();
-        w.style.top = Math.max(80, Math.min(r.top, window.innerHeight - 260)) + 'px';
+        if (!window._clEntry || p.style.display === 'none') return;
+        const r = window._clEntry.getBoundingClientRect();
+        p.style.top = Math.max(80, Math.min(r.top, window.innerHeight - 280)) + 'px';
       });
     }, { passive: true, capture: true });
-    window._clScrollBound = true;
   }
 
-  document.getElementById('cl-version').textContent = data.version;
-  document.getElementById('cl-date').textContent = data.date;
-  document.getElementById('cl-title').textContent = data.title;
-  document.getElementById('cl-desc').textContent = data.desc;
-  const linkEl = document.getElementById('cl-link');
-  if (data.link) {
-    linkEl.href = data.link;
-    document.getElementById('cl-link-label').textContent = data.linkLabel;
-    linkEl.style.display = 'inline-flex';
+  const portal = document.getElementById('cl-portal');
+
+  // Horizontal: right of content column
+  const ca = document.getElementById('content-area');
+  if (ca) {
+    const cr = ca.getBoundingClientRect();
+    portal.style.left = (cr.right + 12) + 'px';
+    portal.style.width = Math.min(300, window.innerWidth - cr.right - 24) + 'px';
   } else {
-    linkEl.style.display = 'none';
+    portal.style.right = '16px';
+    portal.style.width = '280px';
   }
-};
+  // Vertical: aligned with clicked entry
+  const er = el.getBoundingClientRect();
+  portal.style.top = Math.max(80, Math.min(er.top, window.innerHeight - 280)) + 'px';
+  portal.style.display = 'block';
 
-export const closeWindow = () => {
-  window._clEntry = null;
-  document.getElementById('cl-window').style.display = 'none';
-  document.querySelectorAll('.cl-entry').forEach(e => e.classList.remove('cl-active'));
+  // Populate
+  document.getElementById('clp-ver').textContent = data.version;
+  document.getElementById('clp-date').textContent = data.date;
+  document.getElementById('clp-title').textContent = data.title;
+  document.getElementById('clp-desc').textContent = data.desc;
+  const lnk = document.getElementById('clp-link');
+  if (data.link) { lnk.textContent = data.linkLabel + ' →'; lnk.style.display = 'block'; }
+  else { lnk.style.display = 'none'; }
 };
 
 <div className="font-mono text-sm font-semibold uppercase tracking-wider mb-2 portfolio-primary-text">
@@ -74,7 +87,7 @@ export const closeWindow = () => {
       version: "v3.3.0", date: "Winter 2026",
       title: "Began Medium blog series about design engineering",
       desc: "Started publishing design engineering essays on Medium. Covers AI's impact on the design process, UX friction measurement, and the evolving role of the design engineer on small teams.",
-      link: "/writing/overview", linkLabel: "View writing"
+      link: "https://medium.com/@maria_cristoforo", linkLabel: "View on Medium"
     })}>
     <div className="flex items-start gap-3 min-w-0">
       <span className="font-mono text-xs font-medium portfolio-primary-text shrink-0 mt-0.5">v3.3.0</span>
@@ -105,7 +118,7 @@ export const closeWindow = () => {
     onClick={(e) => openEntry(e.currentTarget, {
       version: "v3.1.0", date: "Summer 2025",
       title: "Shipped redesigned image annotation canvas",
-      desc: "Led the full redesign of Ocular's image annotation canvas — from user research and sketching through to shipping production code. Reduced friction across the labeling workflow.",
+      desc: "Led the full redesign of Ocular's image annotation canvas — from user research and sketching through to shipping production code. Optimizing the image labeling workflow.",
       link: "/work/canvas-annotation-revamp", linkLabel: "View case study"
     })}>
     <div className="flex items-start gap-3 min-w-0">
@@ -121,14 +134,14 @@ export const closeWindow = () => {
     onClick={(e) => openEntry(e.currentTarget, {
       version: "v3.0.0", date: "Winter 2025",
       title: "Moved to SF, joined Ocular AI as a design engineer",
-      desc: "Joined Ocular AI (YC W24) as a design engineer on a 6-person team. Fully owning design and frontend engineering for new product features end-to-end.",
+      desc: " Operate at the intersection of product design and software engineering on this small fast-paced founding team. Take features from initial concept to full implementation on Ocular’s data processing platforms.",
       link: null
     })}>
     <div className="flex items-start gap-3 min-w-0">
       <span className="font-mono text-xs font-medium portfolio-primary-text shrink-0 mt-0.5">v3.0.0</span>
       <div className="flex flex-col gap-0.5 min-w-0">
         <span className="font-serif text-sm italic text-gray-900 dark:text-gray-50">Moved to SF, joined Ocular AI as a design engineer</span>
-        <span className="text-xs text-gray-400 dark:text-gray-500">6-person team; designing and building features end-to-end</span>
+        <span className="text-xs text-gray-400 dark:text-gray-500">5-person team; designing and building features end-to-end</span>
       </div>
     </div>
     <span className="font-mono text-xs text-gray-600 dark:text-gray-300 shrink-0 mt-0.5">Winter 2025</span>
@@ -138,7 +151,7 @@ export const closeWindow = () => {
     onClick={(e) => openEntry(e.currentTarget, {
       version: "v2.1.0", date: "Fall 2024",
       title: "Fullstack SWE at NoxuData",
-      desc: "Fullstack SWE at NoxuData, a 3-person data startup. Shipped full-stack features quickly and learned the complete Next.js and backend stack on the job.",
+      desc: "Learned API design fundamentals, full-stack implementation process for a new features, and shipped clean code on a large existing codebase. Reported directly to the two founders with technical contributions and product ideas. ",
       link: null
     })}>
     <div className="flex items-start gap-3 min-w-0">
@@ -172,7 +185,7 @@ export const closeWindow = () => {
     onClick={(e) => openEntry(e.currentTarget, {
       version: "v1.4.0", date: "Summer 2023",
       title: "Support Engineering internship at Atlassian",
-      desc: "Worked directly with Jira and Confluence customers, translating product friction into structured, actionable feedback for engineering teams.",
+      desc: "Talked directly with customers, debugged issues, and conducted user research. Got a sense of what product support looks like at scale and how to politely interact with customers and accept feedback.",
       link: null
     })}>
     <div className="flex items-start gap-3 min-w-0">
@@ -189,7 +202,7 @@ export const closeWindow = () => {
     onClick={(e) => openEntry(e.currentTarget, {
       version: "v1.3.0", date: "Fall 2022",
       title: "First UI/UX design class at Dartmouth",
-      desc: "First formal UI/UX design course at Dartmouth. The class that made me switch my concentration to include Human-Centered Design.",
+      desc: "After JHU APL internship, made an effort to get involved in design opportunities at Dartmouth. Took several human-centered design classes, joined student Design Corps org, worked as a designer at DALI Lab.",
       link: null
     })}>
     <div className="flex items-start gap-3 min-w-0">
@@ -205,15 +218,15 @@ export const closeWindow = () => {
   <div className="cl-entry flex items-start justify-between rounded-xl border border-gray-900/10 dark:border-gray-50/10 bg-white/60 dark:bg-gray-900/50 px-4 py-3 gap-4 cursor-pointer transition-colors hover:bg-white dark:hover:bg-gray-900/80"
     onClick={(e) => openEntry(e.currentTarget, {
       version: "v1.2.0", date: "Spring 2022",
-      title: "SWE internship at JHU APL — the design epiphany",
-      desc: "Built data visualization apps for global health research at Johns Hopkins Applied Physics Lab. Auditing a legacy internal tool sparked an interest in UX that changed my career direction.",
+      title: "SWE internship at JHU APL",
+      desc: "Built data visualization tools for global health research at Johns Hopkins Applied Physics Lab. Auditing a legacy internal tool sparked an interest in UX that changed my career direction.",
       link: null
     })}>
     <div className="flex items-start gap-3 min-w-0">
       <span className="font-mono text-xs font-medium portfolio-primary-text shrink-0 mt-0.5">v1.2.0</span>
       <div className="flex flex-col gap-0.5 min-w-0">
-        <span className="font-serif text-sm italic text-gray-900 dark:text-gray-50">SWE internship at JHU APL — the design epiphany</span>
-        <span className="text-xs text-gray-400 dark:text-gray-500">Building data visualization apps for global health; discovers passion for UX while auditing a legacy tool</span>
+        <span className="font-serif text-sm italic text-gray-900 dark:text-gray-50">SWE internship at JHU Applied Physics Lab</span>
+        <span className="text-xs text-gray-400 dark:text-gray-500">Building visualization tools for global health data</span>
       </div>
     </div>
     <span className="font-mono text-xs text-gray-600 dark:text-gray-300 shrink-0 mt-0.5">Spring 2022</span>
@@ -223,13 +236,14 @@ export const closeWindow = () => {
     onClick={(e) => openEntry(e.currentTarget, {
       version: "v1.1.0", date: "Summer 2021",
       title: "First startup internship — building company website",
-      desc: "Built a company website from scratch. First real experience owning the design-to-code process end to end.",
+      desc: "Built the redesigned company website from scratch. First real experience working with a small startup team and shipping a customer-facing site.",
       link: null
     })}>
     <div className="flex items-start gap-3 min-w-0">
       <span className="font-mono text-xs font-medium portfolio-primary-text shrink-0 mt-0.5">v1.1.0</span>
       <div className="flex flex-col gap-0.5 min-w-0">
-        <span className="font-serif text-sm italic text-gray-900 dark:text-gray-50">First startup internship — building company website</span>
+        <span className="font-serif text-sm italic text-gray-900 dark:text-gray-50">First startup internship</span>
+        <span className="text-xs text-gray-400 dark:text-gray-500">Building a new version of the company website</span>
       </div>
     </div>
     <span className="font-mono text-xs text-gray-600 dark:text-gray-300 shrink-0 mt-0.5">Summer 2021</span>
@@ -238,15 +252,15 @@ export const closeWindow = () => {
   <div className="cl-entry flex items-start justify-between rounded-xl border border-gray-900/10 dark:border-gray-50/10 bg-white/60 dark:bg-gray-900/50 px-4 py-3 gap-4 cursor-pointer transition-colors hover:bg-white dark:hover:bg-gray-900/80"
     onClick={(e) => openEntry(e.currentTarget, {
       version: "v1.0.0", date: "Spring 2021",
-      title: "First design and webdev at the DALI Lab, Dartmouth",
-      desc: "Joined the DALI Lab at Dartmouth as a designer and developer. Learned web development for the first time through a student-taught mini-course.",
+      title: "Start design & development work at the DALI Lab, Dartmouth",
+      desc: "First learned web development and ui/ux design fundamentals through a student-taught mini course. Later became a full-stack software developer and designer working on small student teams. As a senior, mentored a group of first-year female students through Dartmouth Women in Science Program.",
       link: null
     })}>
     <div className="flex items-start gap-3 min-w-0">
       <span className="font-mono text-xs font-medium portfolio-primary-text shrink-0 mt-0.5">v1.0.0</span>
       <div className="flex flex-col gap-0.5 min-w-0">
-        <span className="font-serif text-sm italic text-gray-900 dark:text-gray-50">First design and webdev at the DALI Lab, Dartmouth</span>
-        <span className="text-xs text-gray-400 dark:text-gray-500">Learns web dev for the first time via a student-taught mini course</span>
+        <span className="font-serif text-sm italic text-gray-900 dark:text-gray-50">First design & development work at DALI Lab</span>
+        <span className="text-xs text-gray-400 dark:text-gray-500">Learned web dev for the first time via a student-taught mini course</span>
       </div>
     </div>
     <span className="font-mono text-xs text-gray-600 dark:text-gray-300 shrink-0 mt-0.5">Spring 2021</span>
@@ -256,7 +270,7 @@ export const closeWindow = () => {
     onClick={(e) => openEntry(e.currentTarget, {
       version: "v0.2.0", date: "Fall 2020",
       title: "Enrolled at Dartmouth College, CS + Math",
-      desc: "Enrolled at Dartmouth College, initially studying Computer Science and Mathematics. Later switched to CS + Human-Centered Design.",
+      desc: "Enrolled at Dartmouth College, initially studying Computer Science and Mathematics.",
       link: null
     })}>
     <div className="flex items-start gap-3 min-w-0">
@@ -272,7 +286,7 @@ export const closeWindow = () => {
     onClick={(e) => openEntry(e.currentTarget, {
       version: "v0.1.0", date: "Spring 2017",
       title: "First line of code — Java, FIRST Robotics Competition",
-      desc: "First lines of code in Java, written for the FIRST Robotics Competition in high school. Built robot control systems and found I liked making things that do things.",
+      desc: "First lines of code in Java, written for the FIRST Robotics Competition in high school.",
       link: null
     })}>
     <div className="flex items-start gap-3 min-w-0">
@@ -286,38 +300,3 @@ export const closeWindow = () => {
 
 </div>
 
-{/* ── Detail window — fixed, floats in the whitespace to the right of content ── */}
-<div id="cl-window" style={{position: 'fixed', display: 'none', zIndex: 50}}>
-  <div className="rounded-xl border border-gray-900/10 dark:border-gray-50/10 bg-white dark:bg-gray-900 overflow-hidden shadow-md">
-
-    {/* Window chrome */}
-    <div className="flex items-center justify-between px-3.5 py-2.5 border-b border-gray-900/10 dark:border-gray-50/10 bg-gray-50 dark:bg-gray-800/60">
-      <span id="cl-version" className="font-mono text-[11px] font-semibold portfolio-primary-text" />
-      <button
-        onClick={() => {
-          window._clEntry = null;
-          document.getElementById('cl-window').style.display = 'none';
-          document.querySelectorAll('.cl-entry').forEach(e => e.classList.remove('cl-active'));
-        }}
-        className="flex items-center justify-center w-4 h-4 rounded-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
-        style={{border: 'none', cursor: 'pointer', padding: 0, flexShrink: 0}}>
-        <span className="text-gray-500 dark:text-gray-400 leading-none" style={{fontSize: '9px'}}>✕</span>
-      </button>
-    </div>
-
-    {/* Window body */}
-    <div className="px-4 py-4 flex flex-col gap-2.5">
-      <span id="cl-date" className="font-mono text-[10px] uppercase tracking-wider text-gray-400" />
-      <div id="cl-title" className="font-serif text-sm italic text-gray-900 dark:text-gray-50 leading-snug" />
-      <p id="cl-desc" className="text-xs text-gray-500 dark:text-gray-400 leading-relaxed" style={{margin: 0}} />
-      <a
-        id="cl-link"
-        href="#"
-        className="items-center gap-1 font-mono text-xs portfolio-primary-text hover:underline"
-        style={{display: 'none', marginTop: '2px'}}>
-        <span id="cl-link-label" /> →
-      </a>
-    </div>
-
-  </div>
-</div>
