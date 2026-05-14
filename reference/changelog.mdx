@@ -3,13 +3,106 @@ title: "Changelog"
 description: "A version history of my career, education, and growth as a designer and engineer."
 ---
 
+export const entries = [
+  {
+    version: "v3.3.0", date: "Winter 2026",
+    title: "Began Medium blog series about design engineering",
+    sub: null,
+    desc: "Started publishing design engineering essays on Medium. Covers AI's impact on the design process, UX friction measurement, and the evolving role of the design engineer on small teams.",
+    link: "https://medium.com/@maria_cristoforo", linkLabel: "View on Medium"
+  },
+  {
+    version: "v3.2.0", date: "Fall 2025",
+    title: "Shipped turn-based audio annotation canvas",
+    sub: null,
+    desc: "Designed and built a new annotation interface for multi-speaker audio at Ocular — a turn-based model for labeling complex overlapping audio segments.",
+    link: "/work/turn-based-audio-annotation", linkLabel: "View case study"
+  },
+  {
+    version: "v3.1.0", date: "Summer 2025",
+    title: "Shipped redesigned image annotation canvas",
+    sub: null,
+    desc: "Led the full redesign of Ocular's image annotation canvas — from user research and sketching through to shipping production code. Optimizing the image labeling workflow.",
+    link: "/work/canvas-annotation-revamp", linkLabel: "View case study"
+  },
+  {
+    version: "v3.0.0", date: "Winter 2025",
+    title: "Moved to SF, joined Ocular AI as a design engineer",
+    sub: "5-person team; designing and building features end-to-end",
+    desc: "Operate at the intersection of product design and software engineering on this small fast-paced founding team. Take features from initial concept to full implementation on Ocular's data processing platforms.",
+    link: null
+  },
+  {
+    version: "v2.1.0", date: "Fall 2024",
+    title: "Fullstack SWE at NoxuData",
+    sub: "3-person team; learning fullstack frameworks and shipping fast",
+    desc: "Learned API design fundamentals, full-stack implementation process for new features, and shipped clean code on a large existing codebase. Reported directly to the two founders with technical contributions and product ideas.",
+    link: null
+  },
+  {
+    version: "v2.0.0", date: "Spring 2024",
+    title: "Graduated Dartmouth, CS + Human-Centered Design",
+    sub: "Honors thesis on accessible development practices",
+    desc: "Graduated from Dartmouth with a dual concentration in Computer Science and Human-Centered Design. Honors thesis focused on accessible development practices.",
+    link: null
+  },
+  {
+    version: "v1.4.0", date: "Summer 2023",
+    title: "Support Engineering internship at Atlassian",
+    sub: "Talk directly with customers, observe areas of product friction",
+    desc: "Talked directly with customers, debugged issues, and conducted user research. Got a sense of what product support looks like at scale and how to politely interact with customers and accept feedback.",
+    link: null
+  },
+  {
+    version: "v1.3.0", date: "Fall 2022",
+    title: "First UI/UX design class at Dartmouth",
+    sub: "Later switched major to CS + Human-Centered Design",
+    desc: "After JHU APL internship, made an effort to get involved in design opportunities at Dartmouth. Took several human-centered design classes, joined student Design Corps org, worked as a designer at DALI Lab.",
+    link: null
+  },
+  {
+    version: "v1.2.0", date: "Spring 2022",
+    title: "SWE internship at JHU Applied Physics Lab",
+    sub: "Building visualization tools for global health data",
+    desc: "Built data visualization tools for global health research at Johns Hopkins Applied Physics Lab. Auditing a legacy internal tool sparked an interest in UX that changed my career direction.",
+    link: null
+  },
+  {
+    version: "v1.1.0", date: "Summer 2021",
+    title: "First startup internship — building company website",
+    sub: "Building a new version of the company website",
+    desc: "Built the redesigned company website from scratch. First real experience working with a small startup team and shipping a customer-facing site.",
+    link: null
+  },
+  {
+    version: "v1.0.0", date: "Spring 2021",
+    title: "Start design & development work at the DALI Lab, Dartmouth",
+    sub: "Learned web dev for the first time via a student-taught mini course",
+    desc: "First learned web development and ui/ux design fundamentals through a student-taught mini course. Later became a full-stack software developer and designer working on small student teams. As a senior, mentored a group of first-year female students through Dartmouth Women in Science Program.",
+    link: null
+  },
+  {
+    version: "v0.2.0", date: "Fall 2020",
+    title: "Enrolled at Dartmouth College, CS + Math",
+    sub: null,
+    desc: "Enrolled at Dartmouth College, initially studying Computer Science and Mathematics.",
+    link: null
+  },
+  {
+    version: "v0.1.0", date: "Spring 2017",
+    title: "First line of code — Java, FIRST Robotics Competition",
+    sub: null,
+    desc: "First lines of code in Java, written for the FIRST Robotics Competition in high school.",
+    link: null
+  },
+];
+
 export const openEntry = (el, data) => {
   document.querySelectorAll('.cl-entry').forEach(e => e.classList.remove('cl-active'));
   el.classList.add('cl-active');
   window._clEntry = el;
   window._clLinkTarget = data.link || null;
 
-  // Build portal once, appended to <body> so it's outside any Mintlify stacking context
   if (!document.getElementById('cl-portal')) {
     const isDark = document.documentElement.classList.contains('dark');
     const p = document.createElement('div');
@@ -36,7 +129,6 @@ export const openEntry = (el, data) => {
       window._clEntry = null;
     };
 
-    // rAF-throttled scroll tracking
     document.addEventListener('scroll', () => {
       if (window._clRaf) return;
       window._clRaf = requestAnimationFrame(() => {
@@ -49,8 +141,6 @@ export const openEntry = (el, data) => {
   }
 
   const portal = document.getElementById('cl-portal');
-
-  // Horizontal: right of content column
   const ca = document.getElementById('content-area');
   if (ca) {
     const cr = ca.getBoundingClientRect();
@@ -60,12 +150,10 @@ export const openEntry = (el, data) => {
     portal.style.right = '16px';
     portal.style.width = '280px';
   }
-  // Vertical: aligned with clicked entry
   const er = el.getBoundingClientRect();
   portal.style.top = Math.max(80, Math.min(er.top, window.innerHeight - 280)) + 'px';
   portal.style.display = 'block';
 
-  // Populate
   document.getElementById('clp-ver').textContent = data.version;
   document.getElementById('clp-date').textContent = data.date;
   document.getElementById('clp-title').textContent = data.title;
@@ -79,224 +167,19 @@ export const openEntry = (el, data) => {
   About
 </div>
 
-{/* ── Entry list — full content-column width, unchanged ── */}
 <div className="flex flex-col gap-2 mt-6">
-
-  <div className="cl-entry flex items-start justify-between rounded-xl border border-gray-900/10 dark:border-gray-50/10 bg-white/60 dark:bg-gray-900/50 px-4 py-3 gap-4 cursor-pointer transition-colors hover:bg-white dark:hover:bg-gray-900/80"
-    onClick={(e) => openEntry(e.currentTarget, {
-      version: "v3.3.0", date: "Winter 2026",
-      title: "Began Medium blog series about design engineering",
-      desc: "Started publishing design engineering essays on Medium. Covers AI's impact on the design process, UX friction measurement, and the evolving role of the design engineer on small teams.",
-      link: "https://medium.com/@maria_cristoforo", linkLabel: "View on Medium"
-    })}>
-    <div className="flex items-start gap-3 min-w-0">
-      <span className="font-mono text-xs font-medium portfolio-primary-text shrink-0 mt-0.5">v3.3.0</span>
-      <div className="flex flex-col gap-0.5 min-w-0">
-        <span className="font-serif text-sm italic text-gray-900 dark:text-gray-50">Began Medium blog series about design engineering</span>
+  {entries.map((e) => (
+    <div key={e.version}
+      className="cl-entry flex items-start justify-between rounded-xl border px-4 py-3 gap-4 cursor-pointer"
+      onClick={(ev) => openEntry(ev.currentTarget, e)}>
+      <div className="flex items-start gap-3 min-w-0">
+        <span className="font-mono text-xs font-medium portfolio-primary-text shrink-0 mt-0.5">{e.version}</span>
+        <div className="flex flex-col gap-0.5 min-w-0">
+          <span className="font-serif text-sm italic text-gray-900 dark:text-gray-50">{e.title}</span>
+          {e.sub && <span className="text-xs text-gray-400 dark:text-gray-500">{e.sub}</span>}
+        </div>
       </div>
+      <span className="font-mono text-xs text-gray-600 dark:text-gray-300 shrink-0 mt-0.5">{e.date}</span>
     </div>
-    <span className="font-mono text-xs text-gray-600 dark:text-gray-300 shrink-0 mt-0.5">Winter 2026</span>
-  </div>
-
-  <div className="cl-entry flex items-start justify-between rounded-xl border border-gray-900/10 dark:border-gray-50/10 bg-white/60 dark:bg-gray-900/50 px-4 py-3 gap-4 cursor-pointer transition-colors hover:bg-white dark:hover:bg-gray-900/80"
-    onClick={(e) => openEntry(e.currentTarget, {
-      version: "v3.2.0", date: "Fall 2025",
-      title: "Shipped turn-based audio annotation canvas",
-      desc: "Designed and built a new annotation interface for multi-speaker audio at Ocular — a turn-based model for labeling complex overlapping audio segments.",
-      link: "/work/turn-based-audio-annotation", linkLabel: "View case study"
-    })}>
-    <div className="flex items-start gap-3 min-w-0">
-      <span className="font-mono text-xs font-medium portfolio-primary-text shrink-0 mt-0.5">v3.2.0</span>
-      <div className="flex flex-col gap-0.5 min-w-0">
-        <span className="font-serif text-sm italic text-gray-900 dark:text-gray-50">Shipped turn-based audio annotation canvas</span>
-      </div>
-    </div>
-    <span className="font-mono text-xs text-gray-600 dark:text-gray-300 shrink-0 mt-0.5">Fall 2025</span>
-  </div>
-
-  <div className="cl-entry flex items-start justify-between rounded-xl border border-gray-900/10 dark:border-gray-50/10 bg-white/60 dark:bg-gray-900/50 px-4 py-3 gap-4 cursor-pointer transition-colors hover:bg-white dark:hover:bg-gray-900/80"
-    onClick={(e) => openEntry(e.currentTarget, {
-      version: "v3.1.0", date: "Summer 2025",
-      title: "Shipped redesigned image annotation canvas",
-      desc: "Led the full redesign of Ocular's image annotation canvas — from user research and sketching through to shipping production code. Optimizing the image labeling workflow.",
-      link: "/work/canvas-annotation-revamp", linkLabel: "View case study"
-    })}>
-    <div className="flex items-start gap-3 min-w-0">
-      <span className="font-mono text-xs font-medium portfolio-primary-text shrink-0 mt-0.5">v3.1.0</span>
-      <div className="flex flex-col gap-0.5 min-w-0">
-        <span className="font-serif text-sm italic text-gray-900 dark:text-gray-50">Shipped redesigned image annotation canvas</span>
-      </div>
-    </div>
-    <span className="font-mono text-xs text-gray-600 dark:text-gray-300 shrink-0 mt-0.5">Summer 2025</span>
-  </div>
-
-  <div className="cl-entry flex items-start justify-between rounded-xl border border-gray-900/10 dark:border-gray-50/10 bg-white/60 dark:bg-gray-900/50 px-4 py-3 gap-4 cursor-pointer transition-colors hover:bg-white dark:hover:bg-gray-900/80"
-    onClick={(e) => openEntry(e.currentTarget, {
-      version: "v3.0.0", date: "Winter 2025",
-      title: "Moved to SF, joined Ocular AI as a design engineer",
-      desc: " Operate at the intersection of product design and software engineering on this small fast-paced founding team. Take features from initial concept to full implementation on Ocular’s data processing platforms.",
-      link: null
-    })}>
-    <div className="flex items-start gap-3 min-w-0">
-      <span className="font-mono text-xs font-medium portfolio-primary-text shrink-0 mt-0.5">v3.0.0</span>
-      <div className="flex flex-col gap-0.5 min-w-0">
-        <span className="font-serif text-sm italic text-gray-900 dark:text-gray-50">Moved to SF, joined Ocular AI as a design engineer</span>
-        <span className="text-xs text-gray-400 dark:text-gray-500">5-person team; designing and building features end-to-end</span>
-      </div>
-    </div>
-    <span className="font-mono text-xs text-gray-600 dark:text-gray-300 shrink-0 mt-0.5">Winter 2025</span>
-  </div>
-
-  <div className="cl-entry flex items-start justify-between rounded-xl border border-gray-900/10 dark:border-gray-50/10 bg-white/60 dark:bg-gray-900/50 px-4 py-3 gap-4 cursor-pointer transition-colors hover:bg-white dark:hover:bg-gray-900/80"
-    onClick={(e) => openEntry(e.currentTarget, {
-      version: "v2.1.0", date: "Fall 2024",
-      title: "Fullstack SWE at NoxuData",
-      desc: "Learned API design fundamentals, full-stack implementation process for a new features, and shipped clean code on a large existing codebase. Reported directly to the two founders with technical contributions and product ideas. ",
-      link: null
-    })}>
-    <div className="flex items-start gap-3 min-w-0">
-      <span className="font-mono text-xs font-medium portfolio-primary-text shrink-0 mt-0.5">v2.1.0</span>
-      <div className="flex flex-col gap-0.5 min-w-0">
-        <span className="font-serif text-sm italic text-gray-900 dark:text-gray-50">Fullstack SWE at NoxuData</span>
-        <span className="text-xs text-gray-400 dark:text-gray-500">3-person team; learning fullstack frameworks and shipping fast</span>
-      </div>
-    </div>
-    <span className="font-mono text-xs text-gray-600 dark:text-gray-300 shrink-0 mt-0.5">Fall 2024</span>
-  </div>
-
-  <div className="cl-entry flex items-start justify-between rounded-xl border border-gray-900/10 dark:border-gray-50/10 bg-white/60 dark:bg-gray-900/50 px-4 py-3 gap-4 cursor-pointer transition-colors hover:bg-white dark:hover:bg-gray-900/80"
-    onClick={(e) => openEntry(e.currentTarget, {
-      version: "v2.0.0", date: "Spring 2024",
-      title: "Graduated Dartmouth, CS + Human-Centered Design",
-      desc: "Graduated from Dartmouth with a dual concentration in Computer Science and Human-Centered Design. Honors thesis focused on accessible development practices.",
-      link: null
-    })}>
-    <div className="flex items-start gap-3 min-w-0">
-      <span className="font-mono text-xs font-medium portfolio-primary-text shrink-0 mt-0.5">v2.0.0</span>
-      <div className="flex flex-col gap-0.5 min-w-0">
-        <span className="font-serif text-sm italic text-gray-900 dark:text-gray-50">Graduated Dartmouth, CS + Human-Centered Design</span>
-        <span className="text-xs text-gray-400 dark:text-gray-500">Honors thesis on accessible development practices</span>
-      </div>
-    </div>
-    <span className="font-mono text-xs text-gray-600 dark:text-gray-300 shrink-0 mt-0.5">Spring 2024</span>
-  </div>
-
-  <div className="cl-entry flex items-start justify-between rounded-xl border border-gray-900/10 dark:border-gray-50/10 bg-white/60 dark:bg-gray-900/50 px-4 py-3 gap-4 cursor-pointer transition-colors hover:bg-white dark:hover:bg-gray-900/80"
-    onClick={(e) => openEntry(e.currentTarget, {
-      version: "v1.4.0", date: "Summer 2023",
-      title: "Support Engineering internship at Atlassian",
-      desc: "Talked directly with customers, debugged issues, and conducted user research. Got a sense of what product support looks like at scale and how to politely interact with customers and accept feedback.",
-      link: null
-    })}>
-    <div className="flex items-start gap-3 min-w-0">
-      <span className="font-mono text-xs font-medium portfolio-primary-text shrink-0 mt-0.5">v1.4.0</span>
-      <div className="flex flex-col gap-0.5 min-w-0">
-        <span className="font-serif text-sm italic text-gray-900 dark:text-gray-50">Support Engineering internship at Atlassian</span>
-        <span className="text-xs text-gray-400 dark:text-gray-500">Talk directly with customers, observe areas of product friction</span>
-      </div>
-    </div>
-    <span className="font-mono text-xs text-gray-600 dark:text-gray-300 shrink-0 mt-0.5">Summer 2023</span>
-  </div>
-
-  <div className="cl-entry flex items-start justify-between rounded-xl border border-gray-900/10 dark:border-gray-50/10 bg-white/60 dark:bg-gray-900/50 px-4 py-3 gap-4 cursor-pointer transition-colors hover:bg-white dark:hover:bg-gray-900/80"
-    onClick={(e) => openEntry(e.currentTarget, {
-      version: "v1.3.0", date: "Fall 2022",
-      title: "First UI/UX design class at Dartmouth",
-      desc: "After JHU APL internship, made an effort to get involved in design opportunities at Dartmouth. Took several human-centered design classes, joined student Design Corps org, worked as a designer at DALI Lab.",
-      link: null
-    })}>
-    <div className="flex items-start gap-3 min-w-0">
-      <span className="font-mono text-xs font-medium portfolio-primary-text shrink-0 mt-0.5">v1.3.0</span>
-      <div className="flex flex-col gap-0.5 min-w-0">
-        <span className="font-serif text-sm italic text-gray-900 dark:text-gray-50">First UI/UX design class at Dartmouth</span>
-        <span className="text-xs text-gray-400 dark:text-gray-500">Later switched major to CS + Human-Centered Design</span>
-      </div>
-    </div>
-    <span className="font-mono text-xs text-gray-600 dark:text-gray-300 shrink-0 mt-0.5">Fall 2022</span>
-  </div>
-
-  <div className="cl-entry flex items-start justify-between rounded-xl border border-gray-900/10 dark:border-gray-50/10 bg-white/60 dark:bg-gray-900/50 px-4 py-3 gap-4 cursor-pointer transition-colors hover:bg-white dark:hover:bg-gray-900/80"
-    onClick={(e) => openEntry(e.currentTarget, {
-      version: "v1.2.0", date: "Spring 2022",
-      title: "SWE internship at JHU APL",
-      desc: "Built data visualization tools for global health research at Johns Hopkins Applied Physics Lab. Auditing a legacy internal tool sparked an interest in UX that changed my career direction.",
-      link: null
-    })}>
-    <div className="flex items-start gap-3 min-w-0">
-      <span className="font-mono text-xs font-medium portfolio-primary-text shrink-0 mt-0.5">v1.2.0</span>
-      <div className="flex flex-col gap-0.5 min-w-0">
-        <span className="font-serif text-sm italic text-gray-900 dark:text-gray-50">SWE internship at JHU Applied Physics Lab</span>
-        <span className="text-xs text-gray-400 dark:text-gray-500">Building visualization tools for global health data</span>
-      </div>
-    </div>
-    <span className="font-mono text-xs text-gray-600 dark:text-gray-300 shrink-0 mt-0.5">Spring 2022</span>
-  </div>
-
-  <div className="cl-entry flex items-start justify-between rounded-xl border border-gray-900/10 dark:border-gray-50/10 bg-white/60 dark:bg-gray-900/50 px-4 py-3 gap-4 cursor-pointer transition-colors hover:bg-white dark:hover:bg-gray-900/80"
-    onClick={(e) => openEntry(e.currentTarget, {
-      version: "v1.1.0", date: "Summer 2021",
-      title: "First startup internship — building company website",
-      desc: "Built the redesigned company website from scratch. First real experience working with a small startup team and shipping a customer-facing site.",
-      link: null
-    })}>
-    <div className="flex items-start gap-3 min-w-0">
-      <span className="font-mono text-xs font-medium portfolio-primary-text shrink-0 mt-0.5">v1.1.0</span>
-      <div className="flex flex-col gap-0.5 min-w-0">
-        <span className="font-serif text-sm italic text-gray-900 dark:text-gray-50">First startup internship</span>
-        <span className="text-xs text-gray-400 dark:text-gray-500">Building a new version of the company website</span>
-      </div>
-    </div>
-    <span className="font-mono text-xs text-gray-600 dark:text-gray-300 shrink-0 mt-0.5">Summer 2021</span>
-  </div>
-
-  <div className="cl-entry flex items-start justify-between rounded-xl border border-gray-900/10 dark:border-gray-50/10 bg-white/60 dark:bg-gray-900/50 px-4 py-3 gap-4 cursor-pointer transition-colors hover:bg-white dark:hover:bg-gray-900/80"
-    onClick={(e) => openEntry(e.currentTarget, {
-      version: "v1.0.0", date: "Spring 2021",
-      title: "Start design & development work at the DALI Lab, Dartmouth",
-      desc: "First learned web development and ui/ux design fundamentals through a student-taught mini course. Later became a full-stack software developer and designer working on small student teams. As a senior, mentored a group of first-year female students through Dartmouth Women in Science Program.",
-      link: null
-    })}>
-    <div className="flex items-start gap-3 min-w-0">
-      <span className="font-mono text-xs font-medium portfolio-primary-text shrink-0 mt-0.5">v1.0.0</span>
-      <div className="flex flex-col gap-0.5 min-w-0">
-        <span className="font-serif text-sm italic text-gray-900 dark:text-gray-50">First design & development work at DALI Lab</span>
-        <span className="text-xs text-gray-400 dark:text-gray-500">Learned web dev for the first time via a student-taught mini course</span>
-      </div>
-    </div>
-    <span className="font-mono text-xs text-gray-600 dark:text-gray-300 shrink-0 mt-0.5">Spring 2021</span>
-  </div>
-
-  <div className="cl-entry flex items-start justify-between rounded-xl border border-gray-900/10 dark:border-gray-50/10 bg-white/60 dark:bg-gray-900/50 px-4 py-3 gap-4 cursor-pointer transition-colors hover:bg-white dark:hover:bg-gray-900/80"
-    onClick={(e) => openEntry(e.currentTarget, {
-      version: "v0.2.0", date: "Fall 2020",
-      title: "Enrolled at Dartmouth College, CS + Math",
-      desc: "Enrolled at Dartmouth College, initially studying Computer Science and Mathematics.",
-      link: null
-    })}>
-    <div className="flex items-start gap-3 min-w-0">
-      <span className="font-mono text-xs font-medium portfolio-primary-text shrink-0 mt-0.5">v0.2.0</span>
-      <div className="flex flex-col gap-0.5 min-w-0">
-        <span className="font-serif text-sm italic text-gray-900 dark:text-gray-50">Enrolled at Dartmouth College, CS + Math</span>
-      </div>
-    </div>
-    <span className="font-mono text-xs text-gray-600 dark:text-gray-300 shrink-0 mt-0.5">Fall 2020</span>
-  </div>
-
-  <div className="cl-entry flex items-start justify-between rounded-xl border border-gray-900/10 dark:border-gray-50/10 bg-white/60 dark:bg-gray-900/50 px-4 py-3 gap-4 cursor-pointer transition-colors hover:bg-white dark:hover:bg-gray-900/80"
-    onClick={(e) => openEntry(e.currentTarget, {
-      version: "v0.1.0", date: "Spring 2017",
-      title: "First line of code — Java, FIRST Robotics Competition",
-      desc: "First lines of code in Java, written for the FIRST Robotics Competition in high school.",
-      link: null
-    })}>
-    <div className="flex items-start gap-3 min-w-0">
-      <span className="font-mono text-xs font-medium portfolio-primary-text shrink-0 mt-0.5">v0.1.0</span>
-      <div className="flex flex-col gap-0.5 min-w-0">
-        <span className="font-serif text-sm italic text-gray-900 dark:text-gray-50">First line of code — Java, FIRST Robotics Competition</span>
-      </div>
-    </div>
-    <span className="font-mono text-xs text-gray-600 dark:text-gray-300 shrink-0 mt-0.5">Spring 2017</span>
-  </div>
-
+  ))}
 </div>
-

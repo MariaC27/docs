@@ -330,6 +330,25 @@ body:has([data-portfolio-index]) #sidebar a.nav-anchor[href='/'] svg {
 
 /* ─── Changelog: interactive entry + detail window ─────────────────────────── */
 
+.cl-entry {
+  background-color: rgba(255, 255, 255, 0.6);
+  border-color: rgba(0, 0, 0, 0.07);
+  transition: background-color 0.15s;
+}
+
+.dark .cl-entry {
+  background-color: rgba(17, 24, 39, 0.5);
+  border-color: rgba(255, 255, 255, 0.07);
+}
+
+.cl-entry:hover {
+  background-color: #fff;
+}
+
+.dark .cl-entry:hover {
+  background-color: rgba(17, 24, 39, 0.8);
+}
+
 .cl-entry.cl-active {
   border-color: rgb(234 88 12 / 0.45) !important;
   background-color: rgb(234 88 12 / 0.04) !important;
