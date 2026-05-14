@@ -351,3 +351,17 @@ body:has([data-portfolio-index]) #sidebar a.nav-anchor[href='/'] svg {
   margin-top: 0.1em;
   color: rgb(var(--primary));
 }
+
+/* ─── Muted link (grey, no primary color bleed) ────────────────────────────── */
+
+a.muted-link,
+a.muted-link:visited {
+  color: #9ca3af !important;
+  text-decoration-color: #9ca3af !important;
+  font-weight: 400 !important;
+}
+
+a.muted-link:hover {
+  color: #6b7280 !important;
+  text-decoration-color: #6b7280 !important;
+}

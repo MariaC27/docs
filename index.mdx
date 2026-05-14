@@ -12,36 +12,48 @@ mode: frame
       Issue 01
     </div>
     <div className="font-serif text-sm italic tracking-wider text-gray-600 dark:text-gray-400">
-      Vol. I · 2026
+      Vol. I · Spring 2026
     </div>
   </div>
 
   {/* Hero */}
-  <div className="flex flex-col gap-4 max-w-[640px]">
-    <div className="font-mono text-sm font-semibold uppercase tracking-wider portfolio-primary-text">
-      Introduction
-    </div>
-    <h1 className="font-serif text-6xl sm:text-7xl italic tracking-tight text-gray-900 dark:text-gray-50 leading-[0.95]">
-      Maria Cristoforo
-    </h1>
-    <p className="font-serif text-2xl leading-relaxed text-gray-700 dark:text-gray-300">
-      Designer, engineer, and writer. Building with design as a mindset and an emphasis on the importance of storytelling. 
-    </p>
-
-    <div className="flex flex-wrap gap-3 mt-2">
-      <span className="inline-flex items-center rounded-full border border-gray-900/20 dark:border-gray-50/20 bg-white/50 dark:bg-gray-900/50 px-3 py-1 text-sm font-medium text-gray-800 dark:text-gray-200">
-        📍 San Francisco, CA
-      </span>
-      <span className="inline-flex items-center rounded-full border border-green-700/30 bg-green-50/70 dark:bg-green-900/30 px-3 py-1 text-sm font-medium text-green-800 dark:text-green-400">
-        <span className="mr-2 h-2 w-2 rounded-full bg-green-500 inline-block"></span>
-        Open to chat
-      </span>
-      <span className="inline-flex items-center rounded-full portfolio-accent-chip border portfolio-accent-chip-border px-3 py-1 text-sm font-medium">
-        ⚡ Currently building @ Ocular AI (YC W24)
-      </span>
+  <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-4 max-w-[640px]">
+      <div className="font-mono text-sm font-semibold uppercase tracking-wider portfolio-primary-text">
+        Introduction
+      </div>
+      <h1 className="font-serif text-6xl sm:text-7xl italic tracking-tight text-gray-900 dark:text-gray-50 leading-[0.95]">
+        Maria Cristoforo
+      </h1>
+      <p className="font-serif text-2xl leading-relaxed text-gray-700 dark:text-gray-300">
+        Designer, engineer, and writer. Building with design as a mindset and an emphasis on the importance of storytelling.
+      </p>
     </div>
 
-    <div className="mt-2">
+    {/* Metadata grid */}
+    <div className="flex flex-col">
+      <div className="border-t border-gray-900/15 dark:border-gray-50/15" />
+      <div className="grid grid-cols-3 divide-x divide-gray-900/15 dark:divide-gray-50/15 py-4">
+        <div className="flex flex-col gap-2 pr-6">
+          <span className="font-mono text-[10px] font-medium uppercase tracking-widest text-gray-400 dark:text-gray-500">Location</span>
+          <span className="font-serif text-lg italic text-gray-900 dark:text-gray-50">San Francisco, CA</span>
+        </div>
+        <div className="flex flex-col gap-2 px-6">
+          <span className="font-mono text-[10px] font-medium uppercase tracking-widest text-gray-400 dark:text-gray-500">Status</span>
+          <span className="inline-flex items-center gap-2 font-serif text-lg italic text-gray-900 dark:text-gray-50">
+            <span className="h-2 w-2 rounded-full bg-green-500 shrink-0"></span>
+            Open to chat
+          </span>
+        </div>
+        <div className="flex flex-col gap-2 pl-6">
+          <span className="font-mono text-[10px] font-medium uppercase tracking-widest text-gray-400 dark:text-gray-500">Currently building at</span>
+          <span className="font-serif text-lg italic text-gray-900 dark:text-gray-50">Ocular AI (YC W24)</span>
+        </div>
+      </div>
+      <div className="border-t border-gray-900/15 dark:border-gray-50/15" />
+    </div>
+
+    <div>
       <a href="/agent" className="portfolio-agent-link group inline-flex items-center gap-2 font-mono text-xs transition-colors">
         <span className="portfolio-dot"></span>
         Not human? View the structured, agent-friendly version of this page
