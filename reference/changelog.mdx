@@ -1,6 +1,5 @@
 ---
 title: "Changelog"
-description: "A version history of my career, education, and growth as a designer and engineer."
 ---
 
 export const entries = [
@@ -163,9 +162,7 @@ export const openEntry = (el, data) => {
   else { lnk.style.display = 'none'; }
 };
 
-<div className="font-mono text-sm font-semibold uppercase tracking-wider mb-2 portfolio-primary-text">
-  About
-</div>
+<p className="font-serif text-lg leading-relaxed text-gray-600 dark:text-gray-400 mb-8">A history of my career, education, and growth as a designer & engineer.</p>
 
 <div className="flex flex-col gap-2 mt-6">
   {entries.map((e) => (
@@ -175,7 +172,7 @@ export const openEntry = (el, data) => {
       <div className="flex items-start gap-3 min-w-0">
         <span className="font-mono text-xs font-medium portfolio-primary-text shrink-0 mt-0.5">{e.version}</span>
         <div className="flex flex-col gap-0.5 min-w-0">
-          <span className="font-serif text-sm italic text-gray-900 dark:text-gray-50">{e.title}</span>
+          <span className="font-serif text-sm text-gray-900 dark:text-gray-50">{e.title}</span>
           {e.sub && <span className="text-xs text-gray-400 dark:text-gray-500">{e.sub}</span>}
         </div>
       </div>
