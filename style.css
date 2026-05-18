@@ -42,6 +42,8 @@ code, pre, kbd, samp,
   background: transparent !important;
 }
 
+/* ─── Sidebar nav ────────────────────────────────────────────────────────────── */
+
 #sidebar .nav-dropdown-trigger {
   border: none !important;
   background: transparent !important;
@@ -85,97 +87,16 @@ code, pre, kbd, samp,
   text-transform: uppercase;
 }
 
-body:has([data-product-guide-index]) #sidebar a.nav-anchor[href='/'] {
-  color: rgb(var(--primary)) !important;
-  font-weight: 600 !important;
-}
+/* ─── Magazine: background ───────────────────────────────────────────────────── */
 
-body:has([data-product-guide-index]) #sidebar a.nav-anchor[href='/'] span {
-  color: inherit !important;
+/* Page background (#F8F5EF cream) is set via docs.json background.color.
+   Sidebar gets a slightly whiter bg so it reads as distinct chrome. */
+#sidebar {
+  background-color: #FFFFFF !important;
+  border-right: 1px solid #E7E5E4;
 }
-
-body:has([data-product-guide-index]) #sidebar a.nav-anchor[href='/'] svg {
-  background-color: rgb(var(--primary)) !important;
-}
-
-.dark body:has([data-product-guide-index]) #sidebar a.nav-anchor[href='/'] {
-  color: rgb(var(--primary-light)/var(--tw-text-opacity,1)) !important;
-}
-
-.dark body:has([data-product-guide-index]) #sidebar a.nav-anchor[href='/'] svg {
-  background-color: rgb(var(--primary-light)/var(--tw-text-opacity,1)) !important;
-}
-
-:is(#content-area[data-current-path='/'], [data-current-path='/'] #content-area):has([data-product-guide-index]) {
-  background: transparent !important;
-  padding: 0 !important;
-}
-
-:is(#content-area[data-current-path='/'], [data-current-path='/'] #content-area):has([data-product-guide-index]) > div:first-child {
-  background: transparent !important;
-  padding-right: 0 !important;
-  padding-bottom: 0 !important;
-  padding-left: 0 !important;
-}
-
-[data-product-guide-index] a:not(.product-guide-feature-card) {
-  background-color: #fafafa !important;
-}
-
-.dark [data-product-guide-index] a:not(.product-guide-feature-card) {
-  background-color: #09090b !important;
-}
-
-.product-guide-feature-card {
-  grid-column: 1 / -1;
-  display: flex !important;
-  flex-direction: column !important;
-  justify-content: space-between !important;
-  min-height: 260px;
-  background: url('/images/sample-feature-light.png') center / cover no-repeat !important;
-  border: none !important;
-  box-shadow: none !important;
-  color: white !important;
-  .dark & {
-    background-image: url('/images/sample-feature-dark.png') !important;
-  }
-}
-
-.product-guide-feature-card > div {
-  display: flex !important;
-  flex: 1;
-  flex-direction: column !important;
-  justify-content: space-between !important;
-}
-
-.product-guide-feature-card :is(h2, h3, p, span, svg) {
-  color: white !important;
-}
-
-.product-guide-feature-card :is(svg, [class*='icon']) {
-  background-color: white !important;
-  width: 2em !important;
-  height: 2em !important;
-  margin-top: 2px;
-}
-
-.product-guide-feature-card-title {
-  font-size: 1.2em;
-  font-weight: 500;
-}
-
-.product-guide-feature-card :is(h2, h3, p, span, svg).product-guide-feature-card-description {
-  font-size: 1.05em;
-  font-weight: 400;
-  color: rgb(var(--gray-50) / 62.5%) !important;
-  .dark & {
-    color: rgb(var(--gray-50) / 50%) !important;
-  }
-}
-
-img.nav-logo {
-  max-width: 220px;
-  height: auto;
+.dark #sidebar {
+  background-color: #141210 !important;
 }
 
 /* ─── Portfolio: home page frame ───────────────────────────────────────────── */
@@ -209,7 +130,7 @@ body:has([data-portfolio-index]) #sidebar a.nav-anchor[href='/'] svg {
   margin-top: 0 !important;
 }
 
-/* ─── Portfolio: utility classes used across pages ─────────────────────────── */
+/* ─── Portfolio: utility classes ────────────────────────────────────────────── */
 
 /* Primary color text — works with Mintlify's CSS variable */
 .portfolio-primary-text {
@@ -217,37 +138,6 @@ body:has([data-portfolio-index]) #sidebar a.nav-anchor[href='/'] svg {
 }
 .dark .portfolio-primary-text {
   color: rgb(var(--primary-light)) !important;
-}
-
-/* Accent chip on hero */
-.portfolio-accent-chip {
-  background-color: color-mix(in srgb, rgb(var(--primary)) 10%, transparent);
-  color: rgb(var(--primary));
-}
-.dark .portfolio-accent-chip {
-  background-color: color-mix(in srgb, rgb(var(--primary)) 15%, transparent);
-  color: rgb(var(--primary-light));
-}
-
-/* Agent footnote link */
-.portfolio-agent-link {
-  color: var(--gray-400);
-}
-.portfolio-agent-link:hover {
-  color: var(--gray-600);
-}
-.dark .portfolio-agent-link:hover {
-  color: var(--gray-200);
-}
-
-/* Dot indicator on agent link */
-.portfolio-dot {
-  display: inline-block;
-  height: 6px;
-  width: 6px;
-  border-radius: 9999px;
-  background-color: rgb(var(--primary));
-  flex-shrink: 0;
 }
 
 /* ─── Skills: proficiency badges ───────────────────────────────────────────── */
@@ -306,28 +196,11 @@ body:has([data-portfolio-index]) #sidebar a.nav-anchor[href='/'] svg {
   color: #9ca3af;
 }
 
-/* ─── Magazine: background ───────────────────────────────────────────────────── */
-
-/* Page background (#F8F5EF cream) is set via docs.json background.color.
-   Sidebar gets a slightly whiter bg so it reads as distinct chrome. */
-#sidebar {
-  background-color: #FFFFFF !important;
-  border-right: 1px solid #E7E5E4;
-}
-.dark #sidebar {
-  background-color: #141210 !important;
-}
-
-/* ─── Magazine: pull quotes, drop cap, dividers ─────────────────────────────── */
+/* ─── Magazine: pull quotes, drop cap ───────────────────────────────────────── */
 
 /* Accent border-left for pull quotes */
 .portfolio-accent-border-l {
   border-color: rgb(var(--primary));
-}
-
-/* Accent chip border */
-.portfolio-accent-chip-border {
-  border-color: color-mix(in srgb, rgb(var(--primary)) 30%, transparent);
 }
 
 /* ─── Changelog: interactive entry + detail window ─────────────────────────── */
