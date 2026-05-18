@@ -330,6 +330,18 @@ body:has([data-portfolio-index]) #sidebar a.nav-anchor[href='/'] svg {
 
 /* ─── Changelog: interactive entry + detail window ─────────────────────────── */
 
+.cl-title {
+  font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif !important;
+  font-style: italic !important;
+  font-size: 0.9rem !important;
+  font-weight: 500 !important;
+  color: #111827;
+}
+
+.dark .cl-title {
+  color: #f9fafb;
+}
+
 .cl-entry {
   background-color: rgba(255, 255, 255, 0.6);
   border-color: rgba(0, 0, 0, 0.07);

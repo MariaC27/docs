@@ -7,21 +7,21 @@ export const entries = [
     version: "v3.3.0", date: "Winter 2026",
     title: "Began Medium blog series about design engineering",
     sub: null,
-    desc: "Started publishing design engineering essays on Medium. Covers AI's impact on the design process, UX friction measurement, and the evolving role of the design engineer on small teams.",
+    desc: "Started publishing articles on Medium. Topics include AI's impact on the design process, the evolving role of the designers on small teams, case studies of my work.",
     link: "https://medium.com/@maria_cristoforo", linkLabel: "View on Medium"
   },
   {
     version: "v3.2.0", date: "Fall 2025",
     title: "Shipped turn-based audio annotation canvas",
     sub: null,
-    desc: "Designed and built a new annotation interface for multi-speaker audio at Ocular — a turn-based model for labeling complex overlapping audio segments.",
+    desc: "Designed and built a new interface for annotating multi-speaker audio at Ocular.",
     link: "/work/turn-based-audio-annotation", linkLabel: "View case study"
   },
   {
     version: "v3.1.0", date: "Summer 2025",
     title: "Shipped redesigned image annotation canvas",
     sub: null,
-    desc: "Led the full redesign of Ocular's image annotation canvas — from user research and sketching through to shipping production code. Optimizing the image labeling workflow.",
+    desc: "Led full design and implementation process from user research and sketches to shipping production code.",
     link: "/work/canvas-annotation-revamp", linkLabel: "View case study"
   },
   {
@@ -42,7 +42,7 @@ export const entries = [
     version: "v2.0.0", date: "Spring 2024",
     title: "Graduated Dartmouth, CS + Human-Centered Design",
     sub: "Honors thesis on accessible development practices",
-    desc: "Graduated from Dartmouth with a dual concentration in Computer Science and Human-Centered Design. Honors thesis focused on accessible development practices.",
+    desc: "Took a breadth of classes from algorithms and software implementation to psychology, philosophy, and creative writing. Gained an appreciation for interdisciplinary thinking - applying insights from psychology and human-centered design to technical problem-solving, UX research and communication.",
     link: null
   },
   {
@@ -68,7 +68,7 @@ export const entries = [
   },
   {
     version: "v1.1.0", date: "Summer 2021",
-    title: "First startup internship — building company website",
+    title: "First startup internship, building company website",
     sub: "Building a new version of the company website",
     desc: "Built the redesigned company website from scratch. First real experience working with a small startup team and shipping a customer-facing site.",
     link: null
@@ -89,7 +89,7 @@ export const entries = [
   },
   {
     version: "v0.1.0", date: "Spring 2017",
-    title: "First line of code — Java, FIRST Robotics Competition",
+    title: "First line of code - Java, FIRST Robotics Competition",
     sub: null,
     desc: "First lines of code in Java, written for the FIRST Robotics Competition in high school.",
     link: null
@@ -115,7 +115,7 @@ export const openEntry = (el, data) => {
         </div>
         <div style="padding:16px;display:flex;flex-direction:column;gap:10px;">
           <span id="clp-date" style="font-family:ui-monospace,monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:#9ca3af;"></span>
-          <div id="clp-title" style="font-family:'Instrument Serif',Georgia,serif;font-size:14px;font-style:italic;color:${isDark?'#f9fafb':'#111827'};line-height:1.4;"></div>
+          <div id="clp-title" style="font-family:ui-serif,Georgia,Cambria,'Times New Roman',Times,serif;font-size:14px;font-style:italic;color:${isDark?'#f9fafb':'#111827'};line-height:1.4;"></div>
           <p id="clp-desc" style="font-size:12px;color:${isDark?'#9ca3af':'#6b7280'};line-height:1.6;margin:0;"></p>
           <button id="clp-link" onclick="if(window._clLinkTarget)window.location.href=window._clLinkTarget" style="display:none;font-family:ui-monospace,monospace;font-size:12px;color:#ea580c;background:none;border:none;padding:0;cursor:pointer;text-align:left;margin-top:2px;"></button>
         </div>
@@ -167,16 +167,16 @@ export const openEntry = (el, data) => {
 <div className="flex flex-col gap-2 mt-6">
   {entries.map((e) => (
     <div key={e.version}
-      className="cl-entry flex items-start justify-between rounded-xl border px-4 py-3 gap-4 cursor-pointer"
+      className="cl-entry flex items-center justify-between rounded-xl border border-gray-900/10 dark:border-gray-50/10 bg-white/60 dark:bg-gray-900/50 px-4 py-3 gap-4 cursor-pointer"
       onClick={(ev) => openEntry(ev.currentTarget, e)}>
-      <div className="flex items-start gap-3 min-w-0">
-        <span className="font-mono text-xs font-medium portfolio-primary-text shrink-0 mt-0.5">{e.version}</span>
+      <div className="flex items-center gap-3 min-w-0">
+        <span className="font-mono text-xs font-medium portfolio-primary-text shrink-0">{e.version}</span>
         <div className="flex flex-col gap-0.5 min-w-0">
-          <span className="font-serif text-sm text-gray-900 dark:text-gray-50">{e.title}</span>
+          <span className="cl-title truncate">{e.title}</span>
           {e.sub && <span className="text-xs text-gray-400 dark:text-gray-500">{e.sub}</span>}
         </div>
       </div>
-      <span className="font-mono text-xs text-gray-600 dark:text-gray-300 shrink-0 mt-0.5">{e.date}</span>
+      <span className="font-mono text-xs text-gray-600 dark:text-gray-300 shrink-0">{e.date}</span>
     </div>
   ))}
 </div>
