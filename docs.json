@@ -31,13 +31,8 @@
           "anchor": "Home",
           "icon": "house",
           "href": "/"
-        },
-        {
-          "anchor": "Agent view",
-          "icon": "terminal",
-          "href": "/agent"
         }
-      ]
+        ]
     },
     "groups": [
       {
