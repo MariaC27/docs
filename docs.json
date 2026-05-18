@@ -45,8 +45,8 @@
         "icon": "user",
         "expanded": true,
         "pages": [
-          "reference/skills",
-          "reference/changelog"
+          "about/skills",
+          "about/changelog"
         ]
       },
       {
@@ -91,7 +91,7 @@
       {
         "label": "",
         "href": "https://medium.com/@maria_cristoforo",
-        "icon": "book-open"
+        "icon": { "name": "medium", "library": "fontawesome", "style": "brands" }
       },
       {
         "label": "",
@@ -100,6 +100,10 @@
       }
     ]
   },
+  "redirects": [
+    { "source": "/reference/skills", "destination": "/about/skills" },
+    { "source": "/reference/changelog", "destination": "/about/changelog" }
+  ],
   "footer": {
     "socials": {
       "github": "https://github.com/MariaC27",

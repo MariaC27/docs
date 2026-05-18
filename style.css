@@ -34,6 +34,14 @@ code, pre, kbd, samp,
   --default-border-color: var(--gray-800);
 }
 
+/* ─── Navbar icon link buttons — remove borders ─────────────────────────────── */
+
+.navbar-link {
+  border: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
 #sidebar .nav-dropdown-trigger {
   border: none !important;
   background: transparent !important;
@@ -330,6 +338,18 @@ body:has([data-portfolio-index]) #sidebar a.nav-anchor[href='/'] svg {
 
 /* ─── Changelog: interactive entry + detail window ─────────────────────────── */
 
+.cl-title {
+  font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif !important;
+  font-style: italic !important;
+  font-size: 0.9rem !important;
+  font-weight: 500 !important;
+  color: #111827;
+}
+
+.dark .cl-title {
+  color: #f9fafb;
+}
+
 .cl-entry {
   background-color: rgba(255, 255, 255, 0.6);
   border-color: rgba(0, 0, 0, 0.07);
@@ -359,7 +379,43 @@ body:has([data-portfolio-index]) #sidebar a.nav-anchor[href='/'] svg {
   background-color: rgb(234 88 12 / 0.08) !important;
 }
 
-/* Drop cap — float-left large italic initial */
+/* ─── Inner pages: editorial typography ─────────────────────────────────────── */
+
+/* Page title — match the manually-rendered h1 style on frame-mode pages */
+#content-area h1 {
+  font-size: 2.75rem;
+  font-weight: 400 !important;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+}
+
+/* h2 section breaks — subtle rule above for visual rhythm */
+#content-area .prose h2 {
+  border-top: 1px solid rgba(0, 0, 0, 0.07);
+  padding-top: 1.75rem;
+  margin-top: 3rem;
+}
+
+.dark #content-area .prose h2 {
+  border-top-color: rgba(255, 255, 255, 0.07);
+}
+
+/* Article byline — mono, with a rule below to separate from body */
+.portfolio-byline {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 0.75rem;
+  color: #6b7280;
+  padding-bottom: 1.25rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.dark .portfolio-byline {
+  color: #9ca3af;
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+}
+
+/* ─── Drop cap — float-left large italic initial ─────────────────────────────── */
 .portfolio-dropcap {
   float: left;
   font-family: 'Instrument Serif', Georgia, serif;
@@ -369,6 +425,21 @@ body:has([data-portfolio-index]) #sidebar a.nav-anchor[href='/'] svg {
   margin-right: 0.2em;
   margin-top: 0.1em;
   color: rgb(var(--primary));
+}
+
+/* ─── Card titles + content ─────────────────────────────────────────────────── */
+
+[data-component-part="card-title"] {
+  font-family: 'Instrument Serif', Georgia, serif !important;
+  font-style: normal !important;
+  font-weight: 600 !important;
+  font-size: 1.1rem !important;
+  line-height: 1.2 !important;
+}
+
+[data-component-part="card-content"] {
+  font-size: 0.9rem !important;
+  line-height: 1.5 !important;
 }
 
 /* ─── Muted link (grey, no primary color bleed) ────────────────────────────── */
