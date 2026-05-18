@@ -407,6 +407,21 @@ body:has([data-portfolio-index]) #sidebar a.nav-anchor[href='/'] svg {
   color: rgb(var(--primary));
 }
 
+/* ─── Card titles + content ─────────────────────────────────────────────────── */
+
+[data-component-part="card-title"] {
+  font-family: 'Instrument Serif', Georgia, serif !important;
+  font-style: normal !important;
+  font-weight: 600 !important;
+  font-size: 1.1rem !important;
+  line-height: 1.2 !important;
+}
+
+[data-component-part="card-content"] {
+  font-size: 0.9rem !important;
+  line-height: 1.5 !important;
+}
+
 /* ─── Muted link (grey, no primary color bleed) ────────────────────────────── */
 
 a.muted-link,
