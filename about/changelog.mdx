@@ -128,6 +128,15 @@ export const openEntry = (el, data) => {
       window._clEntry = null;
     };
 
+    // Hide portal on SPA navigation. Intercept history.pushState (Next.js link clicks)
+    // and listen for popstate (back/forward) — cheaper than a MutationObserver.
+    const _clHideOnNav = () => {
+      if (p.style.display !== 'none') { p.style.display = 'none'; window._clEntry = null; }
+    };
+    const _origPush = history.pushState.bind(history);
+    history.pushState = (...args) => { _origPush(...args); _clHideOnNav(); };
+    window.addEventListener('popstate', _clHideOnNav);
+
     document.addEventListener('scroll', () => {
       if (window._clRaf) return;
       window._clRaf = requestAnimationFrame(() => {

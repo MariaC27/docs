@@ -31,13 +31,8 @@
           "anchor": "Home",
           "icon": "house",
           "href": "/"
-        },
-        {
-          "anchor": "Agent view",
-          "icon": "terminal",
-          "href": "/agent"
         }
-      ]
+        ]
     },
     "groups": [
       {
@@ -55,9 +50,9 @@
         "expanded": true,
         "pages": [
           "work/overview",
-          "work/apilens",
           "work/canvas-annotation-revamp",
-          "work/turn-based-audio-annotation"
+          "work/turn-based-audio-annotation",
+          "work/apilens"
         ]
       },
       {
