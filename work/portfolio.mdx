@@ -1,0 +1,67 @@
+---
+title: "Portfolio"
+sidebarTitle: "Portfolio"
+---
+
+<p className="font-serif text-lg leading-relaxed text-gray-600 dark:text-gray-400 mb-8">How I adapted Mintlify, an AI-native product documentation platform, into this personal portfolio.</p>
+
+<div className="portfolio-byline">Maria Cristoforo · May 2026 · 5 min read</div>
+
+<h2 style={{borderTop: 'none', paddingTop: 0, marginTop: '2rem'}}>Idea and Reasoning</h2>
+
+I wanted to show that I understand the problem space Mintlify cares about — AI-powered documentation, developer experience, agent-friendly design — and that I can adapt it for a different purpose. Helping people understand a product versus helping someone understand me is the same underlying problem with a different subject. Good docs have a narrative about a product; a good portfolio is an instance of storytelling about yourself. I also wanted to leverage Mintlify's existing organizational patterns rather than fight them — the changelog becomes work history, the API reference becomes a skills page, and the agent-friendly infrastructure means AI tools can actually understand who I am.
+
+## Timeline
+
+<Steps>
+  <Step title="Thursday, May 7">
+    First had the idea to adapt a mintlify site into my portfolio. Wrote down my reasoning and what I was trying to achieve. Set up the template project on Mintlify. 
+  </Step>
+  <Step title="Friday–Sunday">
+    Stewed on it, but did not actually write or code anything yet.
+  </Step>
+  <Step title="Monday, May 11">
+    Started iterating with Magic Patterns, got a few mockups as a starting point. Downloaded the prototype and fed as a reference to Claude along with the Mintlify template and some instructions about what I wanted.
+  </Step>
+  <Step title="Tuesday">
+    Continue iteration: made edits to navigation, filled in content (case studies and writing, homepage content).
+  </Step>
+  <Step title="Wednesday–Friday">
+    Remaining pages, styling edits: branding, fonts, agent view, combining certain pages.
+  </Step>
+  <Step title="Monday–Tuesday, May 18–19">
+    Researched agent-friendliness, set up the Mintlify assistant, grammar and wording checks, accessibility cleanup.
+  </Step>
+</Steps>
+
+## Process & prompts
+
+### Magic Patterns
+
+My first prompt:
+
+> "I have this idea where I want to make a personal portfolio but actually make it on Mintlify, which is technically a product documentation site. The point is to demonstrate an understanding of the Mintlify software and also that I can adapt it for a new purpose — an AI-native docs platform for personal knowledge and identity, not just product information. I want to avoid a really basic setup, instead putting in custom components and views and adapting the landing page to look like the landing page of a portfolio website, while the sub pages could add more. Basically I'm just leveraging the organizational patterns and AI-agent friendliness of Mintlify while styling it into a portfolio. Look at the current UI and structure of Mintlify's own docs site and help me plan how I could adapt and design the UI for this idea. The UI theme should be distinct from the default theme to make it clear that this is not a regular product documentation site."
+
+From there I tried out a few different visual directions — magazine/editorial, brutalist, notebook — and landed on the magazine theme. I asked it to populate pages with mock data and helped me figure out where I could use the "docs" angle creatively. The skills API reference came directly out of this process.
+
+### Claude
+
+Once I had a prototype I was happy with in Magic Patterns, I exported the code into a separate repo and brought in Claude Code:
+
+> "Look at this current 'docs' project. Right now it's just the basic Mintlify project template. But I have this idea where I'm going to turn it into a personal portfolio. I've already prototyped some ideas, the UI appearance, and some interesting personalization (ex. using the 'changelog' to be about milestones in my career and the 'api reference' to show my skills). This is my conversation with Magic Patterns already and I've cloned the code it came up with into the repo mp-portfolio-prototype. Note that the styling to go from is actually in the /magazine route in the prototype."
+
+That gave me a solid starting point. From there I made manual edits and used more targeted prompts to iterate — styling, content, and fixes as things came up.
+
+## Learnings and pivots
+
+**Reducing sidebar sections.** Started with more sections than needed. Trimming and combining made the navigation feel more deliberate.
+
+**Replacing manual HTML with Mintlify components.** Partway through I realized I was writing a lot of custom div structures for things Mintlify already handles — `<Steps>`, `<Info>`, `<Tabs>`. Went back and replaced where it made sense.
+
+**Writing content separately first.** Trying to write in the MDX editor while also thinking about layout is too much context-switching. Writing content (changelog entries, skills descriptions) separately first and dropping it in was faster and cleaner.
+
+**Storing structured content in arrays.** The changelog was originally a bunch of repeated divs. Refactored to store entries as a data array and map through them — much easier to update and extend.
+
+**Font mixing.** Settled on a three-font system: serif for headings and display text, sans-serif for body content, and monospace for version numbers, dates, and anything that needed a code-like feel.
+
+**Consistent header styling across pages.** Initially inconsistent across articles. Eventually settled on a pattern — serif description paragraph, monospaced byline with a rule below — and applied it uniformly.
