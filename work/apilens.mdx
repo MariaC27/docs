@@ -101,14 +101,16 @@ Up until this point, I had been developing this within our team's repo, but I ev
 
 I took some time to separate out some of the diff logic and files into a new repository. To run, users just need to add a toml file and some workflow files into their repository, then install and run a python package.
 
-<CardGroup cols={2}>
-  <Card title="PyPI Package" icon="package" href="https://pypi.org/project/openapi-lens/">
-    openapi-lens on PyPI
-  </Card>
-  <Card title="GitHub Repo" icon="github" href="https://github.com/MariaC27/api-lens">
+<div className="flex gap-3 mb-8">
+  <a href="https://github.com/MariaC27/api-lens" target="_blank" className="inline-flex items-center gap-2 rounded-lg border border-gray-900/15 dark:border-gray-50/15 bg-white/60 dark:bg-gray-900/50 px-4 py-2 text-sm font-medium text-gray-800 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors no-underline">
+    <Icon icon="github" size={16} />
     MariaC27/api-lens
-  </Card>
-</CardGroup>
+  </a>
+  <a href="https://pypi.org/project/openapi-lens/" target="_blank" className="inline-flex items-center gap-2 rounded-lg border border-gray-900/15 dark:border-gray-50/15 bg-white/60 dark:bg-gray-900/50 px-4 py-2 text-sm font-medium text-gray-800 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors no-underline">
+    <Icon icon="package" size={16} />
+    openapi-lens on PyPI
+  </a>
+</div>
 
 ## Notes
 
