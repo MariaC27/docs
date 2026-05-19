@@ -55,20 +55,21 @@ Another way to normalize would be at the metric level: divide the actual by the 
 
 Component-based normalization or metric-level normalization? → structural vs. outcome normalization.
 
-**Component-Based:**
+<Tabs>
+  <Tab title="Component-based">
+    _Better as a tool for ux research_
 
-*Overall: Better as a tool / for ux research — have more control and insight*
+    - Since we normalize each variable before combining them, all components are on the same unitless "scale" and can be easily compared. You easily can see which component most affects the final score, giving insight into where the friction came from
+    - We can control the influence of each variable with weights. The formula is customizable for different interfaces or priorities
+    - But what does this number actually mean? Lower is better, but "7.5" might not mean much to people. This is only useful if comparing variations of the same interface to each other.
+  </Tab>
+  <Tab title="Metric-based">
+    _Easier to understand for business / presentation purposes_
 
-- **Pro:** Since we normalize each variable before combining them, all components are on the same unitless "scale" and can be easily compared. You easily can see which component most affects the final score, giving insight into where the friction came from
-- **Pro:** We can control the influence of each variable with weights. The formula is customizable for different interfaces or priorities
-- **Con:** What does this number actually mean? Lower is better, but "7.5" might not mean much to people. This is only useful if comparing variations of the same interface to each other.
-
-**Metric-Based:**
-
-*Overall: Easier to understand for business / presentation purposes*
-
-- **Pro or Con:** Preserves original dominance of components (could be good or not depending on what you want to capture)
-- **Pro:** Easier to say "interface was X% worse than normal". This is good if you just want a single metric to use in a presentation or a quick reference. Answers the question "how much different was the experience than expected?"
+    - Preserves original dominance of components (could be good or not depending on what you want to capture)
+    - Easier to say "interface was X% worse than normal". This is good if you just want a single metric to use in a presentation or a quick reference. Answers the question "how much different was the experience than expected?"
+  </Tab>
+</Tabs>
 
 ## Conclusion
 

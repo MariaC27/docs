@@ -36,7 +36,9 @@ I first sought to understand the exact user flow and pain points in the current 
 - Accidentally clicking elsewhere closes the menu, annotation is lost
 - No error handling or messaging for when no labels are yet created in the project
 
+<Info>
 A note on user testing: at the time, this product had not launched and we did not have any "real" users, so most of the user testing was done with other members of the team. I realize this isn't ideal but I also think it's the reality for many pre-launch small teams on a time crunch. I also think that for small teams, it can be worth accumulating a few smaller redesigned features to test at once later, which is what we ended up doing with our first pilot.
+</Info>
 
 I also researched and tried out (if possible) annotation flows of other image annotation platforms, looking for inspiration and areas where we could improve and raise the bar of the current industry standard.
 
@@ -111,12 +113,26 @@ Used actual design system — real colors, attention to detail. Last step to gat
 
 These were roughly the steps I took in code to make the necessary changes:
 
-1. Find where the current label dropdown is being rendered on the canvas and change the position to the top left corner near the sidebar. As part of this, I found I needed to separate popup into its own component.
-2. Change popup appearance to match new design
-3. Conditionally render different options on the popup based on which tool was used to make the current selection
-4. Add wrapper to show secondary sidebar icons and then conditionally render different sidebar "pages". Move content from the old right sidebar into tabs on the left sidebar.
-5. Make the left sidebar resizable
-6. Make the existing annotations clickable, which brings up an edit modal
+<Steps>
+  <Step title="Reposition the label dropdown">
+    Find where the current label dropdown is being rendered on the canvas and change the position to the top left corner near the sidebar. As part of this, I found I needed to separate the popup into its own component.
+  </Step>
+  <Step title="Restyle the popup">
+    Change popup appearance to match the new design.
+  </Step>
+  <Step title="Conditionally render options">
+    Render different options on the popup based on which tool was used to make the current selection.
+  </Step>
+  <Step title="Add secondary sidebar">
+    Add wrapper to show secondary sidebar icons and then conditionally render different sidebar "pages". Move content from the old right sidebar into tabs on the left sidebar.
+  </Step>
+  <Step title="Make the sidebar resizable">
+    Allow users to drag the sidebar to their preferred width, setting responsive min and max limits.
+  </Step>
+  <Step title="Make annotations editable">
+    Annotations are clickable, which brings up an edit modal.
+  </Step>
+</Steps>
 
 {/* IMAGE 9: same as image 1 */}
 ![New appearance of sidebar and label popup on the platform](/images/canvas_study1_newcanvas.png)
