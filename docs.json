@@ -52,7 +52,8 @@
           "work/overview",
           "work/canvas-annotation-revamp",
           "work/turn-based-audio-annotation",
-          "work/apilens"
+          "work/apilens",
+          "work/portfolio"
         ]
       },
       {
@@ -101,8 +102,7 @@
   ],
   "footer": {
     "socials": {
-      "github": "https://github.com/MariaC27",
-      "linkedin": "https://www.linkedin.com/in/maria-cristoforo"
+      "github": "https://github.com/MariaC27/docs"
     }
   }
 }

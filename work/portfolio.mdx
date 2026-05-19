@@ -1,0 +1,83 @@
+---
+title: "Portfolio"
+sidebarTitle: "Portfolio"
+---
+
+<p className="font-serif text-lg leading-relaxed text-gray-600 dark:text-gray-400 mb-8">How I adapted Mintlify, an AI-native product documentation platform, into this personal portfolio.</p>
+
+<div className="portfolio-byline">Maria Cristoforo · May 2026 · 5 min read</div>
+
+<h2 style={{borderTop: 'none', paddingTop: 0, marginTop: '2rem'}}>Idea and Reasoning</h2>
+
+When I first thought about making a new portfolio, I was a bit overwhelmed. Development cycles are incredibly fast now; anyone can spin out a nice-looking landing page in as little as a few minutes. I wanted and needed to demonstrate that my skills as a designer and engineer aren't something that can be replicated in minutes by an agent. That I'm still the one with the vision, the experience to break down implementation steps effectively, the judgment to use AI tools strategically and iterate on their output, and the sensibility to let the story behind a project shine through. In an age where anyone can create a sleek website quickly, the story and reasoning behind a design or site is what will set it apart.
+
+With this in mind, one day I was standing on the train on the way to work and I thought: what if I turned a product documentation site into a "self" documentation site for my portfolio? I think that good docs often have a narrative aspect, telling a story about a product, much like a good portfolio tells a story about oneself. Helping people understand a product isn't so different from helping someone understand "me."
+
+At the core of this idea is a design question: how might we adapt a product documentation platform into a personal knowledge and identity platform? I wanted to find a different way to use Mintlify's tools to help understand a person, not just a product. If I could leverage Mintlify's strengths (which for this purpose, I saw as the intuitive organization system, agent-friendliness, and AI assistant) while personalizing with custom components, themes, and pages, I thought it would be a unique way to not only tell my story but also let the portfolio itself tell a story.
+
+With this portfolio, I hope to show how I can adapt and build upon existing tools for a new purpose  - a story that a basic AI-generated website definitely doesn't have.
+
+## Process & Prompts
+
+I'll be very upfront that I made this portfolio quickly with the strategic usage of AI tools, mostly Magic Patterns and Claude. I think this is the future of rapid shipping and design work, and would like to emphasize that even though much of the manual coding work and markdown setup was written
+by Claude, the overarching vision for the project and also the dozens of not hundreds of iterative edits afterwards are where human expertise and taste comes through.
+
+I wrote a few large prompts to get things started, which are shown here, but I then took the output and continued to test and iterate, incorporating feedback, adding new features, and adjusting layouts and styling as I saw fit. I also asked for the initial scaffolds to be made
+only with mock data, and went back and populated my personal content afterwards.
+
+### Magic Patterns
+
+My first prompt:
+
+> "I have this idea where I want to make a personal portfolio but actually make it on Mintlify, which is technically a product documentation site. The point is to demonstrate an understanding of the Mintlify software and also that I can adapt it for a new purpose: an AI-native docs platform for personal knowledge and identity, not just product information. I want to avoid a really basic setup, instead putting in custom components and views and adapting the landing page to look like the landing page of a portfolio website. I want to leveraging the organizational patterns and AI-agent friendliness of Mintlify while styling it into a portfolio. Look at the current UI and structure of Mintlify's own docs site and help me plan how I could adapt and design the UI for this idea. The UI theme should be distinct from the default theme to make it clear that this is not a basic product documentation site."
+
+From there I tried out a few different visual directions (magazine/editorial, brutalist, notebook) and decided on a relatively neutral magazine theme. I asked it to populate pages with mock data and helped me figure out where I could use the "docs" angle creatively. The skills API reference came directly out of this process.
+
+### Claude
+
+Once I had a prototype I was happy with in Magic Patterns, I exported the code into a separate repo and brought in Claude Code:
+
+> "Look at this current 'docs' project. Right now it's just the basic Mintlify project template. But I have this idea where I'm going to turn it into a personal portfolio. I've already prototyped some ideas, the UI appearance, and some interesting personalization (ex. using the 'changelog' to be about milestones in my career and the 'api reference' to show my skills). This is my conversation with Magic Patterns already and I've cloned the code it came up with into the repo mp-portfolio-prototype. Note that the styling to go from is actually in the /magazine route in the prototype. Help me modify the docs template according to the design and layouts present in the magic patterns prototype."
+
+That gave me a solid starting point. From here I used narrower, more targeted prompts to edit styling and content.
+
+## Timeline
+
+A rough idea of how this work was spread out over a week or so. Also want to note that this is not the fastest speed I can move, was deliberately taking breaks and time to think.
+
+<Steps>
+  <Step title="Thursday, May 7">
+    First had the idea to adapt a Mintlify site into my portfolio. Wrote down my reasoning and what I was trying to achieve. Set up the template project on Mintlify.
+  </Step>
+  <Step title="Friday, May 8 – Sunday, May 10">
+    Stewed on it but didn't build anything yet (this was a busy weekend for me!). Had the idea of a changelog-style page to show my career history.
+  </Step>
+  <Step title="Monday, May 11">
+    Started iterating with Magic Patterns, got a few mockups as a starting point. Downloaded the prototype and fed as a reference to Claude along with the Mintlify template and some instructions about what I wanted. Got a good v1 with navigation and page scaffolds set up.
+  </Step>
+  <Step title="Tuesday, May 12">
+    Continued iteration: edits to page grouping on the sidebar, filled in content (case studies and writing, homepage content), added new features to skills and changelog pages.
+  </Step>
+  <Step title="Wednesday, May 13 – Friday, May 15">
+    Styling overhaul: standardize branding, fonts, layouts. Combining certain pages, add images.
+  </Step>
+  <Step title="Monday, May 18 – Tuesday, May 19">
+    Cleanup and small edits: ensure agent-friendliness, set up the Mintlify assistant, do grammar, wording, and accessibility checks.
+  </Step>
+</Steps>
+
+## Learnings and pivots
+
+**Making the changelog interactive.** The original changelog was a static list. Added clickable rows that open a floating detail panel with the full description and a link to external sites where relevant.
+
+**Reducing sidebar sections.** Started with more sections than needed. Trimming and combining made the navigation feel more deliberate.
+
+**Replacing manual HTML with Mintlify components.** Partway through I realized I was writing a lot of custom div structures for things Mintlify already handles: `<Steps>`, `<Info>`, `<Tabs>`. Went back and replaced where it made sense.
+
+**Storing structured content in arrays.** The changelog was originally a bunch of repeated divs. Refactored to store entries as a data array and map through them, much easier to update and extend.
+
+**Font mixing.** Settled on a three-font system: serif for headings and display text, sans-serif for body content, and monospace for version numbers, dates, and anything that needed a code-like feel.
+
+**Consistent header styling across pages.** Initially inconsistent across articles. Eventually settled on a pattern (serif description paragraph, monospaced byline with a rule below) and applied it uniformly.
+
+**Writing in your own voice.** I wrote the "Idea and Reasoning" section by hand on this page. I tried an AI-generated version and it just didn't sound right. I think part of being a "good" designer and writer going forward is having a strong vision for what you want and then being able to tell when to step in with your own voice when AI tools don't get that vision right.
