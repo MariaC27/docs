@@ -111,7 +111,7 @@ export const openEntry = (el, data) => {
       <div style="border-radius:12px;border:1px solid rgba(${isDark?'255,255,255,0.1':'0,0,0,0.08'});background:${isDark?'#111827':'#fff'};box-shadow:0 4px 24px rgba(0,0,0,${isDark?'0.4':'0.1'});overflow:hidden;">
         <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid rgba(${isDark?'255,255,255,0.08':'0,0,0,0.08'});background:${isDark?'rgba(31,41,55,0.5)':'#f9fafb'};">
           <span id="clp-ver" style="font-family:ui-monospace,monospace;font-size:11px;font-weight:600;color:#ea580c;"></span>
-          <button onclick="window._clClose()" style="width:20px;height:20px;border-radius:50%;background:${isDark?'#374151':'#e5e7eb'};border:none;cursor:pointer;font-size:10px;color:${isDark?'#9ca3af':'#6b7280'};line-height:1;flex-shrink:0;">✕</button>
+          <button onclick="window._clClose()" aria-label="Close" style="width:20px;height:20px;border-radius:50%;background:${isDark?'#374151':'#e5e7eb'};border:none;cursor:pointer;font-size:10px;color:${isDark?'#9ca3af':'#6b7280'};line-height:1;flex-shrink:0;">✕</button>
         </div>
         <div style="padding:16px;display:flex;flex-direction:column;gap:10px;">
           <span id="clp-date" style="font-family:ui-monospace,monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:#9ca3af;"></span>
@@ -176,8 +176,11 @@ export const openEntry = (el, data) => {
 <div className="flex flex-col gap-2 mt-6">
   {entries.map((e) => (
     <div key={e.version}
+      role="button"
+      tabIndex={0}
       className="cl-entry flex items-center justify-between rounded-xl border border-gray-900/10 dark:border-gray-50/10 bg-white/60 dark:bg-gray-900/50 px-4 py-3 gap-4 cursor-pointer"
-      onClick={(ev) => openEntry(ev.currentTarget, e)}>
+      onClick={(ev) => openEntry(ev.currentTarget, e)}
+      onKeyDown={(ev) => { if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); openEntry(ev.currentTarget, e); } }}>
       <div className="flex items-center gap-3 min-w-0">
         <span className="font-mono text-xs font-medium portfolio-primary-text shrink-0">{e.version}</span>
         <div className="flex flex-col gap-0.5 min-w-0">

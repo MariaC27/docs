@@ -9,7 +9,7 @@ title: "UX Friction Coefficient"
 I will discuss assumptions, normalization methods, and limitations of the formula and how I use it as more of a conceptual reminder rather than strict calculation to be made.
 
 {/* IMAGE 1: hero */}
-![UX Friction Coefficient](/images/ux_article1_overall.png)
+![Overview graphic of the UX friction coefficient formula](/images/ux_article1_overall.png)
 
 ## Inspiration
 
@@ -55,20 +55,21 @@ Another way to normalize would be at the metric level: divide the actual by the 
 
 Component-based normalization or metric-level normalization? → structural vs. outcome normalization.
 
-**Component-Based:**
+<Tabs>
+  <Tab title="Component-based">
+    _Better as a tool for ux research_
 
-*Overall: Better as a tool / for ux research — have more control and insight*
+    - Since we normalize each variable before combining them, all components are on the same unitless "scale" and can be easily compared. You easily can see which component most affects the final score, giving insight into where the friction came from
+    - We can control the influence of each variable with weights. The formula is customizable for different interfaces or priorities
+    - But what does this number actually mean? Lower is better, but "7.5" might not mean much to people. This is only useful if comparing variations of the same interface to each other.
+  </Tab>
+  <Tab title="Metric-based">
+    _Easier to understand for business / presentation purposes_
 
-- **Pro:** Since we normalize each variable before combining them, all components are on the same unitless "scale" and can be easily compared. You easily can see which component most affects the final score, giving insight into where the friction came from
-- **Pro:** We can control the influence of each variable with weights. The formula is customizable for different interfaces or priorities
-- **Con:** What does this number actually mean? Lower is better, but "7.5" might not mean much to people. This is only useful if comparing variations of the same interface to each other.
-
-**Metric-Based:**
-
-*Overall: Easier to understand for business / presentation purposes*
-
-- **Pro or Con:** Preserves original dominance of components (could be good or not depending on what you want to capture)
-- **Pro:** Easier to say "interface was X% worse than normal". This is good if you just want a single metric to use in a presentation or a quick reference. Answers the question "how much different was the experience than expected?"
+    - Preserves original dominance of components (could be good or not depending on what you want to capture)
+    - Easier to say "interface was X% worse than normal". This is good if you just want a single metric to use in a presentation or a quick reference. Answers the question "how much different was the experience than expected?"
+  </Tab>
+</Tabs>
 
 ## Conclusion
 
@@ -76,4 +77,4 @@ To me, this metric is more a conceptual reminder of things to consider when desi
 
 For the purposes of being a conceptual reminder, I think the original formula works fine. But if you do actually want to calculate the number, it's better to use a normalized version of the formula. Between the two types of normalization, component-based is better for research purposes, as it has more visibility into where the friction happened and the ability to customize with the weights. Metric-based normalization is good for providing a single understandable number to use in a presentation or conversation that indicates the general performance of the interface in comparison to the optimal experience.
 
-I don't think this coefficient is meant to be taken seriously as any kind of business metric, at least for now. This coefficient is really only relevant for a very narrow use case and I'm sure there are still issues and things left out, depending on what you want to capture. I'm also sure that other designers might think about quantifying UX differently, if at all. These were just my thoughts as a first pass and I would love to hear other thoughts and opinions on this topic. Thank you for reading!
+I don't think this coefficient is meant to be taken seriously as any kind of business metric. It's really only relevant for a very narrow use case and I'm sure there are still issues and things left out, depending on what you want to capture. I'm also sure that other designers might think about quantifying UX differently, if at all. These were just my thoughts as a first pass and I would love to hear other thoughts and opinions on this topic. Thank you for reading!

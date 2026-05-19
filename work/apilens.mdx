@@ -19,11 +19,11 @@ title: "ApiLens"
 
 I designed and built a tool that automatically versions and visually diffs OpenAPI specs, making new api changes instantly visible without needing to run manual scripts or make handwritten handoff tickets. The entire experience was designed to be developer-friendly with a simple installation process, automated workflows, and copyable AI-chat prompts for making changes. This article details my entire process, including researching current tools, refining the idea, and eventually implementation and iterations.
 
-![ApiLens](/images/apilens_study1_polished.png)
+![The ApiLens diff UI showing color-coded field-level changes](/images/apilens_study1_polished.png)
 
 ## Problem
 
-TLDR: difficult communication between backend + frontend about endpoint structure changes.
+Difficult communication between backend + frontend about endpoint structure changes.
 
 When endpoint docs are updated, it's hard to tell what exactly changed in the most recent update. Frontend teams need an easy way to see what changed in the api in order to update types and pages accordingly. Good handoff documentation is essential, but often tedious, manual, and repetitive to create and use.
 
@@ -101,17 +101,19 @@ Up until this point, I had been developing this within our team's repo, but I ev
 
 I took some time to separate out some of the diff logic and files into a new repository. To run, users just need to add a toml file and some workflow files into their repository, then install and run a python package.
 
-<CardGroup cols={2}>
-  <Card title="PyPI Package" icon="package" href="https://pypi.org/project/openapi-lens/">
-    openapi-lens on PyPI
-  </Card>
-  <Card title="GitHub Repo" icon="github" href="https://github.com/MariaC27/api-lens">
+<div className="flex gap-3 mb-8">
+  <a href="https://github.com/MariaC27/api-lens" target="_blank" className="inline-flex items-center gap-2 rounded-lg border border-gray-900/15 dark:border-gray-50/15 bg-white/60 dark:bg-gray-900/50 px-4 py-2 text-sm font-medium text-gray-800 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors no-underline">
+    <Icon icon="github" size={16} />
     MariaC27/api-lens
-  </Card>
-</CardGroup>
+  </a>
+  <a href="https://pypi.org/project/openapi-lens/" target="_blank" className="inline-flex items-center gap-2 rounded-lg border border-gray-900/15 dark:border-gray-50/15 bg-white/60 dark:bg-gray-900/50 px-4 py-2 text-sm font-medium text-gray-800 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors no-underline">
+    <Icon icon="package" size={16} />
+    openapi-lens on PyPI
+  </a>
+</div>
 
 ## Notes
 
 After reading all of this, the question may arise — what's the point of providing all this visibility into field-level api changes if developers will use an AI tool to make those changes anyway? I guess it varies based on personal preference. Some people may not need this type of visibility and that's valid, especially as AI tools can basically own the entire development process now and answer questions about it if needed. But for me, I like to keep a general mental model of the state of the project even if I don't make many of the changes by hand. Providing a simple glimpse of the changes allows me to "update" my mental model and maintain a general awareness what changes were made and when. This has proven to be a big time-saver when debugging.
 
-I've found this tool incredibly useful in my day to day work and I also hope it can be helpful to others. Would love feedback and ideas at mcristoforo.medium@gmail.com. Thanks for reading!
+I've found this tool very useful in my day to day work and I also hope it can be helpful to others. Would love feedback and ideas, please reach out via email. Thanks for reading!
