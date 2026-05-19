@@ -8,7 +8,10 @@
     "light": "#f97316",
     "dark": "#c2410c"
   },
-  "background": {
+  "appearance": {
+  "default": "light"
+},
+"background": {
     "color": {
       "light": "#F8F5EF",
       "dark": "#1C1917"
