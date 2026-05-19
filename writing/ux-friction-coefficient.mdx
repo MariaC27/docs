@@ -2,13 +2,10 @@
 title: "UX Friction Coefficient"
 ---
 
-<p className="font-serif text-lg leading-relaxed text-gray-600 dark:text-gray-400 mb-8">A metric used to quantify UX friction on a task-based interface.</p>
-
-<div className="portfolio-byline">Maria Cristoforo · Mar 4, 2026 · 5 min read</div>
-
 I will discuss assumptions, normalization methods, and limitations of the formula and how I use it as more of a conceptual reminder rather than strict calculation to be made.
 
 {/* IMAGE 1: hero */}
+
 ![UX Friction Coefficient](/images/ux_article1_overall.png)
 
 ## Inspiration
@@ -22,9 +19,10 @@ In this article, I will explain the components of the formula, assumptions and i
 This is what I came up with when asked to try to quantify UX on the spot. This was with no prior research and also in context of a task-based interface where a user would land on this page and need to complete a task or set of tasks ASAP. This was also meant to be judged in the general sense that "lower is better"; this version does not yet weigh specific components (as explained later, this leads to total time T dominating everything)
 
 {/* IMAGE 2: original formula */}
+
 ![The original UX friction formula](/images/ux_article2_original.png)
 
-Here, UX friction = interaction cost (B) + time cost (T) + hesitation cost (B), penalized by inaccuracy (fast but wrong task is worse than a slow but correct one). This original formula has many issues, detailed below.
+Here, UX friction = interaction cost (B) \+ time cost (T) \+ hesitation cost (B), penalized by inaccuracy (fast but wrong task is worse than a slow but correct one). This original formula has many issues, detailed below.
 
 **Assumptions:**
 
@@ -34,7 +32,7 @@ Here, UX friction = interaction cost (B) + time cost (T) + hesitation cost (B), 
 
 **Issues:**
 
-- The units are inconsistent — some numbers are in seconds and others are in clicks. Things need to be normalized or else one thing will dominate. Without normalization, time T dominates (ex. 120 seconds vs 3 clicks). What we actually want to capture is: how much slower was this task than it should have been? There are a few ways this could be addressed: normalizing T using the expected completion time (T / T_expected) or using "excess time" instead of raw time (T — T_expected).
+- The units are inconsistent — some numbers are in seconds and others are in clicks. Things need to be normalized or else one thing will dominate. Without normalization, time T dominates (ex. 120 seconds vs 3 clicks). What we actually want to capture is: how much slower was this task than it should have been? There are a few ways this could be addressed: normalizing T using the expected completion time (T / T\_expected) or using "excess time" instead of raw time (T — T\_expected).
 - Time before the first click isn't always bad; depending on the task, the user might be thinking and planning. So this formula only works in a "task flow" page where there's an end goal to accomplish ASAP, it's not good for research/learning interfaces, where longer time on the page may indicate more thoughtfulness.
 - In this version of the formula, everything is weighted equally. We could later add weights for tuning, if we want one element to carry more weight than another for a specific type of interface.
 
@@ -43,6 +41,7 @@ Here, UX friction = interaction cost (B) + time cost (T) + hesitation cost (B), 
 Based on the issues described, one way the formula could be improved is to normalize and weigh each of the elements separately based on expected values. This prevents one element from dominating and also allows for customization using the weights.
 
 {/* IMAGE 3: component-based normalization formula */}
+
 ![Component-based normalization formula](/images/ux_article3_component.png)
 
 ## Improvement 2: Metric-Based Normalization
@@ -55,20 +54,21 @@ Another way to normalize would be at the metric level: divide the actual by the 
 
 Component-based normalization or metric-level normalization? → structural vs. outcome normalization.
 
-**Component-Based:**
+<Tabs>
+  <Tab title="Component-based">
+    _Overall: Better as a tool / for ux research — have more control and insight_
 
-*Overall: Better as a tool / for ux research — have more control and insight*
+    - **Pro:** Since we normalize each variable before combining them, all components are on the same unitless "scale" and can be easily compared. You easily can see which component most affects the final score, giving insight into where the friction came from
+    - **Pro:** We can control the influence of each variable with weights. The formula is customizable for different interfaces or priorities
+    - **Con:** What does this number actually mean? Lower is better, but "7.5" might not mean much to people. This is only useful if comparing variations of the same interface to each other.
+  </Tab>
+  <Tab title="Metric-based">
+    _Overall: Easier to understand for business / presentation purposes_
 
-- **Pro:** Since we normalize each variable before combining them, all components are on the same unitless "scale" and can be easily compared. You easily can see which component most affects the final score, giving insight into where the friction came from
-- **Pro:** We can control the influence of each variable with weights. The formula is customizable for different interfaces or priorities
-- **Con:** What does this number actually mean? Lower is better, but "7.5" might not mean much to people. This is only useful if comparing variations of the same interface to each other.
-
-**Metric-Based:**
-
-*Overall: Easier to understand for business / presentation purposes*
-
-- **Pro or Con:** Preserves original dominance of components (could be good or not depending on what you want to capture)
-- **Pro:** Easier to say "interface was X% worse than normal". This is good if you just want a single metric to use in a presentation or a quick reference. Answers the question "how much different was the experience than expected?"
+    - **Pro or Con:** Preserves original dominance of components (could be good or not depending on what you want to capture)
+    - **Pro:** Easier to say "interface was X% worse than normal". This is good if you just want a single metric to use in a presentation or a quick reference. Answers the question "how much different was the experience than expected?"
+  </Tab>
+</Tabs>
 
 ## Conclusion
 
