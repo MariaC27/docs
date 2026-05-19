@@ -2,13 +2,16 @@
   "$schema": "https://mintlify.com/docs.json",
   "theme": "almond",
   "name": "Maria Cristoforo",
-  "description": "Design Engineer building AI-native interfaces.",
+  "description": "Designer, engineer, and writer based in San Francisco.",
   "colors": {
     "primary": "#ea580c",
     "light": "#f97316",
     "dark": "#c2410c"
   },
-  "background": {
+  "appearance": {
+  "default": "light"
+},
+"background": {
     "color": {
       "light": "#F8F5EF",
       "dark": "#1C1917"
