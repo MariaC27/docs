@@ -34,13 +34,13 @@ export const entries = [
   {
     version: "v2.1.0", date: "Fall 2024",
     title: "Fullstack SWE at NoxuData",
-    sub: "3-person team; learning fullstack frameworks and shipping fast",
+    sub: "3-person team; learning and shipping fast",
     desc: "Learned API design fundamentals, full-stack implementation process for new features, and shipped clean code on a large existing codebase. Reported directly to the two founders with technical contributions and product ideas.",
     link: null
   },
   {
     version: "v2.0.0", date: "Spring 2024",
-    title: "Graduated Dartmouth, CS + Human-Centered Design",
+    title: "Graduated Dartmouth, CS/Human-Centered Design",
     sub: "Honors thesis on accessible development practices",
     desc: "Took a breadth of classes from algorithms and software implementation to psychology, philosophy, and creative writing. Gained an appreciation for interdisciplinary thinking - applying insights from psychology and human-centered design to technical problem-solving, UX research and communication.",
     link: null
@@ -48,7 +48,7 @@ export const entries = [
   {
     version: "v1.4.0", date: "Summer 2023",
     title: "Support Engineering internship at Atlassian",
-    sub: "Talk directly with customers, observe areas of product friction",
+    sub: "Talk directly with customers, observe product friction areas",
     desc: "Talked directly with customers, debugged issues, and conducted user research. Got a sense of what product support looks like at scale and how to politely interact with customers and accept feedback.",
     link: null
   },
@@ -75,8 +75,8 @@ export const entries = [
   },
   {
     version: "v1.0.0", date: "Spring 2021",
-    title: "Start design & development work at the DALI Lab, Dartmouth",
-    sub: "Learned web dev for the first time via a student-taught mini course",
+    title: "Start design & development work at the DALI Lab",
+    sub: "Learned js for the first time via a student-taught mini course",
     desc: "First learned web development and ui/ux design fundamentals through a student-taught mini course. Later became a full-stack software developer and designer working on small student teams. As a senior, mentored a group of first-year female students through Dartmouth Women in Science Program.",
     link: null
   },
@@ -96,87 +96,30 @@ export const entries = [
   },
 ];
 
-export const openEntry = (el, data) => {
-  document.querySelectorAll('.cl-entry').forEach(e => e.classList.remove('cl-active'));
-  el.classList.add('cl-active');
-  window._clEntry = el;
-  window._clLinkTarget = data.link || null;
-
-  if (!document.getElementById('cl-portal')) {
-    const isDark = document.documentElement.classList.contains('dark');
-    const p = document.createElement('div');
-    p.id = 'cl-portal';
-    p.style.cssText = 'position:fixed;z-index:99999;display:none;';
-    p.innerHTML = `<div style="border-radius:12px;border:1px solid rgba(${isDark?'255,255,255,0.1':'0,0,0,0.08'});background:${isDark?'#111827':'#fff'};box-shadow:0 4px 24px rgba(0,0,0,${isDark?'0.4':'0.1'});overflow:hidden;"><div style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid rgba(${isDark?'255,255,255,0.08':'0,0,0,0.08'});background:${isDark?'rgba(31,41,55,0.5)':'#f9fafb'};"><span id="clp-ver" style="font-family:ui-monospace,monospace;font-size:11px;font-weight:600;color:#ea580c;"></span><button onclick="window._clClose()" aria-label="Close" style="width:20px;height:20px;border-radius:50%;background:${isDark?'#374151':'#e5e7eb'};border:none;cursor:pointer;font-size:10px;color:${isDark?'#9ca3af':'#6b7280'};line-height:1;flex-shrink:0;">&#x2715;</button></div><div style="padding:16px;display:flex;flex-direction:column;gap:10px;"><span id="clp-date" style="font-family:ui-monospace,monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:#9ca3af;"></span><div id="clp-title" style="font-family:ui-serif,Georgia,Cambria,serif;font-size:14px;font-style:italic;color:${isDark?'#f9fafb':'#111827'};line-height:1.4;"></div><p id="clp-desc" style="font-size:12px;color:${isDark?'#9ca3af':'#6b7280'};line-height:1.6;margin:0;"></p><button id="clp-link" onclick="if(window._clLinkTarget)window.location.href=window._clLinkTarget" style="display:none;font-family:ui-monospace,monospace;font-size:12px;color:#ea580c;background:none;border:none;padding:0;cursor:pointer;text-align:left;margin-top:2px;"></button></div></div>`;
-    document.body.appendChild(p);
-
-    window._clClose = () => {
-      p.style.display = 'none';
-      document.querySelectorAll('.cl-entry').forEach(e => e.classList.remove('cl-active'));
-      window._clEntry = null;
-    };
-
-    // Hide portal on SPA navigation. Intercept history.pushState (Next.js link clicks)
-    // and listen for popstate (back/forward) — cheaper than a MutationObserver.
-    const _clHideOnNav = () => {
-      if (p.style.display !== 'none') { p.style.display = 'none'; window._clEntry = null; }
-    };
-    const _origPush = history.pushState.bind(history);
-    history.pushState = (...args) => { _origPush(...args); _clHideOnNav(); };
-    window.addEventListener('popstate', _clHideOnNav);
-
-    document.addEventListener('scroll', () => {
-      if (window._clRaf) return;
-      window._clRaf = requestAnimationFrame(() => {
-        window._clRaf = null;
-        if (!window._clEntry || p.style.display === 'none') return;
-        const r = window._clEntry.getBoundingClientRect();
-        p.style.top = Math.max(80, Math.min(r.top, window.innerHeight - 280)) + 'px';
-      });
-    }, { passive: true, capture: true });
-  }
-
-  const portal = document.getElementById('cl-portal');
-  const ca = document.getElementById('content-area');
-  if (ca) {
-    const cr = ca.getBoundingClientRect();
-    portal.style.left = (cr.right + 12) + 'px';
-    portal.style.width = Math.min(300, window.innerWidth - cr.right - 24) + 'px';
-  } else {
-    portal.style.right = '16px';
-    portal.style.width = '280px';
-  }
-  const er = el.getBoundingClientRect();
-  portal.style.top = Math.max(80, Math.min(er.top, window.innerHeight - 280)) + 'px';
-  portal.style.display = 'block';
-
-  document.getElementById('clp-ver').textContent = data.version;
-  document.getElementById('clp-date').textContent = data.date;
-  document.getElementById('clp-title').textContent = data.title;
-  document.getElementById('clp-desc').textContent = data.desc;
-  const lnk = document.getElementById('clp-link');
-  if (data.link) { lnk.textContent = data.linkLabel + ' \u2192'; lnk.style.display = 'block'; }
-  else { lnk.style.display = 'none'; }
-};
-
 <p className="font-serif text-lg leading-relaxed text-gray-600 dark:text-gray-400 mb-8">A version history of my career, education, and growth as a designer & engineer.</p>
 
 <div className="flex flex-col gap-2 mt-6">
   {entries.map((e) => (
-    <div key={e.version}
-      role="button"
-      tabIndex={0}
-      className="cl-entry flex items-center justify-between rounded-xl border border-gray-900/10 dark:border-gray-50/10 bg-white/60 dark:bg-gray-900/50 px-4 py-3 gap-4 cursor-pointer"
-      onClick={(ev) => openEntry(ev.currentTarget, e)}
-      onKeyDown={(ev) => { if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); openEntry(ev.currentTarget, e); } }}>
-      <div className="flex items-center gap-3 min-w-0">
-        <span className="font-mono text-xs font-medium portfolio-primary-text shrink-0">{e.version}</span>
-        <div className="flex flex-col gap-0.5 min-w-0">
-          <span className="cl-title truncate">{e.title}</span>
-          {e.sub && <span className="text-xs text-gray-400 dark:text-gray-500">{e.sub}</span>}
+    <details key={e.version} className="cl-entry rounded-xl border border-gray-900/10 dark:border-gray-50/10 bg-white/60 dark:bg-gray-900/50 px-4 py-3 cursor-pointer">
+      <summary className="flex items-center justify-between gap-4">
+        <div className="flex items-center gap-3 min-w-0">
+          <Icon icon="chevron-right" size={14} className="cl-chevron shrink-0" />
+          <span className="font-mono text-xs font-medium portfolio-primary-text shrink-0">{e.version}</span>
+          <div className="flex flex-col gap-0.5 min-w-0">
+            <span className="cl-title truncate">{e.title}</span>
+            {e.sub && <span className="text-xs text-gray-400 dark:text-gray-500">{e.sub}</span>}
+          </div>
         </div>
+        <span className="font-mono text-xs text-gray-600 dark:text-gray-300 shrink-0">{e.date}</span>
+      </summary>
+      <div className="mt-3 pt-3 border-t border-gray-900/10 dark:border-gray-50/10 flex flex-col gap-2">
+        <p className="text-xs text-gray-500 dark:text-gray-400 leading-relaxed m-0">{e.desc}</p>
+        {e.link && (
+          <div className="flex justify-end">
+            <a href={e.link} className="font-mono text-xs portfolio-primary-text">{e.linkLabel} →</a>
+          </div>
+        )}
       </div>
-      <span className="font-mono text-xs text-gray-600 dark:text-gray-300 shrink-0">{e.date}</span>
-    </div>
+    </details>
   ))}
 </div>

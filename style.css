@@ -203,7 +203,19 @@ body:has([data-portfolio-index]) #sidebar a.nav-anchor[href='/'] svg {
   border-color: rgb(var(--primary));
 }
 
-/* ─── Changelog: interactive entry + detail window ─────────────────────────── */
+/* ─── Changelog: expandable entries ────────────────────────────────────────── */
+
+.cl-entry summary { list-style: none; }
+.cl-entry summary::-webkit-details-marker { display: none; }
+
+.cl-chevron {
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+}
+
+.cl-entry[open] .cl-chevron {
+  transform: rotate(90deg);
+}
 
 .cl-title {
   font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif !important;
