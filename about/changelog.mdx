@@ -104,58 +104,10 @@ export const openEntry = (el, data) => {
 
   if (!document.getElementById('cl-portal')) {
     const isDark = document.documentElement.classList.contains('dark');
-
     const p = document.createElement('div');
     p.id = 'cl-portal';
     p.style.cssText = 'position:fixed;z-index:99999;display:none;';
-
-    const card = document.createElement('div');
-    card.style.cssText = 'border-radius:12px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,' + (isDark?'0.4':'0.1') + ');border:1px solid rgba(' + (isDark?'255,255,255,0.1':'0,0,0,0.08') + ');background:' + (isDark?'#111827':'#fff') + ';';
-
-    const header = document.createElement('div');
-    header.style.cssText = 'display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid rgba(' + (isDark?'255,255,255,0.08':'0,0,0,0.08') + ');background:' + (isDark?'rgba(31,41,55,0.5)':'#f9fafb') + ';';
-
-    const ver = document.createElement('span');
-    ver.id = 'clp-ver';
-    ver.style.cssText = 'font-family:ui-monospace,monospace;font-size:11px;font-weight:600;color:#ea580c;';
-
-    const closeBtn = document.createElement('button');
-    closeBtn.setAttribute('aria-label', 'Close');
-    closeBtn.style.cssText = 'width:20px;height:20px;border-radius:50%;background:' + (isDark?'#374151':'#e5e7eb') + ';border:none;cursor:pointer;font-size:10px;color:' + (isDark?'#9ca3af':'#6b7280') + ';line-height:1;flex-shrink:0;';
-    closeBtn.textContent = '\u2715';
-    closeBtn.onclick = () => window._clClose();
-
-    header.appendChild(ver);
-    header.appendChild(closeBtn);
-
-    const body = document.createElement('div');
-    body.style.cssText = 'padding:16px;display:flex;flex-direction:column;gap:10px;';
-
-    const date = document.createElement('span');
-    date.id = 'clp-date';
-    date.style.cssText = 'font-family:ui-monospace,monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:#9ca3af;';
-
-    const title = document.createElement('div');
-    title.id = 'clp-title';
-    title.style.cssText = 'font-family:ui-serif,Georgia,Cambria,serif;font-size:14px;font-style:italic;color:' + (isDark?'#f9fafb':'#111827') + ';line-height:1.4;';
-
-    const desc = document.createElement('p');
-    desc.id = 'clp-desc';
-    desc.style.cssText = 'font-size:12px;color:' + (isDark?'#9ca3af':'#6b7280') + ';line-height:1.6;margin:0;';
-
-    const lnkBtn = document.createElement('button');
-    lnkBtn.id = 'clp-link';
-    lnkBtn.style.cssText = 'display:none;font-family:ui-monospace,monospace;font-size:12px;color:#ea580c;background:none;border:none;padding:0;cursor:pointer;text-align:left;margin-top:2px;';
-    lnkBtn.onclick = () => { if (window._clLinkTarget) window.location.href = window._clLinkTarget; };
-
-    body.appendChild(date);
-    body.appendChild(title);
-    body.appendChild(desc);
-    body.appendChild(lnkBtn);
-
-    card.appendChild(header);
-    card.appendChild(body);
-    p.appendChild(card);
+    p.innerHTML = `<div style="border-radius:12px;border:1px solid rgba(${isDark?'255,255,255,0.1':'0,0,0,0.08'});background:${isDark?'#111827':'#fff'};box-shadow:0 4px 24px rgba(0,0,0,${isDark?'0.4':'0.1'});overflow:hidden;"><div style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid rgba(${isDark?'255,255,255,0.08':'0,0,0,0.08'});background:${isDark?'rgba(31,41,55,0.5)':'#f9fafb'};"><span id="clp-ver" style="font-family:ui-monospace,monospace;font-size:11px;font-weight:600;color:#ea580c;"></span><button onclick="window._clClose()" aria-label="Close" style="width:20px;height:20px;border-radius:50%;background:${isDark?'#374151':'#e5e7eb'};border:none;cursor:pointer;font-size:10px;color:${isDark?'#9ca3af':'#6b7280'};line-height:1;flex-shrink:0;">&#x2715;</button></div><div style="padding:16px;display:flex;flex-direction:column;gap:10px;"><span id="clp-date" style="font-family:ui-monospace,monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:#9ca3af;"></span><div id="clp-title" style="font-family:ui-serif,Georgia,Cambria,serif;font-size:14px;font-style:italic;color:${isDark?'#f9fafb':'#111827'};line-height:1.4;"></div><p id="clp-desc" style="font-size:12px;color:${isDark?'#9ca3af':'#6b7280'};line-height:1.6;margin:0;"></p><button id="clp-link" onclick="if(window._clLinkTarget)window.location.href=window._clLinkTarget" style="display:none;font-family:ui-monospace,monospace;font-size:12px;color:#ea580c;background:none;border:none;padding:0;cursor:pointer;text-align:left;margin-top:2px;"></button></div></div>`;
     document.body.appendChild(p);
 
     window._clClose = () => {
@@ -203,7 +155,7 @@ export const openEntry = (el, data) => {
   document.getElementById('clp-title').textContent = data.title;
   document.getElementById('clp-desc').textContent = data.desc;
   const lnk = document.getElementById('clp-link');
-  if (data.link) { lnk.textContent = data.linkLabel + ' →'; lnk.style.display = 'block'; }
+  if (data.link) { lnk.textContent = data.linkLabel + ' \u2192'; lnk.style.display = 'block'; }
   else { lnk.style.display = 'none'; }
 };
 
