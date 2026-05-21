@@ -107,5 +107,10 @@
     "socials": {
       "github": "https://github.com/MariaC27/docs"
     }
-  }
+  },
+  "seo": {
+    "metatags": {
+        "canonical": "https://www.mariacristoforo.com"
+    }
+}
 }
