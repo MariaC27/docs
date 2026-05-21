@@ -13,7 +13,7 @@
 
 | File | Purpose |
 |------|---------|
-| `index.mdx` | Home/landing page (hero, metadata grid, prose with drop cap, pull quote, explore cards, changelog preview, featured work) |
+| `index.mdx` | Home/landing page (hero, metadata grid, prose with drop cap, explore cards, changelog preview, featured work) |
 | `about/skills.mdx` | API-style skills reference — ACTIVE / FLUENT / FAMILIAR badges, parameter tables |
 | `about/changelog.mdx` | Career history formatted as a software changelog — versioned entries, interactive click-to-expand |
 | `work/overview.mdx` | Case studies overview (mode: frame) |
@@ -42,13 +42,12 @@
 
 ## Magazine/editorial styling
 
-- Home page has an issue branding strip (mono uppercase + serif italic date)
 - `h1`: font-serif italic, `font-weight: 400`
 - Section headings (`h2`): subtle border-top rule for visual rhythm
 - Drop cap: `.portfolio-dropcap` — float-left, primary color, Instrument Serif italic
 - Pull quote: `border-l-2 portfolio-accent-border-l font-serif italic text-2xl`
 - Byline: `.portfolio-byline` — JetBrains Mono, small, with border-bottom rule
-- Page dividers: `— 001 —` mono centered
+- Home page has `<hr>` dividers between sections (no numbered labels)
 
 ## CSS utility classes (style.css)
 
@@ -75,7 +74,7 @@
 
 - Entries defined as `export const entries = [...]` array at top of file
 - Fields per entry: `version`, `date`, `title`, `sub` (optional subheading), `desc`, `link`, `linkLabel`
-- Rendered via `.map()` with click-to-expand detail panel (DOM portal pattern)
+- Rendered via `.map()` using native `<details>`/`<summary>` elements for inline expand/collapse
 - Font set via `.cl-title` CSS class (not Tailwind) to bypass prose wrapper
 
 ## Style preferences

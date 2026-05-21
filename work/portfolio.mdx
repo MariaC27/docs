@@ -9,18 +9,16 @@ sidebarTitle: "Portfolio"
 
 <h2 style={{borderTop: 'none', paddingTop: 0, marginTop: '2rem'}}>Idea and Reasoning</h2>
 
-When I first thought about making a new portfolio, I was a bit overwhelmed. Development cycles are incredibly fast now; anyone can quickly spin out a nice-looking landing page. I wanted and needed to demonstrate that my skills as a designer and engineer aren't something that can be replicated in minutes by an agent. That I'm still the one with the vision, the experience to break down implementation steps effectively, the judgment to use AI tools strategically and iterate on their output, and the sensibility to let the story behind a project shine through. In an age where anyone can create a sleek website quickly, the story and reasoning behind a design or site is what will set it apart.
+When I first thought about making a new portfolio, I was a bit overwhelmed. Now that anyone can quickly spin out a nice-looking landing page, I needed to show that my skills as a designer and engineer aren't something that can be replicated in minutes by an agent. I think that humans are still the ones with vision, the experience to break down implementation steps effectively, the judgment to use AI tools strategically, and the nuance to let the story behind a project shine through. These are the things that will set a design or site apart and I wanted to show that with my portfolio.
 
-With this in mind, one day I was standing on the train on the way to work and I thought: what if I turned a product documentation site into a "self" documentation site for my portfolio? I think that good docs often have a narrative aspect, telling a story about a product, much like a good portfolio tells a story about oneself. Helping people understand a product isn't so different from helping someone understand "me."
-
-At the core of this idea is a design question: how might we adapt a product documentation platform into a personal knowledge and identity platform? I wanted to find a different way to use Mintlify's tools to help understand a person, not just a product. If I could leverage Mintlify's strengths (which for this purpose, I saw as the intuitive organization system, agent-friendliness, and AI assistant) while personalizing with custom components, themes, and pages, I thought it would be a unique way to not only tell my story but also let the portfolio itself tell a story.
+One day I thought - what if I turned a product documentation site into a "self" documentation site for my portfolio? I think that good docs often have a narrative aspect, telling a story about a product, much like a good portfolio tells a story about oneself. Helping people understand a product isn't so different from helping someone understand "me."
 
 With this portfolio, I hope to show how I can adapt and build upon existing tools for a new purpose  - a story that a basic AI-generated website definitely doesn't have.
 
 ## Process & Prompts
 
 I'll be very upfront that I made this portfolio quickly with the strategic usage of AI tools, mostly Magic Patterns and Claude. I think this is the future of rapid shipping and design work, and would like to emphasize that even though much of the manual coding work and markdown setup was written
-by Claude, the overarching vision for the project and also the dozens of not hundreds of iterative edits afterwards are where human expertise and taste comes through.
+by Claude, the overarching vision for the project and also the iterative edits afterwards are where human expertise and taste comes through.
 
 I wrote a few large prompts to get things started, which are shown here, but I then took the output and continued to test and iterate, incorporating feedback, adding new features, and adjusting layouts and styling as I saw fit. I also asked for the initial scaffolds to be made
 only with mock data, and went back and populated my personal content afterwards.
@@ -68,11 +66,9 @@ A rough idea of how this work was spread out over a week or so. Also want to not
 
 ## Learnings and Pivots
 
-**Making the changelog interactive.** The original changelog was a static list. Added clickable rows that open with more information and a link to an external site where relevant. Originally implemented a custom floating detail panel but chose to revert this due to parsing errors and unecessary complexity.
-
 **Reducing sidebar sections.** Started with more sections than needed. Trimming and combining made the navigation feel more deliberate.
 
-**Replacing manual HTML with Mintlify components.** Partway through I realized I was writing a lot of custom div structures for things Mintlify already handles: `<Steps>`, `<Info>`, `<Tabs>`. Went back and replaced where it made sense.
+**Replacing manual HTML with Mintlify components.** Partway through I realized I was writing a lot of custom div structures for things Mintlify already handles: `<Steps>`, `<Info>`, `<Tabs>`, and the changelog. Went back and replaced where it made sense.
 
 **Storing structured content in arrays.** The changelog was originally a bunch of repeated divs. Refactored to store entries as a data array and map through them, much easier to update and extend.
 
