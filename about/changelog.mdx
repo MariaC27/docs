@@ -6,91 +6,78 @@ export const entries = [
   {
     version: "v3.3.0", date: "Winter 2026",
     title: "Began Medium blog series about design engineering",
-    sub: null,
-    desc: "Started publishing articles on Medium. Topics include AI's impact on the design process, the evolving role of the designers on small teams, case studies of my work.",
+    desc: "Started publishing articles on Medium. Topics include AI's impact on the design process, the evolving role of designers on small teams, and case studies of my work.",
     link: "https://medium.com/@maria_cristoforo", linkLabel: "View on Medium"
   },
   {
     version: "v3.2.0", date: "Fall 2025",
     title: "Shipped turn-based audio annotation canvas",
-    sub: null,
     desc: "Designed and built a new interface for annotating multi-speaker audio at Ocular.",
     link: "/work/turn-based-audio-annotation", linkLabel: "View case study"
   },
   {
     version: "v3.1.0", date: "Summer 2025",
     title: "Shipped redesigned image annotation canvas",
-    sub: null,
     desc: "Led full design and implementation process from user research and sketches to shipping production code.",
     link: "/work/canvas-annotation-revamp", linkLabel: "View case study"
   },
   {
     version: "v3.0.0", date: "Winter 2025",
     title: "Moved to SF, joined Ocular AI as a design engineer",
-    sub: "5-person team; designing and building features end-to-end",
     desc: "Operate at the intersection of product design and software engineering on this small fast-paced founding team. Take features from initial concept to full implementation on Ocular's data processing platforms.",
     link: null
   },
   {
     version: "v2.1.0", date: "Fall 2024",
     title: "Fullstack SWE at NoxuData",
-    sub: "3-person team; learning and shipping fast",
     desc: "Learned API design fundamentals, full-stack implementation process for new features, and shipped clean code on a large existing codebase. Reported directly to the two founders with technical contributions and product ideas.",
     link: null
   },
   {
     version: "v2.0.0", date: "Spring 2024",
     title: "Graduated Dartmouth, CS/Human-Centered Design",
-    sub: "Honors thesis on accessible development practices",
-    desc: "Took a breadth of classes from algorithms and software implementation to psychology, philosophy, and creative writing. Gained an appreciation for interdisciplinary thinking - applying insights from psychology and human-centered design to technical problem-solving, UX research and communication.",
+    desc: "Took a breadth of classes from algorithms and software implementation to psychology, philosophy, and creative writing. Gained an appreciation for interdisciplinary thinking and applying insights from psychology and human-centered design to technical problems. Wrote an honors thesis about accessible development practices.",
     link: null
   },
   {
     version: "v1.4.0", date: "Summer 2023",
     title: "Support Engineering internship at Atlassian",
-    sub: "Talk directly with customers, observe product friction areas",
     desc: "Talked directly with customers, debugged issues, and conducted user research. Got a sense of what product support looks like at scale and how to politely interact with customers and accept feedback.",
     link: null
   },
   {
     version: "v1.3.0", date: "Fall 2022",
     title: "First UI/UX design class at Dartmouth",
-    sub: "Later switched major to CS + Human-Centered Design",
     desc: "After JHU APL internship, made an effort to get involved in design opportunities at Dartmouth. Took several human-centered design classes, joined student Design Corps org, worked as a designer at DALI Lab.",
     link: null
   },
   {
     version: "v1.2.0", date: "Spring 2022",
     title: "SWE internship at JHU Applied Physics Lab",
-    sub: "Building visualization tools for global health data",
     desc: "Built data visualization tools for global health research at Johns Hopkins Applied Physics Lab. Auditing a legacy internal tool sparked an interest in UX that changed my career direction.",
     link: null
   },
   {
     version: "v1.1.0", date: "Summer 2021",
     title: "First startup internship, building company website",
-    sub: "Building a new version of the company website",
     desc: "Built the redesigned company website from scratch. First real experience working with a small startup team and shipping a customer-facing site.",
     link: null
   },
   {
     version: "v1.0.0", date: "Spring 2021",
     title: "Start design & development work at the DALI Lab",
-    sub: "Learned js for the first time via a student-taught mini course",
-    desc: "First learned web development and ui/ux design fundamentals through a student-taught mini course. Later became a full-stack software developer and designer working on small student teams. As a senior, mentored a group of first-year female students through Dartmouth Women in Science Program.",
+    desc: "First learned web development and UI/UX design fundamentals through a student-taught mini course. Later became a full-stack software developer and designer working on small student teams. As a senior, mentored a group of first-year female students through Dartmouth Women in Science Program.",
     link: null
   },
   {
     version: "v0.2.0", date: "Fall 2020",
     title: "Enrolled at Dartmouth College, CS + Math",
-    sub: null,
     desc: "Enrolled at Dartmouth College, initially studying Computer Science and Mathematics.",
     link: null
   },
   {
     version: "v0.1.0", date: "Spring 2017",
-    title: "First line of code - Java, FIRST Robotics Competition",
-    sub: null,
+    title: "First line of code — Java, FIRST Robotics Competition",
     desc: "First lines of code in Java, written for the FIRST Robotics Competition in high school.",
     link: null
   },
@@ -98,28 +85,10 @@ export const entries = [
 
 <p className="font-serif text-lg leading-relaxed text-gray-600 dark:text-gray-400 mb-8">A version history of my career, education, and growth as a designer & engineer.</p>
 
-<div className="flex flex-col gap-2 mt-6">
-  {entries.map((e) => (
-    <details key={e.version} className="cl-entry rounded-xl border border-gray-900/10 dark:border-gray-50/10 bg-white/60 dark:bg-gray-900/50 px-4 py-3 cursor-pointer">
-      <summary className="flex items-center justify-between gap-4">
-        <div className="flex items-center gap-3 min-w-0">
-          <Icon icon="chevron-right" size={14} className="cl-chevron shrink-0" />
-          <span className="font-mono text-xs font-medium portfolio-primary-text shrink-0">{e.version}</span>
-          <div className="flex flex-col gap-0.5 min-w-0">
-            <span className="cl-title truncate">{e.title}</span>
-            {e.sub && <span className="text-xs text-gray-400 dark:text-gray-500">{e.sub}</span>}
-          </div>
-        </div>
-        <span className="font-mono text-xs text-gray-600 dark:text-gray-300 shrink-0">{e.date}</span>
-      </summary>
-      <div className="mt-3 pt-3 border-t border-gray-900/10 dark:border-gray-50/10 flex flex-col gap-2">
-        <p className="text-xs text-gray-500 dark:text-gray-400 leading-relaxed m-0">{e.desc}</p>
-        {e.link && (
-          <div className="flex justify-end">
-            <a href={e.link} className="font-mono text-xs portfolio-primary-text">{e.linkLabel} →</a>
-          </div>
-        )}
-      </div>
-    </details>
-  ))}
-</div>
+{entries.map((e) => (
+  <Update key={e.version} label={e.version} description={e.date}>
+    <strong>{e.title}</strong>
+    <p>{e.desc}</p>
+    {e.link && <p><a href={e.link}>{e.linkLabel} →</a></p>}
+  </Update>
+))}

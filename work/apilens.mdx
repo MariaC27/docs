@@ -31,8 +31,6 @@ When endpoint docs are updated, it's hard to tell what exactly changed in the mo
 
 I'm a design engineer who works mostly with the frontend code. Oftentimes, when there is an update made to our api, it is hard for me to tell exactly what changed just from looking at our auto-generated endpoint documentation, which only shows the most recent version.
 
-With remote teammates in different time zones, it can be hard to get ahold of people to ask clarifying questions about handoffs. Previously, our backend engineers would compile tickets detailing endpoint changes, but these were time-consuming to create and still didn't have line-by-line visibility into the differences from the old version.
-
 Without an easy way to see differences, I often resorted to comparing old and new endpoint structures by eye, which was very inefficient. Another option was just to paste the entire new structure into an AI prompt, which worked but reduced my visibility and knowledge of what changed.
 
 ## The Need
@@ -51,7 +49,7 @@ Our team uses FastAPI, which already handles automatic openapi documentation upd
 
 I found a few existing tools which handle diffing the openapi json: openapi-diff and swagger-diff. However, it seems that both are focused on creating a good diff but aren't very user-friendly; users need to run script in terminal and manually paste in different json files, then take the html diff output and render it themselves for each comparison.
 
-At this point, I realized that the key differentiator of this project is not the idea of the api diff itself, it's about making the diff process user-friendly through versioning, automatically running workflows, and a user-friendly interface. I could even leverage the existing tools for the diffing logic, as my project would be focused on creating a good experience.
+At this point, I realized that the **key differentiator of this project is not the idea of the api diff itself, it's about making the diff process user-friendly** through versioning, automatically running workflows, and a user-friendly interface. I could even leverage the existing tools for the diffing logic, as my project would be focused on creating a good experience.
 
 ## V1 Implementation: Diffing Logic and PR Comment
 
@@ -69,10 +67,7 @@ General steps (implemented in a github actions workflow):
 
 ![An example of a PR comment](/images/apilens_study2_comment.png)
 
-**Implementation notes:**
-
-- I found that the existing package openapi-diff didn't provide enough detail; it doesn't show field-level changes in the json. So I built custom logic to compare the schemas
-- I initially wanted to run a workflow comparing any feature branch with the main branch. But while testing (before the changes are in main), I had to modify the logic to compare between two separate branches first without touching the main branch. Once everything had been tested, I then changed the comparison trigger back to the main branch right before merging.
+At this point, I found that the existing package openapi-diff didn't provide enough detail; it doesn't show field-level changes in the json. So I built custom logic to compare the schemas.
 
 ## V2 Implementation: Version Storage and Diff UI
 
