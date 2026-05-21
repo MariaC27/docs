@@ -2,9 +2,11 @@
 title: "Turn-Based Audio Annotation"
 ---
 
-<p className="font-serif text-lg leading-relaxed text-gray-600 dark:text-gray-400 mb-8">My "new" design process: sketches, prototyping, and iteration for a new annotation canvas as a design engineer at Ocular.</p>
+<p className="font-serif text-lg leading-relaxed text-gray-600 dark:text-gray-400 mb-8">My AI-assisted prototyping and iteration process for creating a new audio annotation canvas.</p>
 
 <div className="portfolio-byline">Maria Cristoforo · Feb 16, 2026 · 6 min read</div>
+
+A new interface for annotating multi-speaker audios, made by leveraging AI tools to get a prototype ASAP and then iterating from there.
 
 {/* IMAGE 1: "the new turn-based audio annotation canvas" */}
 ![The new turn-based audio annotation canvas](/images/audio_study1_blurred.png)
@@ -15,19 +17,15 @@ Previously, the Ocular platform had been set up for coordinate-based image and v
 
 ## Requirements
 
-The new annotation interface and edits to our platform would depend heavily on the kind of data and output that our partner company needed.
-
-We first had to discuss the timing and format of the annotations and the kind of data we were hoping to capture with them. Where on the audio would we actually "make" an annotation? Would it be for the entire audio or specific portions? If it was specific portions, would the user choose those themselves or would they be preset? What were the characteristics that needed to be captured and how could we best quantify them?
-
-In this case, according to our partner's requirements, the multi-speaker audio would be segmented into "turns." Each turn is composed of one instance of each speaker talking (turn = speaker 1 + speaker 2), capturing one back and forth exchange. Annotation would be done "by turn," so each turn would have standardized annotation data.
-
-For the amount of data we wanted to capture about each turn, we decided that a "rubric" structure would be most effective, allowing us to capture a variety of customizable metrics for the turns, which would each be annotated against the same rubric. Within the rubric, we hoped to capture tool call behavior, appropriateness and speed of the responses, and whether there were any misspoken or nonsensical elements of the responses, among other things.
+According to our client's requirements, the multi-speaker audio would be segmented into "turns." Each turn is composed of one instance of each speaker talking (turn = speaker 1 + speaker 2), capturing one back and forth exchange. Annotation would be done "by turn," so each turn should have standardized annotation data.
 
 ## Label Redesign
 
-First, the decision to use rubric-style annotation brought up the need for an interesting redesign of the label system on Ocular. For coordinate-based annotation, the "labels" only needed to be a single word which described to the user what the label should apply to. Each file would use multiple of these single-word labels as the users created annotations. But for this type of turn-based audio annotation, we now needed a flexible structure to capture multiple elements for the same "chunk" of the audio.
+We decided that a "rubric" structure would be most effective for the annotations, allowing us to capture a variety of metrics for each turn, including tool call behavior and appropriateness and speed of the responses.
 
-In the interest of having minimal edits to our backend models and routes, we decided to keep the format of having many possible "labels," except for audio labelling, only one label would be used at a time. The label would store an additional "form" attribute where multiple customizable elements could be added, including range, multi-select, boolean, and text formats. This way, we could keep the same label setup on the platform and backend, except conditionally use the "form" attribute for audio annotation projects.
+The decision to use rubric-style annotation brought up the need for an interesting redesign of the label system on Ocular. Instead of single-word labels, which worked well for coordinate-based annotation, we now needed a flexible structure to capture multiple elements in the same label.
+
+In the interest of having minimal edits to our backend models and routes, the label would just store an additional "form" attribute where multiple customizable elements could be added, including range, multi-select, boolean, and text formats. This way, we could keep the same label setup on the platform and backend, except conditionally use the "form" attribute for audio annotation projects.
 
 {/* IMAGE 2: "an early sketch of the new labelling system" */}
 ![An early sketch of the new labelling system](/images/audio_study2_sketch1.jpg)

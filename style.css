@@ -315,6 +315,24 @@ body:has([data-portfolio-index]) #sidebar a.nav-anchor[href='/'] svg {
   color: rgb(var(--primary));
 }
 
+/* ─── Card images — padding + matched border-radius ─────────────────────────── */
+
+[data-component-part="card-image"] {
+  height: 180px !important;
+  padding: 0.75rem 0.75rem 0 0.75rem !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+}
+
+[data-component-part="card-image"] img {
+  height: 100% !important;
+  width: 100% !important;
+  object-fit: contain !important;
+  border-radius: inherit !important;
+}
+
 /* ─── Card titles + content ─────────────────────────────────────────────────── */
 
 [data-component-part="card-title"] {
