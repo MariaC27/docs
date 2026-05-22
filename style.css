@@ -42,6 +42,18 @@ code, pre, kbd, samp,
   background: transparent !important;
 }
 
+/* ─── Navbar: hide labels on desktop, show in mobile dropdown ────────────────── */
+
+@media (min-width: 640px) {
+  a[href*="github.com/MariaC27"],
+  a[href*="linkedin.com/in/maria"],
+  a[href*="medium.com/@maria"],
+  a[href*="mailto:maria"] {
+    font-size: 0 !important;
+    overflow: hidden;
+  }
+}
+
 /* ─── Sidebar nav + TOC — reset to Inter ────────────────────────────────────── */
 
 #sidebar h1, #sidebar h2, #sidebar h3, #sidebar h4, #sidebar h5, #sidebar h6,

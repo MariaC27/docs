@@ -15,7 +15,7 @@ I will discuss assumptions, normalization methods, and limitations of the formul
 
 When I first began as a design engineer, I was once asked how I would attempt to model or quantify UX friction on an interface. I came up with a formula to attempt to capture this and shared it with my team, who immediately dubbed it the "Maria Coefficient." The name has stuck and we still occasionally bring it up today, not as something to explicitly calculate, but just as a reminder of things to keep in mind when designing and testing new interfaces.
 
-In this article, I will explain the components of the formula, assumptions and issues with it, and later improvements made. I also want to mention right away that I think the primary use of the coefficient is more as a conceptual reminder rather than a strict calculation. Interfaces are so varied that it's not possible for one formula to appropriately capture and quantify user interactions everywhere. The concept of having a coefficient at all is the main takeaway — a reminder of the many factors that go into making a user-friendly interface and what we should seek to minimize and maximize when designing user flows. However, I do think that the specifics of the formula make for a great article and discussion so here we are.
+I want to mention right away that I think the primary use of the coefficient is more as a conceptual reminder rather than a strict calculation. Interfaces are so varied that it's not possible for one formula to appropriately capture and quantify user interactions everywhere. The concept of having a coefficient at all is the main takeaway — a reminder of the many factors that go into making a user-friendly interface and what we should seek to minimize and maximize when designing user flows.
 
 ## Old/Original Formula
 
@@ -36,7 +36,7 @@ Here, UX friction = interaction cost (B) + time cost (T) + hesitation cost (B), 
 
 - The units are inconsistent — some numbers are in seconds and others are in clicks. Things need to be normalized or else one thing will dominate. Without normalization, time T dominates (ex. 120 seconds vs 3 clicks). What we actually want to capture is: how much slower was this task than it should have been? There are a few ways this could be addressed: normalizing T using the expected completion time (T / T_expected) or using "excess time" instead of raw time (T — T_expected).
 - Time before the first click isn't always bad; depending on the task, the user might be thinking and planning. So this formula only works in a "task flow" page where there's an end goal to accomplish ASAP, it's not good for research/learning interfaces, where longer time on the page may indicate more thoughtfulness.
-- In this version of the formula, everything is weighted equally. We could later add weights for tuning, if we want one element to carry more weight than another for a specific type of interface.
+- Everything is weighted equally. We could later add weights for tuning, if we want one element to carry more weight than another for a specific type of interface.
 
 ## Improvement 1: Component-Based Normalization
 
