@@ -30,18 +30,27 @@ mode: frame
       <div className="grid grid-cols-3 divide-x divide-gray-900/15 dark:divide-gray-50/15 py-4">
         <div className="flex flex-col gap-2 pr-6">
           <span className="font-mono text-[10px] font-medium uppercase tracking-widest text-gray-400 dark:text-gray-500">Location</span>
-          <span className="text-lg text-gray-900 dark:text-gray-50">San Francisco, CA</span>
+          <span className="text-lg text-gray-700 dark:text-gray-300">
+            <span className="sm:hidden">San Francisco</span>
+            <span className="hidden sm:inline">San Francisco, CA</span>
+          </span>
         </div>
         <div className="flex flex-col gap-2 px-6">
           <span className="font-mono text-[10px] font-medium uppercase tracking-widest text-gray-400 dark:text-gray-500">Status</span>
-          <span className="inline-flex items-center gap-2 text-lg text-gray-900 dark:text-gray-50">
-            <span className="h-2 w-2 rounded-full bg-green-500 shrink-0"></span>
-            Open to chat
+          <span className="inline-flex flex-wrap items-center text-lg text-gray-700 dark:text-gray-300">
+            <span className="whitespace-nowrap inline-flex items-center gap-2 mr-[0.25em]">
+              <span className="h-2 w-2 rounded-full bg-green-500 shrink-0"></span>
+              Open
+            </span>
+            to chat
           </span>
         </div>
         <div className="flex flex-col gap-2 pl-6">
-          <span className="font-mono text-[10px] font-medium uppercase tracking-widest text-gray-400 dark:text-gray-500">Currently building at</span>
-          <span className="text-lg text-gray-900 dark:text-gray-50">Ocular AI (YC W24)</span>
+        <span className="font-mono text-[10px] font-medium uppercase tracking-widest text-gray-400 dark:text-gray-500">
+          <span className="sm:hidden">Building at</span>
+          <span className="hidden sm:inline">Currently building at</span>
+        </span>
+          <span className="text-lg text-gray-700 dark:text-gray-300">Ocular AI (YC W24)</span>
         </div>
       </div>
       <div className="border-t border-gray-900/15 dark:border-gray-50/15" />
