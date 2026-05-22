@@ -78,22 +78,22 @@
   "navbar": {
     "links": [
       {
-        "label": "",
+        "label": "GitHub",
         "href": "https://github.com/MariaC27",
         "icon": "github"
       },
       {
-        "label": "",
+        "label": "LinkedIn",
         "href": "https://www.linkedin.com/in/maria-cristoforo/",
         "icon": "linkedin"
       },
       {
-        "label": "",
+        "label": "Medium",
         "href": "https://medium.com/@maria_cristoforo",
         "icon": { "name": "medium", "library": "fontawesome", "style": "brands" }
       },
       {
-        "label": "",
+        "label": "Email",
         "href": "mailto:maria.h.cristoforo@gmail.com",
         "icon": "mail"
       }
