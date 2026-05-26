@@ -3,7 +3,7 @@
 ### [https://mariacristoforo.com/](https://mariacristoforo.com/)
 
 
-Personal portfolio built on [Mintlify](https://mintlify.com). The idea: good docs tell a story about a product, much like a good portfolio tells a story about a person. This site uses Mintlify's organizational patterns, AI assistant, and agent-friendliness as a foundation, layered with custom components, styling, and content.
+Personal portfolio built on [Mintlify](https://mintlify.com). Uses Mintlify's organizational patterns and agent-friendliness as a foundation, layered with custom components, styling, and content.
 
 ## Structure
 
