@@ -1,19 +1,30 @@
 ---
-title: "GET /availability"
+title: "Availability"
 api: "GET /api/availability"
-description: "Returns current availability status and preferred contact method."
+description: "Check my availability and see how best to reach me."
 ---
 
-Returns current status and how best to get in touch.
-
-## Response
+<h2 style={{borderTop: 'none', paddingTop: 0, marginTop: '1.5rem'}}>Response</h2>
 
 <ResponseField name="status" type="string">
   Current availability. One of: `open_to_chat`, `unavailable`.
 </ResponseField>
 
+<ResponseField name="windows" type="object[]">
+  When I'm free to chat or take a call. Each entry covers a specific day range and time window.
+
+  <Expandable title="window object">
+    <ResponseField name="days" type="string">
+      Day range (e.g. `Monday–Friday`, `Saturday`).
+    </ResponseField>
+    <ResponseField name="hours" type="string">
+      Time window in PT (e.g. `12–1pm PT`, `after 5pm PT`).
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
 <ResponseField name="preferred_contact" type="string">
-  Preferred contact method. Currently `email`.
+  Preferred contact method. One of: `email`, `phone`, `linkedin`.
 </ResponseField>
 
 <ResponseField name="email" type="string">

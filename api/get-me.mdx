@@ -1,19 +1,17 @@
 ---
-title: "GET /me"
+title: "Profile"
 api: "GET /api/me"
-description: "Returns core profile information."
+description: "View my current role, location, and relevant links."
 ---
 
-Returns name, title, location, current status, and links. The root resource.
-
-## Response
+<h2 style={{borderTop: 'none', paddingTop: 0, marginTop: '1.5rem'}}>Response</h2>
 
 <ResponseField name="name" type="string">
   Full name.
 </ResponseField>
 
 <ResponseField name="title" type="string">
-  Current role or description.
+  Current role.
 </ResponseField>
 
 <ResponseField name="location" type="string">
@@ -25,7 +23,7 @@ Returns name, title, location, current status, and links. The root resource.
 </ResponseField>
 
 <ResponseField name="status" type="string">
-  Availability status. Currently `open_to_chat`.
+  Availability status. One of: `open_to_chat`, `unavailable`.
 </ResponseField>
 
 <ResponseField name="currently_at" type="string">
@@ -33,5 +31,5 @@ Returns name, title, location, current status, and links. The root resource.
 </ResponseField>
 
 <ResponseField name="links" type="object">
-  Object containing `portfolio`, `github`, `linkedin`, and `email` URLs.
+  Object containing `portfolio`, `github`, `linkedin`, and `email`.
 </ResponseField>

@@ -1,14 +1,10 @@
 ---
-title: "POST /hire"
+title: "Hire"
 api: "POST /api/hire"
-description: "Submit a role. Returns a match evaluation."
+description: "Send a role and get back a match evaluation."
 ---
 
-Submit a role or opportunity. Returns a match score and fit notes based on background and skills.
-
-Note: responses are static — this is a portfolio, not a live matching system. But the email is real.
-
-## Body
+<h2 style={{borderTop: 'none', paddingTop: 0, marginTop: '1.5rem'}}>Body</h2>
 
 <ParamField body="role" type="string" required>
   The role or position title.
@@ -22,7 +18,7 @@ Note: responses are static — this is a portfolio, not a live matching system. 
   Additional context about the role or what you're looking for (optional).
 </ParamField>
 
-## Response
+<h2 style={{borderTop: 'none', paddingTop: 0, marginTop: '1.5rem'}}>Response</h2>
 
 <ResponseField name="match" type="boolean">
   Whether there's a likely fit.

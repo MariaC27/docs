@@ -1,14 +1,10 @@
 ---
-title: "GET /skills"
+title: "Skills"
 api: "GET /api/skills"
-description: "Returns the full skills list. Filterable by proficiency level or category."
+description: "See my skills, filterable by proficiency level or category. For the full reference, see the [Skills page](/about/skills)."
 ---
 
-Returns all 15 skills with proficiency levels, categories, and experience data. Use the optional query parameters to filter.
-
-For the full human-readable reference including context and usage notes, see the [Skills page](/about/skills).
-
-## Query Parameters
+<h2 style={{borderTop: 'none', paddingTop: 0, marginTop: '1.5rem'}}>Query Parameters</h2>
 
 <ParamField query="proficiency" type="string">
   Filter by proficiency level. One of: `active`, `fluent`, `familiar`.
@@ -18,7 +14,7 @@ For the full human-readable reference including context and usage notes, see the
   Filter by category. One of: `development`, `design`, `workflows`.
 </ParamField>
 
-## Response
+<h2 style={{borderTop: 'none', paddingTop: 0, marginTop: '1.5rem'}}>Response</h2>
 
 <ResponseField name="count" type="number">
   Number of skills returned (after any filtering).
