@@ -85,9 +85,9 @@
         "pages": [
           "api/get-me",
           "api/get-skills",
-          "api/get-work",
           "api/get-availability",
-          "api/post-hire"
+          "api/post-hire",
+          "api/post-contact"
         ]
       }
     ]
