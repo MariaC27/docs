@@ -27,6 +27,15 @@
   "contextual": {
     "options": ["copy", "view", "assistant", "mcp", "add-mcp"]
   },
+  "api": {
+    "mdx": {
+      "server": "https://maria-api.vercel.app"
+    },
+    "playground": {
+      "display": "interactive",
+      "proxy": false
+    }
+  },
   "navigation": {
     "global": {
       "anchors": [
@@ -67,6 +76,18 @@
           "writing/overview",
           "writing/the-design-process-shift",
           "writing/ux-friction-coefficient"
+        ]
+      },
+      {
+        "group": "API Reference",
+        "icon": "terminal",
+        "expanded": true,
+        "pages": [
+          "api/get-me",
+          "api/get-skills",
+          "api/get-work",
+          "api/get-availability",
+          "api/post-hire"
         ]
       }
     ]

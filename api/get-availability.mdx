@@ -1,0 +1,29 @@
+---
+title: "GET /availability"
+api: "GET /api/availability"
+description: "Returns current availability status and preferred contact method."
+---
+
+Returns current status and how best to get in touch.
+
+## Response
+
+<ResponseField name="status" type="string">
+  Current availability. One of: `open_to_chat`, `unavailable`.
+</ResponseField>
+
+<ResponseField name="preferred_contact" type="string">
+  Preferred contact method. Currently `email`.
+</ResponseField>
+
+<ResponseField name="email" type="string">
+  Email address for outreach.
+</ResponseField>
+
+<ResponseField name="response_time" type="string">
+  Typical response time.
+</ResponseField>
+
+<ResponseField name="note" type="string">
+  Context on what kinds of conversations are welcome.
+</ResponseField>

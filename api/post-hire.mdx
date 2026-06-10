@@ -1,0 +1,41 @@
+---
+title: "POST /hire"
+api: "POST /api/hire"
+description: "Submit a role. Returns a match evaluation."
+---
+
+Submit a role or opportunity. Returns a match score and fit notes based on background and skills.
+
+Note: responses are static — this is a portfolio, not a live matching system. But the email is real.
+
+## Body
+
+<ParamField body="role" type="string" required>
+  The role or position title.
+</ParamField>
+
+<ParamField body="team" type="string">
+  Team name or org context (optional).
+</ParamField>
+
+<ParamField body="description" type="string">
+  Additional context about the role or what you're looking for (optional).
+</ParamField>
+
+## Response
+
+<ResponseField name="match" type="boolean">
+  Whether there's a likely fit.
+</ResponseField>
+
+<ResponseField name="score" type="number">
+  Match score from 0 to 1.
+</ResponseField>
+
+<ResponseField name="fit_notes" type="array">
+  Array of strings explaining the match reasoning.
+</ResponseField>
+
+<ResponseField name="next_step" type="string">
+  How to follow up.
+</ResponseField>

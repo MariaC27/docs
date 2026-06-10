@@ -1,0 +1,35 @@
+---
+title: "GET /work"
+api: "GET /api/work"
+description: "Returns case studies with titles, descriptions, links, and tags."
+---
+
+Returns all case studies. For full write-ups, follow the `url` field in each object or browse [Case Studies](/work/overview).
+
+## Response
+
+<ResponseField name="count" type="number">
+  Number of case studies returned.
+</ResponseField>
+
+<ResponseField name="data" type="array">
+  Array of work objects.
+
+  <Expandable title="work object">
+    <ResponseField name="id" type="string">
+      Slug identifier (e.g. `apilens`).
+    </ResponseField>
+    <ResponseField name="title" type="string">
+      Project title.
+    </ResponseField>
+    <ResponseField name="description" type="string">
+      One-sentence summary.
+    </ResponseField>
+    <ResponseField name="url" type="string">
+      Link to the full case study.
+    </ResponseField>
+    <ResponseField name="tags" type="array">
+      Array of tag strings describing the work.
+    </ResponseField>
+  </Expandable>
+</ResponseField>

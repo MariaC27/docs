@@ -1,0 +1,37 @@
+---
+title: "GET /me"
+api: "GET /api/me"
+description: "Returns core profile information."
+---
+
+Returns name, title, location, current status, and links. The root resource.
+
+## Response
+
+<ResponseField name="name" type="string">
+  Full name.
+</ResponseField>
+
+<ResponseField name="title" type="string">
+  Current role or description.
+</ResponseField>
+
+<ResponseField name="location" type="string">
+  Current city.
+</ResponseField>
+
+<ResponseField name="bio" type="string">
+  One-line description.
+</ResponseField>
+
+<ResponseField name="status" type="string">
+  Availability status. Currently `open_to_chat`.
+</ResponseField>
+
+<ResponseField name="currently_at" type="string">
+  Current employer or project.
+</ResponseField>
+
+<ResponseField name="links" type="object">
+  Object containing `portfolio`, `github`, `linkedin`, and `email` URLs.
+</ResponseField>
