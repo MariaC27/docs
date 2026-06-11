@@ -1,0 +1,37 @@
+---
+title: "Hire"
+api: "POST /api/hire"
+description: "Send a role and get back a match evaluation."
+---
+
+<h2 style={{borderTop: 'none', paddingTop: 0, marginTop: '1.5rem'}}>Body</h2>
+
+<ParamField body="role" type="string" required>
+  The role or position title.
+</ParamField>
+
+<ParamField body="team" type="string">
+  Team name or org context (optional).
+</ParamField>
+
+<ParamField body="description" type="string">
+  Additional context about the role or what you're looking for (optional).
+</ParamField>
+
+<h2 style={{borderTop: 'none', paddingTop: 0, marginTop: '1.5rem'}}>Response</h2>
+
+<ResponseField name="match" type="boolean">
+  Whether there's a likely fit.
+</ResponseField>
+
+<ResponseField name="score" type="number">
+  Match score from 0 to 1.
+</ResponseField>
+
+<ResponseField name="fit_notes" type="array">
+  Array of strings explaining the match reasoning.
+</ResponseField>
+
+<ResponseField name="next_step" type="string">
+  How to follow up.
+</ResponseField>

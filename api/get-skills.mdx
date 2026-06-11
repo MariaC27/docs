@@ -1,0 +1,43 @@
+---
+title: "Skills"
+api: "GET /api/skills"
+description: "See my skills, filterable by proficiency level or category. For the full reference, see the [Skills page](/about/skills)."
+---
+
+<h2 style={{borderTop: 'none', paddingTop: 0, marginTop: '1.5rem'}}>Query Parameters</h2>
+
+<ParamField query="proficiency" type="string">
+  Filter by proficiency level. One of: `active`, `fluent`, `familiar`.
+</ParamField>
+
+<ParamField query="category" type="string">
+  Filter by category. One of: `development`, `design`, `workflows`.
+</ParamField>
+
+<h2 style={{borderTop: 'none', paddingTop: 0, marginTop: '1.5rem'}}>Response</h2>
+
+<ResponseField name="count" type="number">
+  Number of skills returned (after any filtering).
+</ResponseField>
+
+<ResponseField name="data" type="array">
+  Array of skill objects.
+
+  <Expandable title="skill object">
+    <ResponseField name="id" type="string">
+      Skill identifier (e.g. `typescript`, `ux-research`).
+    </ResponseField>
+    <ResponseField name="category" type="string">
+      One of: `development`, `design`, `workflows`.
+    </ResponseField>
+    <ResponseField name="proficiency" type="string">
+      One of: `active`, `fluent`, `familiar`.
+    </ResponseField>
+    <ResponseField name="years_experience" type="number">
+      Years of experience with this skill.
+    </ResponseField>
+    <ResponseField name="last_used" type="string">
+      When last used. `"now"` for currently active skills, or a year string.
+    </ResponseField>
+  </Expandable>
+</ResponseField>

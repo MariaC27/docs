@@ -1,0 +1,33 @@
+---
+title: "Work"
+api: "GET /api/work"
+description: "Explore case studies of my work."
+---
+
+<h2 style={{borderTop: 'none', paddingTop: 0, marginTop: '1.5rem'}}>Response</h2>
+
+<ResponseField name="count" type="number">
+  Number of case studies returned.
+</ResponseField>
+
+<ResponseField name="data" type="array">
+  Array of work objects.
+
+  <Expandable title="work object">
+    <ResponseField name="id" type="string">
+      Slug identifier (e.g. `apilens`).
+    </ResponseField>
+    <ResponseField name="title" type="string">
+      Project title.
+    </ResponseField>
+    <ResponseField name="description" type="string">
+      One-sentence summary.
+    </ResponseField>
+    <ResponseField name="url" type="string">
+      Link to the full case study.
+    </ResponseField>
+    <ResponseField name="tags" type="array">
+      Array of tag strings describing the work.
+    </ResponseField>
+  </Expandable>
+</ResponseField>

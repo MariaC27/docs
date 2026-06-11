@@ -1,0 +1,33 @@
+---
+title: "Contact"
+api: "POST /api/contact"
+description: "Send me a message! I'll get an email and reply asap."
+---
+
+<h2 style={{borderTop: 'none', paddingTop: 0, marginTop: '1.5rem'}}>Body</h2>
+
+<ParamField body="name" type="string">
+  Your name (optional).
+</ParamField>
+
+<ParamField body="email" type="string" required>
+  Your email address. I'll reply here.
+</ParamField>
+
+<ParamField body="subject" type="string" required>
+  What it's about.
+</ParamField>
+
+<ParamField body="message" type="string" required>
+  Your message.
+</ParamField>
+
+<h2 style={{borderTop: 'none', paddingTop: 0, marginTop: '1.5rem'}}>Response</h2>
+
+<ResponseField name="received" type="boolean">
+  Whether the message was successfully sent.
+</ResponseField>
+
+<ResponseField name="message" type="string">
+  Confirmation note.
+</ResponseField>
