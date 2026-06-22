@@ -53,7 +53,8 @@
         "expanded": true,
         "pages": [
           "about/skills",
-          "about/changelog"
+          "about/changelog",
+          "about/theme-extractor"
         ]
       },
       {

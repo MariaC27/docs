@@ -1,0 +1,61 @@
+---
+title: "Design System Import"
+sidebarTitle: "Design System Import"
+---
+
+<p className="text-lg leading-relaxed text-gray-600 dark:text-gray-400 mb-8">An experimental tool to extract the UI features from any website and preview them applied to this site.</p>
+
+<div className="portfolio-byline">Maria Cristoforo · June 2026 · 4 min read</div>
+
+<h2 style={{borderTop: 'none', paddingTop: 0, marginTop: '2rem'}}>The Idea</h2>
+
+Configuring a Mintlify theme to match your brand requires a few manual steps: inspect your existing site, identify the primary color and font choices, then update `docs.json` and `style.css` to match. It's not hard, but it's tedious. What if you could just paste in a URL?
+
+
+<h2 style={{borderTop: 'none', paddingTop: 0, marginTop: '2rem'}}>The Pipeline</h2>
+
+Point the tool at your marketing site, your app, or any reference URL. It fetches the HTML and stylesheets, filters the CSS down to the rules that actually matter (custom properties, color declarations, font families), sends those through Claude Haiku, and gets back structured design tokens. Then it generates the `docs.json` patch and the `style.css` snippet you'd need to apply them, plus a live preview that applies the extracted theme to a mockup of this portfolio.
+
+
+<h2 style={{borderTop: 'none', paddingTop: 0, marginTop: '2rem'}}>Try It</h2>
+
+Enter any website URL and click Extract. Results will vary — some sites expose their colors cleanly through CSS custom properties, others bury them in compiled stylesheets or only use them in SVG logos. The tool shows the colors, fonts, and the `docs.json` patch it extracted. Click **View full preview** to open a new tab with a mockup of this portfolio rendered in the extracted theme.
+
+<iframe
+  src="https://maria-api.vercel.app/extractor"
+  width="100%"
+  height="420px"
+  style={{border: 'none', borderRadius: '12px', overflow: 'hidden'}}
+/>
+
+A few URLs worth trying: `stripe.com`, `linear.app`, `vercel.com`, `notion.so`.
+
+<h2 style={{borderTop: 'none', paddingTop: 0, marginTop: '2rem'}}>As a Mintlify Workflow</h2>
+
+This demo runs as a standalone API + HTML page, but this could also be a Mintlify Workflow where users specify 
+a target site, repo, or Figma file, then test and apply the extracted styles to their site.
+
+<Steps>
+  <Step title="Fetch and analyze">
+    A Mintlify Agent fetches the URL, extracts CSS tokens, and calls a model to normalize them into structured design tokens.
+  </Step>
+  <Step title="Generate a PR">
+    The agent opens a pull request against the user's docs repo with the updated `docs.json` colors and background config, plus a `style.css` font override block.
+  </Step>
+  <Step title="Preview in the dashboard">
+    The Mintlify dashboard shows a live preview of how the docs site would look with the new theme applied — before the PR is merged.
+  </Step>
+  <Step title="Merge and ship">
+    User reviews the diff, merges the PR, and the theme is live. No manual color-picking, no trial and error.
+  </Step>
+</Steps>
+
+<h2 style={{borderTop: 'none', paddingTop: 0, marginTop: '2rem'}}>What's Next</h2>
+
+**Figma Variables API.** For teams that have a formal design system, Figma Variables would be a higher-fidelity source than web scraping. The same pipeline could accept a Figma file URL + API key and pull tokens directly from the variables: exact color values, semantic aliases, and mode overrides for light/dark.
+
+**Multi-page analysis.** Right now the tool only looks at one URL. A more accurate extraction would fetch the homepage, a few interior pages, and the marketing site then take the union of all token declarations to build a more complete picture of the brand's actual color palette.
+
+**A standard for agent-readable design systems.** The deeper problem this tool exposes is that there's no established way for a website to declare its own visual identity in a machine-readable format. We have `robots.txt` for crawlers and `sitemap.xml` for search engines but nothing equivalent for design. A `tokens.json` published at a well-known URL could fill that gap: a site declares its primary color, background, typography, border radius, and anything else needed to faithfully reproduce its look. Any tool — a docs platform, an AI agent, a third-party integration — could fetch it and apply the theme without scraping or guessing.
+
+This would be a new web standard, not just a tooling convention. The W3C Design Tokens Community Group has defined a token format, but it's scoped to design tool pipelines (Figma → code) — no one is publishing these files on live production sites for external consumption. As agent-friendly web becomes more of a real concept, visual identity is a natural next layer after content. 
