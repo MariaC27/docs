@@ -1,0 +1,30 @@
+# Maria Cristoforo
+
+> Based in San Francisco, working at the intersection of design and engineering — owning features end-to-end on small, fast-moving teams. Background in computer science and human-centered design, with interests in psychology and writing. Believes storytelling, user empathy, and intentional human-made decisions are what set great interfaces apart. Currently a Design Engineer at Ocular AI (YC W24). This site is a personal portfolio built on Mintlify, exploring how a product-docs platform can be adapted for personal identity and knowledge.
+
+## About
+
+- [Skills API](/about/skills): API-style reference of capabilities across development, design, and workflows with proficiency levels (Active / Fluent / Familiar)
+- [Changelog](/about/changelog): Career history as versioned software releases, v0.1.0 (2017) through v3.3.0 (2026)
+
+## Case Studies
+
+- [Overview](/work/overview): Summary of selected work
+- [Canvas Annotation Revamp](/work/canvas-annotation-revamp): Redesigning the primary annotation tool used by client teams, balancing speed, precision, and cognitive load
+- [Turn-Based Audio Annotation](/work/turn-based-audio-annotation): Introducing a structured turn-based annotation model to reduce ambiguity in conversational audio annotation
+- [ApiLens](/work/apilens): Developer tool for versioning and comparing API specs and surfacing changes across versions
+- [This Portfolio](/work/portfolio): The portfolio itself — built on Mintlify to demonstrate platform understanding and creative subversion of it
+
+## Writing
+
+- [Overview](/writing/overview): Selected essays and articles
+- [The Design Process Shift](/writing/the-design-process-shift): How the design process has changed with the advent of AI tools
+- [UX Friction Coefficient](/writing/ux-friction-coefficient): A framework for treating product friction as an intentional design variable
+
+## API Reference
+
+- [GET /me](/api/get-me): Returns profile and identity information
+- [GET /skills](/api/get-skills): Returns skills with proficiency levels and metadata
+- [GET /availability](/api/get-availability): Returns current availability status
+- [POST /hire](/api/post-hire): Submit a hire inquiry
+- [POST /contact](/api/post-contact): Send a contact message
