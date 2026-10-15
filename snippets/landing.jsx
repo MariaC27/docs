@@ -7,7 +7,7 @@ export const Landing = () => {
   const STOPS = [
     { t: 'job', ghost: '2025', title: 'Design engineer at Ocular AI', start: 'Winter 2025', end: 'Now', bar: 'long',
       desc: 'Moved to SF to join Ocular AI (YC W24). I take features from first concept to full implementation on a five-person team, reporting to the founders.' },
-    { t: 'proj', ghost: '01', title: 'ApiLens', meta: 'Open source', img: 'APILENS PREVIEW IMAGE',
+    { t: 'proj', title: 'ApiLens', meta: 'Open source', img: 'APILENS PREVIEW IMAGE',
       desc: 'A versioning and visual diff tool for OpenAPI specs. It snapshots the spec on each merge to main and shows color-coded, field-level diffs.',
       outcome: 'Published to PyPI as openapi-lens.',
       links: [
@@ -15,11 +15,11 @@ export const Landing = () => {
         { label: 'GitHub', href: 'https://github.com/MariaC27/api-lens' },
         { label: 'PyPI', href: 'https://pypi.org/project/openapi-lens/' },
       ] },
-    { t: 'proj', ghost: '02', title: 'Turn-Based Audio Annotation', meta: 'Late 2025 to early 2026', img: 'AUDIO ANNOTATION PREVIEW IMAGE',
+    { t: 'proj', title: 'Turn-Based Audio Annotation', meta: 'Late 2025 to early 2026', img: 'AUDIO ANNOTATION PREVIEW IMAGE',
       desc: 'A new interface for annotating multi-speaker audio. Each turn is a row with its transcript and rubric fields, tied to a full-width waveform.',
       outcome: 'Prototyped with AI tools, validated with the partner, then built for production.',
       links: [{ label: 'Read the case study', href: '/work/turn-based-audio-annotation' }] },
-    { t: 'proj', ghost: '03', title: 'Canvas & Annotation Revamp', meta: 'At Ocular AI', img: 'CANVAS PREVIEW IMAGE',
+    { t: 'proj', title: 'Canvas & Annotation Revamp', meta: 'At Ocular AI', img: 'CANVAS PREVIEW IMAGE',
       desc: "A full redesign of Ocular's image annotation canvas. I ran the research, worked through 8+ wireframe iterations in Figma, and built it.",
       outcome: 'Held up for over a year as the canvas expanded to other modalities.',
       links: [{ label: 'Read the case study', href: '/work/canvas-annotation-revamp' }] },
@@ -96,6 +96,8 @@ export const Landing = () => {
       work: <><path d="M12 3l9 5-9 5-9-5 9-5z" /><path d="M3 13l9 5 9-5" /></>,
       writing: <><path d="M4 20l1-5L16 4l4 4L9 19l-5 1z" /><path d="M14 6l4 4" /></>,
       api: <><path d="M8 7l-5 5 5 5" /><path d="M16 7l5 5-5 5" /></>,
+      sun: <><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" /></>,
+      moon: <><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" /></>,
     };
     return (
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -157,6 +159,25 @@ export const Landing = () => {
 
   const [mode, setMode] = useState('all');
   const [open, setOpen] = useState(false);
+  const [dark, setDark] = useState(false);
+
+  // Mintlify's navbar (and its theme switch) is hidden here, so the rail carries one.
+  // It clicks Mintlify's own toggle, which stays in the page, so the choice persists site-wide.
+  useEffect(() => {
+    const html = document.documentElement;
+    const sync = () => setDark(html.classList.contains('dark'));
+    sync();
+    const mo = new MutationObserver(sync);
+    mo.observe(html, { attributes: true, attributeFilter: ['class'] });
+    return () => mo.disconnect();
+  }, []);
+  const flipTheme = () => {
+    const native = document.querySelector('button[aria-label="Toggle dark mode"]');
+    if (native) { native.click(); return; }
+    const next = !document.documentElement.classList.contains('dark');
+    document.documentElement.classList.toggle('dark', next);
+    try { localStorage.setItem('isDarkMode', next ? 'dark' : 'light'); } catch (e) { /* storage blocked */ }
+  };
   const [ps, setPs] = useState([]);
   const rowsRef = useRef([]);
   const pageRef = useRef(null);
@@ -164,35 +185,46 @@ export const Landing = () => {
   const mainRef = useRef(null);
   const stoneRef = useRef(null);
   const heroTextRef = useRef(null);
-  const nowRef = useRef(null);
-  const [headwater, setHeadwater] = useState(null);
+  const [waters, setWaters] = useState(null);
 
-  // Headwater: a faint river from the photo, meandering down behind the hero text
-  // to the timeline's "Now" dot. Measured, so it follows the layout.
+  // Waterways, measured so they follow the layout and the filter:
+  // headwater: a faint river from the photo, meandering behind the hero text into the timeline;
+  // tailwater: where the timeline ends, the river meanders on and fades out.
   useEffect(() => {
     const trace = () => {
-      const main = mainRef.current, stone = stoneRef.current, text = heroTextRef.current, now = nowRef.current;
-      if (!main || !stone || !text || !now) return;
+      const main = mainRef.current, stone = stoneRef.current, text = heroTextRef.current;
+      const visible = rowsRef.current.filter((el) => el && el.offsetHeight);
+      if (!main || !stone || !text || !visible.length) return;
       const m = main.getBoundingClientRect();
-      const st = stone.getBoundingClientRect(), tx = text.getBoundingClientRect(), nw = now.getBoundingClientRect();
-      const px = st.left + st.width / 2 - m.left, py = st.top + st.height / 2 - m.top;
-      const nx = nw.left + nw.width / 2 - m.left, ny = nw.top + nw.height / 2 - m.top;
-      const mx = tx.left - m.left + tx.width * 0.5;     // mid-column of the hero text
+      const rel = (r) => ({ l: r.left - m.left, t: r.top - m.top, w: r.width, h: r.height });
+      const st = rel(stone.getBoundingClientRect()), tx = rel(text.getBoundingClientRect());
+      const first = rel(visible[0].querySelector('.rv-river').getBoundingClientRect());
+      const last = rel(visible[visible.length - 1].querySelector('.rv-river').getBoundingClientRect());
+
+      const px = st.l + st.w / 2, py = st.t + st.h / 2;
+      const nx = first.l + first.w / 2, ny = first.t;
+      const mx = tx.l + tx.w * 0.5;                        // mid-column of the hero text
       // Below the hero text, or below the pond when it stacks under the text (narrower screens)
-      const lake = lakeRef.current ? lakeRef.current.getBoundingClientRect() : null;
-      const low = (lake && lake.top > tx.bottom ? lake.bottom : tx.bottom + 40) - m.top;
+      const lake = lakeRef.current ? rel(lakeRef.current.getBoundingClientRect()) : null;
+      const low = lake && lake.t > tx.t + tx.h ? lake.t + lake.h : tx.t + tx.h + 40;
       const midY = (py + low) / 2;
-      const d = `M${px},${py} C${px + 10},${py + 90} ${mx - 170},${midY - 80} ${mx},${midY} ` +
+      const head = `M${px},${py} C${px + 10},${py + 90} ${mx - 170},${midY - 80} ${mx},${midY} ` +
         `S${mx + 50},${low - 30} ${(mx + nx) / 2},${low + 40} ` +
         `S${nx},${ny - 130} ${nx},${ny}`;
-      setHeadwater({ d, h: ny + 4 });
+
+      const lx = last.l + last.w / 2, ly = last.t + last.h;
+      const cx = lx - 10, cy = ly + 170;                  // where it has faded away, above the footer
+      const ty = (ly + cy) / 2;
+      const tail = `M${lx},${ly} C${lx},${ly + 50} ${lx + 40},${ty - 35} ${lx + 30},${ty} ` +
+        `S${cx},${cy - 50} ${cx},${cy}`;
+      setWaters({ head, tail, from: [lx, ly], to: [cx, cy], h: main.scrollHeight });
     };
     trace();
     const late = [setTimeout(trace, 400), setTimeout(trace, 1400)];
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(trace);
     window.addEventListener('resize', trace);
     return () => { late.forEach(clearTimeout); window.removeEventListener('resize', trace); };
-  }, []);
+  }, [mode]);
   const [drops, setDrops] = useState([]);
 
   // Pond: pads drift away from the pointer.
@@ -219,13 +251,52 @@ export const Landing = () => {
   };
   // Any press on the page drops a ripple where it lands.
   const drop = (e) => {
+    if (calm()) return;
+    ripple(e.clientX, e.clientY, false);
+  };
+  const ripple = (clientX, clientY, soft) => {
     const root = pageRef.current;
-    if (!root || calm()) return;
+    if (!root) return;
     const box = root.getBoundingClientRect();
     const id = `${Date.now()}-${Math.random()}`;
-    setDrops((d) => [...d.slice(-5), { id, x: e.clientX - box.left, y: e.clientY - box.top }]);
-    setTimeout(() => setDrops((d) => d.filter((q) => q.id !== id)), 1800);
+    setDrops((d) => [...d.slice(-7), { id, soft, x: clientX - box.left, y: clientY - box.top }]);
+    setTimeout(() => setDrops((d) => d.filter((q) => q.id !== id)), soft ? 2800 : 1800);
   };
+
+  // Ambient ripples: every few seconds a faint ring rises somewhere in open water (never on text).
+  useEffect(() => {
+    const WATER = '.rv, .rv-main, .rv-hero, .rv-hero-inner, .rv-body, .rv-wrap, .rv-reach, .rv-ghost, .rv-lake, .rv-footer';
+    let timer;
+    const rise = () => {
+      if (!calm() && !document.hidden) {
+        for (let tries = 0; tries < 8; tries++) {
+          const x = Math.random() * window.innerWidth, y = Math.random() * window.innerHeight;
+          const el = document.elementFromPoint(x, y);
+          if (el && el.closest('.rv') && el.matches(WATER)) { ripple(x, y, true); break; }
+        }
+      }
+      timer = setTimeout(rise, 3500 + Math.random() * 3500);
+    };
+    timer = setTimeout(rise, 2500);
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Pads bob as they come into view, as if the current just reached them.
+  useEffect(() => {
+    const root = pageRef.current;
+    if (!root || !window.IntersectionObserver) return;
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((en) => {
+        if (!en.isIntersecting || calm()) return;
+        const slot = en.target;
+        slot.classList.remove('rv-bob');
+        void slot.offsetWidth;                // restart the animation
+        slot.classList.add('rv-bob');
+      });
+    }, { threshold: 0.6 });
+    root.querySelectorAll('.rv-slot').forEach((el) => io.observe(el));
+    return () => io.disconnect();
+  }, []);
 
   useEffect(() => {
     let raf = 0;
@@ -234,14 +305,18 @@ export const Landing = () => {
       if (!root) return;
       const vh = window.innerHeight;
       const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      // When the page can't scroll, show everything fully drawn.
-      const still = reduce || root.getBoundingClientRect().height <= vh + 40;
-      const line = vh * 0.7;
+      // When the page can't scroll, or there's nothing left to scroll, show everything fully drawn.
+      const atEnd = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4;
+      const still = reduce || atEnd || root.getBoundingClientRect().height <= vh + 40;
+      // The river draws to just past the bottom edge, so it always runs off the screen;
+      // cards fade in a little earlier, once their middle passes 85% of the viewport.
+      const riverLine = vh + 40, cardLine = vh * 0.85;
+      const prog = (line, r) => Math.round(Math.max(0, Math.min(1, (line - r.top) / r.height)) * 100) / 100;
       const next = STOPS.map((_, i) => {
         const el = rowsRef.current[i];
         const r = el ? el.getBoundingClientRect() : null;
-        if (still || !r || !r.height) return 1;
-        return Math.round(Math.max(0, Math.min(1, (line - r.top) / r.height)) * 100) / 100;
+        if (still || !r || !r.height) return [1, 1];
+        return [prog(riverLine, r), prog(cardLine, r)];
       });
       setPs((prev) => (prev.join() === next.join() ? prev : next));
     };
@@ -261,7 +336,7 @@ export const Landing = () => {
     };
   }, [mode]);
 
-  // The lily-pad pond: at the top beside the intro, and again at the bottom of the page.
+  // The lily-pad pond beside the intro.
   const pond = (ref, cls) => (
     <div className={cls} ref={ref} onPointerMove={stir} onPointerLeave={settle}>
       {PADS.map((pad, n) => (
@@ -288,21 +363,23 @@ export const Landing = () => {
   const rows = STOPS.map((s, i) => {
     const vis = shows(mode, s.t);
     const right = k % 2 === 0;
+    const first = vis && k === 0;     // first visible stop: the muted headwater runs on to its marker
     if (vis) k++;
-    const p = ps[i] ?? 1;
+    const [p, q] = ps[i] ?? [1, 1];   // p: river drawn, q: card progress
     return {
-      s, i, vis,
+      s, i, vis, first,
       x: right ? 70 : 30,
       cardSide: right ? 'rv-side-right' : 'rv-side-left',
       ghostSide: right ? 'rv-side-left' : 'rv-side-right',
-      p, cls: p >= 0.5 ? 'rv-in' : 'rv-out',
+      p, cls: q >= 0.5 ? 'rv-in' : 'rv-out',
     };
   });
 
   return (
     <div className="rv" ref={pageRef} onPointerDown={drop}>
+      <span className="rv-shimmer" aria-hidden="true" />
       {drops.map((q) => (
-        <span key={q.id} className="rv-drop" style={{ left: `${q.x}px`, top: `${q.y}px` }} aria-hidden="true" />
+        <span key={q.id} className={`rv-drop${q.soft ? ' rv-drop-soft' : ''}`} style={{ left: `${q.x}px`, top: `${q.y}px` }} aria-hidden="true" />
       ))}
       <nav className={`rv-rail${open ? ' rv-open' : ''}`} aria-label="Site">
         <div className="rv-rail-inner">
@@ -312,6 +389,10 @@ export const Landing = () => {
               {railIcon({ name: 'panel' })}
             </button>
             <a className="rv-rail-name" href="/">Maria Cristoforo</a>
+            <button type="button" className="rv-theme rv-theme-head" onClick={flipTheme}
+              aria-label={dark ? 'Switch to light mode' : 'Switch to dark mode'}>
+              {railIcon({ name: dark ? 'sun' : 'moon' })}
+            </button>
           </div>
           {!open && (
             <div className="rv-rail-icons">
@@ -319,6 +400,10 @@ export const Landing = () => {
               <a href="/work/overview" aria-label="Case studies">{railIcon({ name: 'work' })}</a>
               <a href="/writing/overview" aria-label="Writing">{railIcon({ name: 'writing' })}</a>
               <a href="/api/get-me" aria-label="API reference">{railIcon({ name: 'api' })}</a>
+              <button type="button" className="rv-theme" onClick={flipTheme}
+                aria-label={dark ? 'Switch to light mode' : 'Switch to dark mode'}>
+                {railIcon({ name: dark ? 'sun' : 'moon' })}
+              </button>
             </div>
           )}
           {open && (
@@ -337,12 +422,27 @@ export const Landing = () => {
       </nav>
 
       <main className="rv-main" ref={mainRef}>
-        {headwater && (
-          <svg className="rv-headwater" style={{ height: `${headwater.h}px` }} aria-hidden="true">
-            <path d={headwater.d} className="rv-w1" />
-            <path d={headwater.d} className="rv-w2" />
-            <path d={headwater.d} className="rv-w3" />
-            <path d={headwater.d} className="rv-flow" />
+        {waters && (
+          <svg className="rv-waterways" style={{ height: `${waters.h}px` }} aria-hidden="true">
+            <defs>
+              <linearGradient id="rv-tail" gradientUnits="userSpaceOnUse"
+                x1={waters.from[0]} y1={waters.from[1]} x2={waters.to[0]} y2={waters.to[1]}>
+                <stop offset="0" className="rv-tail-stop" />
+                <stop offset="1" className="rv-tail-stop" stopOpacity="0" />
+              </linearGradient>
+            </defs>
+            <g className="rv-headwater">
+              <path d={waters.head} className="rv-w1" />
+              <path d={waters.head} className="rv-w2" />
+              <path d={waters.head} className="rv-w3" />
+              <path d={waters.head} className="rv-flow" />
+            </g>
+            <g className="rv-tailwater">
+              <path d={waters.tail} className="rv-w1" />
+              <path d={waters.tail} className="rv-w2" />
+              <path d={waters.tail} className="rv-w3" />
+              <path d={waters.tail} className="rv-flow" />
+            </g>
           </svg>
         )}
         <header className="rv-hero">
@@ -388,18 +488,10 @@ export const Landing = () => {
               </div>
             </div>
 
-            <div className="rv-reach rv-end rv-end-top">
-              <div className="rv-river">
-                <span className="rv-pulse" />
-                <span className="rv-spring" ref={nowRef} />
-              </div>
-              <div className="rv-card rv-side-right rv-end-label">Now</div>
-            </div>
-
-            {rows.map(({ s, i, vis, x, cardSide, ghostSide, p, cls }) => (
+            {rows.map(({ s, i, vis, first, x, cardSide, ghostSide, p, cls }) => (
               <section key={i} ref={(el) => { rowsRef.current[i] = el; }}
-                className={`rv-reach rv-row-${s.t}${vis ? '' : ' rv-hide'}`}>
-                <div className={`rv-ghost ${ghostSide}`} aria-hidden="true">{s.ghost}</div>
+                className={`rv-reach rv-row-${s.t}${vis ? '' : ' rv-hide'}${first ? ' rv-row-first' : ''}`}>
+                {s.ghost && <div className={`rv-ghost ${ghostSide}`} aria-hidden="true">{s.ghost}</div>}
                 <div className="rv-river">
                   {riverSegment({ d: bend(x), clip: `inset(0 0 ${Math.round((1 - p) * 100)}% 0)` })}
                   <span className={`rv-dot rv-dot-${s.t} ${cls}`} style={{ left: `${x}%` }} />
@@ -410,19 +502,10 @@ export const Landing = () => {
               </section>
             ))}
 
-            <div className="rv-reach rv-end rv-end-bottom">
-              <div className="rv-river">
-                <span className="rv-pulse" />
-                <span className="rv-spring" />
-              </div>
-              <div className="rv-card rv-side-right rv-end-label">The source</div>
-            </div>
           </div>
         </div>
 
-
         <footer className="rv-footer">
-          {pond(null, 'rv-lake rv-lake-end')}
           <div className="rv-footer-links">
             <a href="https://github.com/MariaC27">GitHub</a>
             <a href="/about/changelog">Full changelog</a>
