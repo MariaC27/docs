@@ -13,7 +13,7 @@
 
 | File | Purpose |
 |------|---------|
-| `index.mdx` | Home/landing page (hero, metadata grid, prose with drop cap, explore cards, changelog preview, featured work) |
+| `index.mdx` | Home page (`mode: custom`) — renders `<Landing />` from `snippets/landing.jsx`, styled by `landing.css` |
 | `about/skills.mdx` | API-style skills reference — ACTIVE / FLUENT / FAMILIAR badges, parameter tables |
 | `about/changelog.mdx` | Career history formatted as a software changelog — versioned entries, interactive click-to-expand |
 | `work/overview.mdx` | Case studies overview (mode: frame) |
@@ -83,6 +83,13 @@
 - Terse, confident prose — no filler
 - First person throughout
 - Mono font for version numbers, dates, and technical identifiers
+
+## Homepage (river landing)
+
+- `snippets/landing.jsx` holds all homepage data (stops, nav, explore pads) and logic; `landing.css` holds its styles, all scoped under `.rv`, with light tokens on `.rv` and dark under `.dark .rv`
+- Its own palette (cool ground, cyan water `#6FE3D6`/`#12A394`, amber roles), fonts Geist + Geist Mono + Instrument Serif. Doesn't use the site's cream/orange
+- Mintlify's navbar is hidden on the homepage; the page has its own rail nav, so keep `NAV` in the snippet in sync with `docs.json`
+- Snippet gotchas: Mintlify keeps only the imported export, so data and helpers live inside `Landing`; helpers are called as functions, not `<Tags>`; avoid bare one-letter class strings (`'r'` got rewritten to `mint-r`)
 
 ## Known Tailwind gotchas
 
