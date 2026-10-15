@@ -126,6 +126,7 @@ html:has(.rv) .almond-layout { top: 0 !important; }
   transition: flex-basis .28s ease, width .28s ease;
 }
 .rv-rail.rv-open { flex-basis: 280px; width: 280px; }
+.rv-rail.rv-instant { transition: none; }   /* restoring after a re-mount: no slide */
 .rv-rail-inner {
   position: sticky;
   top: 0;
@@ -161,15 +162,6 @@ html:has(.rv) .almond-layout { top: 0 !important; }
 }
 .rv-rail.rv-open .rv-rail-name { display: block; }
 .rv-rail-icons { display: flex; flex-direction: column; gap: 6px; }
-.rv .rv-rail-icons a {
-  width: 44px;
-  height: 44px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 8px;
-  color: var(--rv-muted);
-}
 .rv-theme {
   width: 44px;
   height: 44px;
@@ -188,7 +180,66 @@ html:has(.rv) .almond-layout { top: 0 !important; }
 /* In the header row only when the rail is open (desktop) or it's the top bar (phone) */
 .rv-theme-head { display: none; margin-left: auto; flex: 0 0 44px; }
 .rv-rail.rv-open .rv-theme-head { display: flex; }
-.rv .rv-rail-icons a:hover { color: var(--rv-text); background: var(--rv-line); opacity: 1; }
+.rv-fly { position: relative; }
+.rv-fly-btn {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--rv-muted);
+  cursor: pointer;
+}
+.rv-fly:hover .rv-fly-btn, .rv-fly:focus-within .rv-fly-btn { color: var(--rv-text); background: var(--rv-line); }
+/* The panel starts right at the icon's edge (its padding bridges the gap) so the pointer
+   can travel from icon to panel without it closing */
+.rv-fly-panel {
+  position: absolute;
+  left: 44px;
+  top: -6px;
+  padding-left: 12px;
+  z-index: 40;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(-6px);
+  transition: opacity .18s ease, transform .18s ease, visibility 0s linear .18s;
+}
+.rv-fly:hover .rv-fly-panel, .rv-fly:focus-within .rv-fly-panel {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition: opacity .18s ease, transform .18s ease, visibility 0s;
+}
+.rv-fly-card {
+  min-width: 230px;
+  display: flex;
+  flex-direction: column;
+  padding: 12px 6px 8px;
+  background: var(--rv-pill);
+  border: 1px solid var(--rv-line-strong);
+  border-radius: 12px;
+  box-shadow: var(--rv-shadow);
+}
+.rv .rv-fly-card a {
+  display: flex;
+  align-items: center;
+  min-height: 38px;
+  padding: 0 10px;
+  font-size: 14px;
+  color: var(--rv-soft);
+  text-decoration: none;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+.rv .rv-fly-card a:hover, .rv .rv-fly-card a:focus-visible { background: var(--rv-line); color: var(--rv-text); opacity: 1; }
+.rv .rv-fly-card a.rv-tree-code { font-family: var(--rv-code) !important; font-size: 13px; }
+/* Collapsed rail must not clip the panels, and must sit above the page */
+.rv-rail { position: relative; z-index: 40; }
+.rv-rail:not(.rv-open) .rv-rail-inner { overflow: visible; }
 .rv-tree { display: flex; flex-direction: column; gap: 20px; padding: 16px 4px 28px; }
 .rv-tree-group { display: flex; flex-direction: column; }
 .rv-tree-label {
@@ -285,7 +336,7 @@ html:has(.rv) .almond-layout { top: 0 !important; }
 .rv-stone-ring:nth-child(3) { animation-delay: 4s !important; }
 
 /* Waterways overlay: headwater (photo -> timeline) and tailwater (timeline -> bottom pond) */
-.rv-main { position: relative; }
+.rv-main { position: relative; container: rv-main / inline-size; }
 .rv-hero { z-index: 1; }
 .rv-waterways {
   position: absolute;
@@ -706,9 +757,11 @@ html:has(.rv) .almond-layout { top: 0 !important; }
   html:has(.rv) { scroll-behavior: smooth; }
 }
 
-/* ─── Narrow: stack the hero, pads float in a row under the text ─── */
+/* ─── Narrow: stack the hero, pads float in a row under the text ───
+   A container query on the main column (not the viewport), so opening the rail
+   also switches to the stacked layout when the side-by-side hero no longer fits. */
 
-@media (max-width: 1260px) {
+@container rv-main (max-width: 1196px) {
   .rv-hero-inner { grid-template-columns: minmax(0, 1fr); gap: 56px; }
   .rv-lake {
     width: 100%;

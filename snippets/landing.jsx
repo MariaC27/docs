@@ -42,20 +42,20 @@ export const Landing = () => {
   ];
 
   const NAV = [
-    { group: 'About', links: [['Skills API', '/about/skills'], ['Changelog', '/about/changelog']] },
-    { group: 'Case Studies', links: [
+    { group: 'About', icon: 'about', links: [['Skills API', '/about/skills'], ['Changelog', '/about/changelog']] },
+    { group: 'Case Studies', icon: 'work', links: [
       ['Overview', '/work/overview'],
       ['Canvas Annotation Revamp', '/work/canvas-annotation-revamp'],
       ['Turn-Based Audio Annotation', '/work/turn-based-audio-annotation'],
       ['ApiLens', '/work/apilens'],
       ['This Portfolio', '/work/portfolio'],
     ] },
-    { group: 'Writing', links: [
+    { group: 'Writing', icon: 'writing', links: [
       ['Overview', '/writing/overview'],
       ['The Design Process Shift', '/writing/the-design-process-shift'],
       ['UX Friction Coefficient', '/writing/ux-friction-coefficient'],
     ] },
-    { group: 'API Reference', code: true, links: [
+    { group: 'API Reference', icon: 'api', code: true, links: [
       ['GET /me', '/api/get-me'],
       ['GET /skills', '/api/get-skills'],
       ['GET /availability', '/api/get-availability'],
@@ -158,7 +158,23 @@ export const Landing = () => {
   };
 
   const [mode, setMode] = useState('all');
-  const [open, setOpen] = useState(false);
+  const [open, setOpenState] = useState(false);
+  const [instant, setInstant] = useState(false);
+  // Mintlify re-mounts the page when the theme changes, which would reset the rail.
+  // Remember it for the session and restore it without animating.
+  const setOpen = (v) => {
+    setOpenState(v);
+    try { sessionStorage.setItem('rv-rail-open', v ? '1' : '0'); } catch (e) { /* storage blocked */ }
+  };
+  useEffect(() => {
+    let saved = null;
+    try { saved = sessionStorage.getItem('rv-rail-open'); } catch (e) { /* storage blocked */ }
+    if (saved !== '1') return;
+    setInstant(true);
+    setOpenState(true);
+    const t = setTimeout(() => setInstant(false), 50);
+    return () => clearTimeout(t);
+  }, []);
   const [dark, setDark] = useState(false);
 
   // Mintlify's navbar (and its theme switch) is hidden here, so the rail carries one.
@@ -224,7 +240,7 @@ export const Landing = () => {
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(trace);
     window.addEventListener('resize', trace);
     return () => { late.forEach(clearTimeout); window.removeEventListener('resize', trace); };
-  }, [mode]);
+  }, [mode, open]);   // re-measure when the filter changes or the rail opens/closes
   const [drops, setDrops] = useState([]);
 
   // Pond: pads drift away from the pointer.
@@ -334,7 +350,7 @@ export const Landing = () => {
       clearTimeout(late);
       if (raf) cancelAnimationFrame(raf);
     };
-  }, [mode]);
+  }, [mode, open]);   // re-measure when the filter changes or the rail opens/closes
 
   // The lily-pad pond beside the intro.
   const pond = (ref, cls) => (
@@ -381,7 +397,7 @@ export const Landing = () => {
       {drops.map((q) => (
         <span key={q.id} className={`rv-drop${q.soft ? ' rv-drop-soft' : ''}`} style={{ left: `${q.x}px`, top: `${q.y}px` }} aria-hidden="true" />
       ))}
-      <nav className={`rv-rail${open ? ' rv-open' : ''}`} aria-label="Site">
+      <nav className={`rv-rail${open ? ' rv-open' : ''}${instant ? ' rv-instant' : ''}`} aria-label="Site">
         <div className="rv-rail-inner">
           <div className="rv-rail-head">
             <button type="button" className="rv-rail-toggle" onClick={() => setOpen(!open)}
@@ -396,10 +412,24 @@ export const Landing = () => {
           </div>
           {!open && (
             <div className="rv-rail-icons">
-              <a href="/about/skills" aria-label="About">{railIcon({ name: 'about' })}</a>
-              <a href="/work/overview" aria-label="Case studies">{railIcon({ name: 'work' })}</a>
-              <a href="/writing/overview" aria-label="Writing">{railIcon({ name: 'writing' })}</a>
-              <a href="/api/get-me" aria-label="API reference">{railIcon({ name: 'api' })}</a>
+              {/* Collapsed rail: hovering (or focusing) an icon previews that section's pages;
+                  clicking it opens the full sidebar rather than jumping to a page. */}
+              {NAV.map((g) => (
+                <div key={g.group} className="rv-fly">
+                  <button type="button" className="rv-fly-btn" onClick={() => setOpen(true)}
+                    aria-label={`${g.group}: open navigation`}>
+                    {railIcon({ name: g.icon })}
+                  </button>
+                  <div className="rv-fly-panel">
+                    <div className="rv-fly-card">
+                      <div className="rv-tree-label">{g.group}</div>
+                      {g.links.map(([label, href]) => (
+                        <a key={href} href={href} className={g.code ? 'rv-tree-code' : undefined}>{label}</a>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              ))}
               <button type="button" className="rv-theme" onClick={flipTheme}
                 aria-label={dark ? 'Switch to light mode' : 'Switch to dark mode'}>
                 {railIcon({ name: dark ? 'sun' : 'moon' })}

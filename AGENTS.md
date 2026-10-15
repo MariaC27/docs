@@ -34,11 +34,13 @@
 
 ## Design system
 
+Whole site uses the homepage's "river" palette (changed 2026-10-15 from the old orange/cream):
+
 - **Theme:** `almond`
-- **Primary color:** `#ea580c` (terracotta/orange)
-- **Background:** `#F8F5EF` light / `#1C1917` dark
-- **Fonts:** Instrument Serif (headings, italic), Inter (body), JetBrains Mono (code/mono)
-- **Custom CSS:** `style.css` — imported via `docs.json`
+- **Primary color:** `#0B7469` (teal, light mode) / `#6FE3D6` (cyan, dark mode); amber `#A35A12` / `#E9A458` as the secondary accent
+- **Background:** content panel `#F3F6F8` light / `#06090D` dark (docs.json); surrounding chrome `#EAF0F3` / `#080C11` (style.css)
+- **Fonts:** Instrument Serif (headings, always weight 400 — it has no bold), Geist (body), Geist Mono (code/mono)
+- **Custom CSS:** `style.css` (whole site) and `landing.css` (homepage only, scoped to `.rv`)
 
 ## Magazine/editorial styling
 
@@ -57,7 +59,7 @@
 - `.portfolio-accent-border-l` — pull quote border
 - `.portfolio-dropcap` — drop cap
 - `.portfolio-byline` — article byline
-- `.skill-badge-active` (green), `.skill-badge-fluent` (yellow), `.skill-badge-familiar` (gray)
+- `.skill-badge-active` (teal), `.skill-badge-fluent` (amber), `.skill-badge-familiar` (gray)
 - `.cl-entry`, `.cl-title`, `.cl-active` — changelog interactive row styles
 - `.navbar-link` — removes border/box-shadow from navbar icon buttons
 - `[data-component-part="card-title"]` — Instrument Serif italic for card titles
@@ -87,7 +89,7 @@
 ## Homepage (river landing)
 
 - `snippets/landing.jsx` holds all homepage data (stops, nav, explore pads) and logic; `landing.css` holds its styles, all scoped under `.rv`, with light tokens on `.rv` and dark under `.dark .rv`
-- Its own palette (cool ground, cyan water `#6FE3D6`/`#12A394`, amber roles), fonts Geist + Geist Mono + Instrument Serif. Doesn't use the site's cream/orange
+- Same palette and fonts as the rest of the site (see Design system); water `#6FE3D6`/`#12A394`, amber roles
 - Mintlify's navbar is hidden on the homepage; the page has its own rail nav, so keep `NAV` in the snippet in sync with `docs.json`
 - Snippet gotchas: Mintlify keeps only the imported export, so data and helpers live inside `Landing`; helpers are called as functions, not `<Tags>`; avoid bare one-letter class strings (`'r'` got rewritten to `mint-r`)
 
