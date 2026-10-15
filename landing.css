@@ -204,14 +204,59 @@ html:has(.rv) .almond-layout { top: 0 !important; }
   color: var(--rv-muted);
 }
 .rv-hero-sep { width: 4px; height: 4px; border-radius: 50%; background: var(--rv-water); display: block; }
+.rv-name-row { display: flex; align-items: center; gap: 24px; animation-delay: .12s; }
+/* The photo as a stone dropped in the water: rings spread out from it */
+.rv .rv-name { position: relative; z-index: 1; }   /* above the stone's rings */
+.rv-stone { position: relative; flex: 0 0 auto; width: 80px; height: 80px; }
+.rv-photo {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--rv-water) 45%, transparent), 0 0 0 6px var(--rv-ground);
+}
+.rv-stone-ring {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 1px solid var(--rv-water);
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(1);
+  pointer-events: none;
+}
+.rv-stone-ring:nth-child(2) { animation-delay: 2s !important; }
+.rv-stone-ring:nth-child(3) { animation-delay: 4s !important; }
+
+/* Headwater: faint, behind the hero text */
+.rv-main { position: relative; }
+.rv-hero { z-index: 1; }
+.rv-headwater {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  overflow: visible;
+  pointer-events: none;
+  z-index: 0;
+  color: var(--rv-water);
+  opacity: .28;
+}
+.rv-headwater path { fill: none; stroke: currentColor; }
+.rv-headwater .rv-w1 { stroke-width: 22; }
+.rv-headwater .rv-w2 { stroke-width: 7; }
+.rv-headwater .rv-w3 { stroke-width: 1.5; }
 .rv .rv-name {
+  font-family: var(--rv-serif) !important;
   font-style: italic;
   font-size: clamp(44px, 5.2vw, 84px);
   line-height: 1;
   white-space: nowrap;
   letter-spacing: -0.02em;
   color: var(--rv-text);
-  animation-delay: .12s;
 }
 .rv-tagline { font-size: clamp(19px, 1.7vw, 24px); line-height: 1.35; max-width: 620px; animation-delay: .26s; }
 .rv-bio { font-size: 16.5px; color: var(--rv-muted); max-width: 560px; animation-delay: .36s; }
@@ -450,39 +495,9 @@ html:has(.rv) .almond-layout { top: 0 !important; }
 .rv-slot-2 { left: 380px; top: 0; width: 190px; height: 175px; }
 .rv-slot-3 { left: 14px; top: 350px; width: 190px; height: 175px; }
 .rv-slot-4 { left: 384px; top: 340px; width: 196px; height: 180px; }
-.rv-slot-me { left: 200px; top: 180px; width: 180px; height: 180px; }
+.rv-slot-5 { left: 195px; top: 182px; width: 190px; height: 176px; }
+.rv-pad.rv-p5 { animation-delay: -5s; animation-duration: 14s; }
 
-/* Photo pad: a leaf with the photo set into it, no link */
-.rv-pad-me { animation-delay: -5s; animation-duration: 14s; }
-.rv-me-photo {
-  position: absolute;
-  inset: 11%;
-  width: 78%;
-  height: 78%;
-  border-radius: 50%;
-  background-size: cover;
-  background-position: center;
-  box-shadow: 0 0 0 1px color-mix(in srgb, var(--rv-water) 45%, transparent);
-  transition: transform .5s cubic-bezier(.2, .7, .2, 1);
-}
-.rv-pad-me:hover .rv-me-photo { transform: scale(1.05) rotate(-1.5deg); }
-.rv-pad-me:hover .rv-ripple { animation-duration: 2s; }
-.rv-me-caption {
-  position: absolute;
-  left: 50%;
-  top: calc(100% + 10px);
-  transform: translateX(-50%);
-  white-space: nowrap;
-  font-family: var(--rv-code) !important;
-  font-size: 12px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--rv-label);
-  opacity: 0;
-  transition: opacity .3s ease;
-  pointer-events: none;
-}
-.rv-pad-me:hover .rv-me-caption { opacity: 1; }
 
 .rv .rv-pad {
   position: relative;
@@ -576,23 +591,11 @@ html:has(.rv) .almond-layout { top: 0 !important; }
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 22px;
+  gap: 40px;
   text-align: center;
-  padding: 140px clamp(20px, 5vw, 72px) 110px;
+  padding: 120px clamp(20px, 5vw, 72px) 90px;
 }
-.rv-status {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  font-family: var(--rv-code) !important;
-  font-size: 12.5px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--rv-muted);
-}
-.rv-status-dot { width: 8px; height: 8px; border-radius: 50%; background: #4ADE80; display: block; }
-.rv .rv-footer-title { font-style: italic; font-size: clamp(52px, 7.5vw, 112px); line-height: 0.95; letter-spacing: -0.02em; }
-.rv-footer-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 28px; margin-top: 20px; }
+.rv-footer-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 28px; }
 .rv .rv-footer-links a {
   display: flex;
   align-items: center;
@@ -616,6 +619,10 @@ html:has(.rv) .almond-layout { top: 0 !important; }
   100% { opacity: 0; transform: translate(-50%, -50%) scale(1.18); }
 }
 @keyframes rv-flow { to { stroke-dashoffset: -25; } }
+@keyframes rv-ring {
+  0% { opacity: .45; transform: translate(-50%, -50%) scale(1); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(2.1); }
+}
 @keyframes rv-drop {
   0% { opacity: .6; transform: translate(-50%, -50%) scale(0); }
   100% { opacity: 0; transform: translate(-50%, -50%) scale(1); }
@@ -633,6 +640,7 @@ html:has(.rv) .almond-layout { top: 0 !important; }
   .rv-pad { animation: rv-drift 11s ease-in-out infinite; }
   .rv .rv-ripple { animation: rv-ripple 6s ease-out infinite; }
   .rv .rv-pad:hover .rv-ripple { animation-duration: 2s; }
+  .rv-stone-ring { animation: rv-ring 6s ease-out infinite; }
   html:has(.rv) { scroll-behavior: smooth; }
 }
 
@@ -651,10 +659,9 @@ html:has(.rv) .almond-layout { top: 0 !important; }
     gap: 14px 24px;
     padding: 12px 0 28px;
   }
-  .rv-slot, .rv-slot-1, .rv-slot-2, .rv-slot-3, .rv-slot-4 { position: relative; left: auto; top: auto; width: 216px; height: 200px; }
+  .rv-slot, .rv-slot-1, .rv-slot-2, .rv-slot-3, .rv-slot-4, .rv-slot-5 { position: relative; left: auto; top: auto; width: 216px; height: 200px; }
   .rv-slot-2, .rv-slot-4 { margin-top: 36px; }
-  .rv-slot-me { order: -1; flex: 0 0 100%; display: flex; justify-content: center; height: 200px; }
-  .rv-slot-me .rv-pad-me { width: 180px; height: 180px; }
+  .rv-slot-5 { order: -1; margin: 0 calc((100% - 216px) / 2); }
 }
 
 /* ─── Phone ─── */
@@ -683,8 +690,10 @@ html:has(.rv) .almond-layout { top: 0 !important; }
   .rv-card.rv-side-left .rv-eyebrow, .rv-card.rv-side-left .rv-span, .rv-card.rv-side-left .rv-links { justify-content: flex-start; }
   .rv-ghost { display: none; }
   .rv-slot { width: 160px; height: 148px; }
-  .rv-slot-me { height: 170px; }
-  .rv-slot-me .rv-pad-me { width: 150px; height: 150px; }
+  .rv-slot-5 { margin: 0 calc((100% - 160px) / 2); }
+  .rv-name-row { gap: 14px; }
+  .rv-stone { width: 52px; height: 52px; }
+  .rv .rv-name { font-size: 40px; }
   .rv-pad-face { padding: 24px 20px 18px; }
   .rv-pad-title { font-size: 21px; }
   .rv-pad-desc { display: none; }

@@ -64,11 +64,15 @@ export const Landing = () => {
     ] },
   ];
 
+  // About pad's destination. null keeps it inert; set to '/about/me' once that page exists.
+  const ABOUT_ME = null;
+
   const PADS = [
     { title: 'Case Studies', href: '/work/overview', desc: 'Selected projects covering problem, approach, outcomes, and learnings.', rot: 62 },
     { title: 'Writing', href: '/writing/overview', desc: 'Thoughts on design engineering, UX friction, and building in small teams.', rot: -128 },
     { title: 'Skills', href: '/about/skills', desc: 'An API-style reference of languages, tools, and frameworks.', rot: 118 },
     { title: 'Experience', href: '/about/changelog', desc: 'Roles, companies, and milestones formatted as a software changelog.', rot: -64 },
+    { title: 'About Me', href: ABOUT_ME, path: '/about/me', rot: -20 },
   ];
 
   const FILTERS = [
@@ -157,13 +161,45 @@ export const Landing = () => {
   const rowsRef = useRef([]);
   const pageRef = useRef(null);
   const lakeRef = useRef(null);
+  const mainRef = useRef(null);
+  const stoneRef = useRef(null);
+  const heroTextRef = useRef(null);
+  const nowRef = useRef(null);
+  const [headwater, setHeadwater] = useState(null);
+
+  // Headwater: a faint river from the photo, meandering down behind the hero text
+  // to the timeline's "Now" dot. Measured, so it follows the layout.
+  useEffect(() => {
+    const trace = () => {
+      const main = mainRef.current, stone = stoneRef.current, text = heroTextRef.current, now = nowRef.current;
+      if (!main || !stone || !text || !now) return;
+      const m = main.getBoundingClientRect();
+      const st = stone.getBoundingClientRect(), tx = text.getBoundingClientRect(), nw = now.getBoundingClientRect();
+      const px = st.left + st.width / 2 - m.left, py = st.top + st.height / 2 - m.top;
+      const nx = nw.left + nw.width / 2 - m.left, ny = nw.top + nw.height / 2 - m.top;
+      const mx = tx.left - m.left + tx.width * 0.5;     // mid-column of the hero text
+      // Below the hero text, or below the pond when it stacks under the text (narrower screens)
+      const lake = lakeRef.current ? lakeRef.current.getBoundingClientRect() : null;
+      const low = (lake && lake.top > tx.bottom ? lake.bottom : tx.bottom + 40) - m.top;
+      const midY = (py + low) / 2;
+      const d = `M${px},${py} C${px + 10},${py + 90} ${mx - 170},${midY - 80} ${mx},${midY} ` +
+        `S${mx + 50},${low - 30} ${(mx + nx) / 2},${low + 40} ` +
+        `S${nx},${ny - 130} ${nx},${ny}`;
+      setHeadwater({ d, h: ny + 4 });
+    };
+    trace();
+    const late = [setTimeout(trace, 400), setTimeout(trace, 1400)];
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(trace);
+    window.addEventListener('resize', trace);
+    return () => { late.forEach(clearTimeout); window.removeEventListener('resize', trace); };
+  }, []);
   const [drops, setDrops] = useState([]);
 
   // Pond: pads drift away from the pointer.
   const calm = () => window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const stir = (e) => {
-    const lake = lakeRef.current;
-    if (!lake || calm()) return;
+    const lake = e.currentTarget;
+    if (calm()) return;
     const box = lake.getBoundingClientRect();
     lake.querySelectorAll('.rv-slot').forEach((slot) => {
       const dx = box.left + slot.offsetLeft + slot.offsetWidth / 2 - e.clientX;
@@ -174,9 +210,8 @@ export const Landing = () => {
       slot.style.setProperty('--dy', `${((dy / d) * push).toFixed(1)}px`);
     });
   };
-  const settle = () => {
-    const lake = lakeRef.current;
-    if (!lake) return;
+  const settle = (e) => {
+    const lake = e.currentTarget;
     lake.querySelectorAll('.rv-slot').forEach((slot) => {
       slot.style.setProperty('--dx', '0px');
       slot.style.setProperty('--dy', '0px');
@@ -225,6 +260,29 @@ export const Landing = () => {
       if (raf) cancelAnimationFrame(raf);
     };
   }, [mode]);
+
+  // The lily-pad pond: at the top beside the intro, and again at the bottom of the page.
+  const pond = (ref, cls) => (
+    <div className={cls} ref={ref} onPointerMove={stir} onPointerLeave={settle}>
+      {PADS.map((pad, n) => (
+        <div key={pad.title} className={`rv-slot rv-slot-${n + 1}`}>
+          <a href={pad.href || undefined} tabIndex={0} className={`rv-pad rv-p${n + 1}`}
+            onClick={(e) => { if (!pad.href) e.preventDefault(); }}>
+            <span className="rv-ripple" aria-hidden="true" />
+            <span className="rv-pad-face">
+              <svg className="rv-leaf" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" style={{ transform: `rotate(${pad.rot}deg)` }}>
+                <path className="rv-leaf-body" d="M50,50 L62.4,3.6 A48,48 0 1,1 37.6,3.6 Z" vectorEffect="non-scaling-stroke" />
+                <path className="rv-leaf-veins" d="M50,50 L50,98 M50,50 L16,84 M50,50 L84,84 M50,50 L3,52 M50,50 L97,52 M50,50 L14,18 M50,50 L86,18" vectorEffect="non-scaling-stroke" />
+              </svg>
+              <span className="rv-pad-title">{pad.title}</span>
+              {pad.desc && <span className="rv-pad-desc">{pad.desc}</span>}
+              <span className="rv-pad-path">{pad.path || pad.href}</span>
+            </span>
+          </a>
+        </div>
+      ))}
+    </div>
+  );
 
   let k = 0;
   const rows = STOPS.map((s, i) => {
@@ -278,16 +336,33 @@ export const Landing = () => {
         </div>
       </nav>
 
-      <main className="rv-main">
+      <main className="rv-main" ref={mainRef}>
+        {headwater && (
+          <svg className="rv-headwater" style={{ height: `${headwater.h}px` }} aria-hidden="true">
+            <path d={headwater.d} className="rv-w1" />
+            <path d={headwater.d} className="rv-w2" />
+            <path d={headwater.d} className="rv-w3" />
+            <path d={headwater.d} className="rv-flow" />
+          </svg>
+        )}
         <header className="rv-hero">
           <div className="rv-hero-inner">
-            <div className="rv-hero-text">
+            <div className="rv-hero-text" ref={heroTextRef}>
               <div className="rv-rise rv-hero-meta">
                 <span>San Francisco, CA</span>
                 <span className="rv-hero-sep" aria-hidden="true" />
                 <span>Building at Ocular AI (YC W24)</span>
               </div>
-              <h1 className="rv-rise rv-name">Maria Cristoforo</h1>
+              <div className="rv-rise rv-name-row">
+                {/* Photo is a background image, not <img>: Mintlify wraps <img> in its click-to-zoom */}
+                <span className="rv-stone" ref={stoneRef}>
+                  <span className="rv-stone-ring" aria-hidden="true" />
+                  <span className="rv-stone-ring" aria-hidden="true" />
+                  <span className="rv-stone-ring" aria-hidden="true" />
+                  <span className="rv-photo" role="img" aria-label="Maria Cristoforo" style={{ backgroundImage: "url('/images/mc.jpg')" }} />
+                </span>
+                <h1 className="rv-name">Maria Cristoforo</h1>
+              </div>
               <p className="rv-rise rv-tagline">thinks like a designer, executes like an engineer</p>
               <p className="rv-rise rv-bio">I work at the intersection of design and engineering, owning features end-to-end on small, fast-moving teams.</p>
               <div className="rv-rise rv-hero-cta">
@@ -295,35 +370,7 @@ export const Landing = () => {
                 <a href="#river" className="rv-link" onClick={() => setMode('projects')}>Jump to projects</a>
               </div>
             </div>
-            <div className="rv-rise rv-lake" ref={lakeRef} onPointerMove={stir} onPointerLeave={settle}>
-              <div className="rv-slot rv-slot-me">
-                <div className="rv-pad rv-pad-me">
-                  <span className="rv-ripple" aria-hidden="true" />
-                  <svg className="rv-leaf" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" style={{ transform: 'rotate(-20deg)' }}>
-                    <path className="rv-leaf-body" d="M50,50 L62.4,3.6 A48,48 0 1,1 37.6,3.6 Z" vectorEffect="non-scaling-stroke" />
-                  </svg>
-                  {/* Background image, not <img>: Mintlify wraps <img> in its click-to-zoom */}
-                  <span className="rv-me-photo" role="img" aria-label="Maria Cristoforo" style={{ backgroundImage: "url('/images/mc.jpg')" }} />
-                  <span className="rv-me-caption">hi, I'm Maria</span>
-                </div>
-              </div>
-              {PADS.map((pad, n) => (
-                <div key={pad.href} className={`rv-slot rv-slot-${n + 1}`}>
-                  <a href={pad.href} className={`rv-pad rv-p${n + 1}`}>
-                    <span className="rv-ripple" aria-hidden="true" />
-                    <span className="rv-pad-face">
-                      <svg className="rv-leaf" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" style={{ transform: `rotate(${pad.rot}deg)` }}>
-                        <path className="rv-leaf-body" d="M50,50 L62.4,3.6 A48,48 0 1,1 37.6,3.6 Z" vectorEffect="non-scaling-stroke" />
-                        <path className="rv-leaf-veins" d="M50,50 L50,98 M50,50 L16,84 M50,50 L84,84 M50,50 L3,52 M50,50 L97,52 M50,50 L14,18 M50,50 L86,18" vectorEffect="non-scaling-stroke" />
-                      </svg>
-                      <span className="rv-pad-title">{pad.title}</span>
-                      <span className="rv-pad-desc">{pad.desc}</span>
-                      <span className="rv-pad-path">{pad.href}</span>
-                    </span>
-                  </a>
-                </div>
-              ))}
-            </div>
+            {pond(lakeRef, 'rv-rise rv-lake')}
           </div>
         </header>
 
@@ -344,7 +391,7 @@ export const Landing = () => {
             <div className="rv-reach rv-end rv-end-top">
               <div className="rv-river">
                 <span className="rv-pulse" />
-                <span className="rv-spring" />
+                <span className="rv-spring" ref={nowRef} />
               </div>
               <div className="rv-card rv-side-right rv-end-label">Now</div>
             </div>
@@ -375,10 +422,7 @@ export const Landing = () => {
 
 
         <footer className="rv-footer">
-          <div className="rv-status"><span className="rv-status-dot" /><span>Status: open</span></div>
-          <h2 className="rv-footer-title">Open to chat</h2>
-          <p className="rv-bio">Based in San Francisco, currently building at Ocular AI (YC W24).</p>
-          <a href="/api/post-contact" className="rv-btn rv-gap-top">Say hello</a>
+          {pond(null, 'rv-lake rv-lake-end')}
           <div className="rv-footer-links">
             <a href="https://github.com/MariaC27">GitHub</a>
             <a href="/about/changelog">Full changelog</a>
