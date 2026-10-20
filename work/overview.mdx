@@ -4,7 +4,9 @@ description: Selected case studies and shipped projects.
 mode: frame
 ---
 
-<div className="max-w-3xl mx-auto px-4 md:px-8 py-10 lg:py-16">
+import { PadPond } from '/snippets/pad-pond.jsx'
+
+<div className="max-w-6xl mx-auto px-4 md:px-8 py-10 lg:py-16">
 
 <h1 className="font-serif text-5xl italic tracking-tight text-gray-900 dark:text-gray-50 leading-[1.05] mb-3">Case Studies</h1>
 
@@ -12,19 +14,11 @@ mode: frame
 
 <p className="text-sm italic text-gray-400 dark:text-gray-500 mt-6 mb-10">Originally published on Medium, republished here with minor edits</p>
 
-<CardGroup cols={2}>
-  <Card title="ApiLens" icon="github" href="/work/apilens" img="/images/apilens_study1_polished.png">
-    Open source versioning + visual diff tool for OpenAPI specs.
-  </Card>
-  <Card title="Canvas & Annotation Revamp" icon="pencil-ruler" href="/work/canvas-annotation-revamp" img="/images/canvas_study1_newcanvas.png">
-    Full process for revamping Ocular's image annotation canvas.
-  </Card>
-  <Card title="Turn-Based Audio Annotation" icon="audio-waveform" href="/work/turn-based-audio-annotation" img="/images/audio_study1_blurred.png">
-    New audio annotation interface, built using an AI-assisted design process.
-  </Card>
-  <Card title="Portfolio" icon="layout-panel-left" href="/work/portfolio" img="/images/mintlify_dashboard.png">
-    How I adapted a Mintlify site into a personal portfolio.
-  </Card>
-</CardGroup>
+<PadPond items={[
+  { title: "ApiLens", href: "/work/apilens", img: "/images/apilens_study1_polished.png", desc: "Open source versioning + visual diff tool for OpenAPI specs." },
+  { title: "Canvas & Annotation Revamp", href: "/work/canvas-annotation-revamp", img: "/images/canvas_study1_newcanvas.png", desc: "Full process for revamping Ocular’s image annotation canvas." },
+  { title: "Turn-Based Audio Annotation", href: "/work/turn-based-audio-annotation", img: "/images/audio_study1_blurred.png", desc: "New audio annotation interface, built using an AI-assisted design process." },
+  { title: "Portfolio", href: "/work/portfolio", img: "/images/mintlify_dashboard.png", desc: "How I adapted a Mintlify site into a personal portfolio." }
+]} />
 
 </div>

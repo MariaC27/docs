@@ -7,7 +7,7 @@ export const Landing = () => {
   const STOPS = [
     { t: 'job', ghost: '2025', title: 'Design engineer at Ocular AI', start: 'Winter 2025', end: 'Now', bar: 'long',
       desc: 'Moved to SF to join Ocular AI (YC W24). I take features from first concept to full implementation on a five-person team, reporting to the founders.' },
-    { t: 'proj', title: 'ApiLens', meta: 'Open source', img: 'APILENS PREVIEW IMAGE',
+    { t: 'proj', title: 'ApiLens', meta: 'Open source', img: '/images/apilens_study1_polished.png',
       desc: 'A versioning and visual diff tool for OpenAPI specs. It snapshots the spec on each merge to main and shows color-coded, field-level diffs.',
       outcome: 'Published to PyPI as openapi-lens.',
       links: [
@@ -15,11 +15,11 @@ export const Landing = () => {
         { label: 'GitHub', href: 'https://github.com/MariaC27/api-lens' },
         { label: 'PyPI', href: 'https://pypi.org/project/openapi-lens/' },
       ] },
-    { t: 'proj', title: 'Turn-Based Audio Annotation', meta: 'Late 2025 to early 2026', img: 'AUDIO ANNOTATION PREVIEW IMAGE',
+    { t: 'proj', title: 'Turn-Based Audio Annotation', meta: 'Late 2025 to early 2026', img: '/images/audio_study1_blurred.png',
       desc: 'A new interface for annotating multi-speaker audio. Each turn is a row with its transcript and rubric fields, tied to a full-width waveform.',
       outcome: 'Prototyped with AI tools, validated with the partner, then built for production.',
       links: [{ label: 'Read the case study', href: '/work/turn-based-audio-annotation' }] },
-    { t: 'proj', title: 'Canvas & Annotation Revamp', meta: 'At Ocular AI', img: 'CANVAS PREVIEW IMAGE',
+    { t: 'proj', title: 'Canvas & Annotation Revamp', meta: 'At Ocular AI', img: '/images/canvas_study1_newcanvas.png',
       desc: "A full redesign of Ocular's image annotation canvas. I ran the research, worked through 8+ wireframe iterations in Figma, and built it.",
       outcome: 'Held up for over a year as the canvas expanded to other modalities.',
       links: [{ label: 'Read the case study', href: '/work/canvas-annotation-revamp' }] },
@@ -121,7 +121,9 @@ export const Landing = () => {
     if (s.t === 'proj') {
       return (
         <>
-          <div className="rv-img">[{s.img}]</div>
+          {/* Background image, not <img>: Mintlify wraps <img> in its click-to-zoom */}
+        <a href={s.links[0].href} className="rv-img" role="img" aria-label={`${s.title} preview`}
+          style={{ backgroundImage: `url('${s.img}')` }} />
           <div className="rv-eyebrow rv-gap-top"><span className="rv-tag rv-tag-proj">Project</span><span>{s.meta}</span></div>
           <h2 className="rv-title-proj">{s.title}</h2>
           <p className="rv-desc">{s.desc}</p>

@@ -497,21 +497,17 @@ html:has(.rv) .almond-layout { top: 0 !important; }
 .rv-desc { font-size: 15.5px; color: var(--rv-muted); }
 .rv-desc-sm { font-size: 15px; }
 .rv-outcome { font-size: 15.5px; color: var(--rv-text); }
-.rv-img {
+.rv .rv-img {
+  display: block;
   aspect-ratio: 16 / 10;
-  border: 1px dashed var(--rv-img-line);
-  background: var(--rv-img);
-  border-radius: 4px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--rv-code) !important;
-  font-size: 12px;
-  letter-spacing: 0.08em;
-  color: var(--rv-label);
-  text-align: center;
-  padding: 16px;
+  border: 1px solid var(--rv-img-line);
+  background-color: var(--rv-img);
+  background-size: cover;
+  background-position: center top;
+  border-radius: 6px;
+  transition: transform .5s cubic-bezier(.2, .7, .2, 1), border-color .3s ease;
 }
+.rv .rv-img:hover { transform: translateY(-3px); border-color: var(--rv-water); opacity: 1; }
 
 .rv-ghost {
   padding: 0 36px;

@@ -343,3 +343,140 @@ a.muted-link:hover {
   color: #5F6E7B !important;
   text-decoration-color: #5F6E7B !important;
 }
+
+/* ─── Overview ponds (snippets/pad-pond.jsx) ───────────────────────────────────
+   Lily pads in perspective, each with its preview standing on an easel. */
+
+.lp-pond {
+  --lp-water: #12A394;
+  --lp-text: #0B1620;
+  --lp-muted: #4A5866;
+  --lp-label: #5F6E7B;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px 48px;
+  padding: 24px 0 64px;
+}
+.dark .lp-pond {
+  --lp-water: #6FE3D6;
+  --lp-text: #E8EEF2;
+  --lp-muted: #A9B5BF;
+  --lp-label: #8C99A5;
+}
+.lp-pad {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  text-align: center;
+  text-decoration: none !important;
+  border: 0 !important;
+}
+.lp-p2, .lp-p4 { margin-top: 72px; }
+.lp-title {
+  font-family: 'Instrument Serif', Georgia, serif !important;
+  font-size: 1.9rem;
+  line-height: 1.1;
+  color: var(--lp-text);
+}
+.lp-desc {
+  max-width: 320px;
+  font-size: .9rem;
+  line-height: 1.45;
+  color: var(--lp-muted);
+}
+.lp-path { font-family: 'Geist Mono', ui-monospace, monospace !important; font-size: .75rem; color: var(--lp-label); }
+@media (max-width: 640px) {
+  .lp-pond { grid-template-columns: minmax(0, 1fr); }
+  .lp-p2, .lp-p4 { margin-top: 0; }
+}
+
+/* ─── 3D pad with easel ───
+   Same language as the homepage: pale gradients, hairline outlines, soft shadow. */
+
+.lp-pond {
+  --lp-hi: #EEF8F6;
+  --lp-lo: #CFE9E4;
+  --lp-under: rgba(18, 163, 148, 0.22);
+  --lp-vein: rgba(11, 116, 105, 0.16);
+  --lp-rimc: #FFFFFF;
+  --lp-shade: rgba(11, 22, 32, 0.16);
+  --lp-stand: #8C99A5;
+}
+.dark .lp-pond {
+  --lp-hi: #133532;
+  --lp-lo: #08171A;
+  --lp-under: rgba(111, 227, 214, 0.10);
+  --lp-vein: rgba(111, 227, 214, 0.13);
+  --lp-rimc: #6FE3D6;
+  --lp-shade: rgba(0, 0, 0, 0.6);
+  --lp-stand: #5F6E7B;
+}
+.lp-scene {
+  position: relative;
+  display: block;
+  width: min(100%, 580px);
+  aspect-ratio: 300 / 190;
+  margin-bottom: 10px;
+}
+.lp-art { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.lp-s-hi { stop-color: var(--lp-hi); }
+.lp-s-lo { stop-color: var(--lp-lo); }
+.lp-s-rim { stop-color: var(--lp-rimc); }
+.lp-shadow { fill: var(--lp-shade); }
+.lp-under { fill: var(--lp-under); }
+.lp-top { stroke: var(--lp-water); stroke-opacity: .35; stroke-width: .8; }
+.lp-veins { fill: none; stroke: var(--lp-vein); stroke-width: .9; stroke-linecap: round; }
+.lp-rim { fill: none; stroke-width: 1.2; opacity: .6; }
+.lp-ring { fill: none; stroke: var(--lp-water); stroke-width: .8; opacity: .14; transform-box: fill-box; transform-origin: center; }
+.lp-easel-leg { fill: none; stroke: var(--lp-stand); stroke-width: 1.4; stroke-linecap: round; }
+.lp-easel-back { opacity: .55; }
+
+/* The preview: standing on the stand, leaning back a little, on a hairline ledge */
+.lp-card {
+  position: absolute;
+  left: 50%;
+  bottom: 37%;
+  width: 54%;
+  aspect-ratio: 16 / 10;
+  translate: -50% 0;
+  background-color: #fff;
+  background-size: cover;
+  background-position: center top;
+  border: 1px solid rgba(11, 22, 32, 0.12);
+  border-radius: 6px;
+  box-shadow: 0 12px 28px -10px var(--lp-shade), 0 2px 6px -2px var(--lp-shade);
+  transform: perspective(700px) rotateX(9deg);
+  transform-origin: 50% 100%;
+}
+.dark .lp-card { border-color: rgba(232, 238, 242, 0.14); background-color: #0B1118; }
+.lp-card::after {
+  content: '';
+  position: absolute;
+  left: -8%;
+  right: -8%;
+  bottom: -6px;
+  height: 1.5px;
+  border-radius: 1px;
+  background: var(--lp-stand);
+}
+.lp-pad { position: relative; }
+/* Hover: same as the other pads — the pad lifts and tilts slightly, its outline brightens */
+.lp-scene { transition: transform .5s cubic-bezier(.2, .7, .2, 1); }
+.lp-pad:hover .lp-scene, .lp-pad:focus-visible .lp-scene { transform: translateY(-6px) scale(1.03) rotate(-1.5deg); }
+.lp-top { transition: stroke-opacity .3s ease; }
+.lp-pad:hover .lp-top, .lp-pad:focus-visible .lp-top { stroke-opacity: .85; }
+.lp-pad:focus-visible { outline: none; }
+.lp-pad:focus-visible .lp-scene { outline: 2px solid var(--lp-water); outline-offset: 8px; border-radius: 50%; }
+
+@keyframes lp-bob { 0%, 100% { translate: 0 0; } 50% { translate: 0 -2px; } }
+@keyframes lp-ring {
+  0% { opacity: .22; transform: scale(.96); }
+  100% { opacity: 0; transform: scale(1.12); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .lp-scene { animation: lp-bob 9s ease-in-out infinite; }
+  .lp-ring { animation: lp-ring 7s ease-out infinite; }
+  .lp-ring-2 { animation-delay: -3.5s; }
+  .lp-pad:hover .lp-ring { animation-duration: 2.8s; }
+}

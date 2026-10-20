@@ -16,11 +16,11 @@
 | `index.mdx` | Home page (`mode: custom`) — renders `<Landing />` from `snippets/landing.jsx`, styled by `landing.css` |
 | `about/skills.mdx` | API-style skills reference — ACTIVE / FLUENT / FAMILIAR badges, parameter tables |
 | `about/changelog.mdx` | Career history formatted as a software changelog — versioned entries, interactive click-to-expand |
-| `work/overview.mdx` | Case studies overview (mode: frame) |
+| `work/overview.mdx` | Case studies overview (mode: frame) — `<PadPond>` lily pads from `snippets/pad-pond.jsx` |
 | `work/apilens.mdx` | ApiLens case study |
 | `work/canvas-annotation-revamp.mdx` | Canvas & Annotation Revamp case study |
 | `work/turn-based-audio-annotation.mdx` | Turn-Based Audio Annotation case study |
-| `writing/overview.mdx` | Writing overview (mode: frame) |
+| `writing/overview.mdx` | Writing overview (mode: frame) — `<PadPond>` lily pads |
 | `writing/the-design-process-shift.mdx` | Essay: The Design Process Shift |
 | `writing/ux-friction-coefficient.mdx` | Essay: UX Friction Coefficient |
 
