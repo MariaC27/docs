@@ -86,6 +86,7 @@
           "api/get-me",
           "api/get-skills",
           "api/get-availability",
+          "api/post-ask",
           "api/post-hire",
           "api/post-contact"
         ]

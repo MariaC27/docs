@@ -841,3 +841,209 @@ html:has(.rv) .almond-layout { top: 0 !important; }
   .rv-pad-title { font-size: 21px; }
   .rv-pad-desc { display: none; }
 }
+
+/* ─── Ask about me (floating chat) ─────────────────────────────────────────── */
+
+/* Right sidebar: mirrors the expanded left rail (280px) and pushes the page over */
+.rv-askbar {
+  flex: 0 0 0;
+  width: 0;
+  overflow: hidden;
+  background: var(--rv-rail);
+  border-left: 1px solid transparent;
+  transition: flex-basis .28s ease, width .28s ease, border-color .28s ease;
+  position: relative;
+  z-index: 40;
+}
+.rv-askbar.rv-open { flex-basis: 280px; width: 280px; border-left-color: var(--rv-line); }
+.rv-askbar-inner { position: sticky; top: 0; width: 280px; height: 100vh; display: flex; }
+.rv-ask-pill {
+  position: fixed;
+  left: 50%;
+  bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+  translate: -50% 0;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 46px;
+  padding: 0 20px 0 16px;
+  border: 1px solid var(--rv-line-strong);
+  border-radius: 999px;
+  background: var(--rv-pill);
+  color: var(--rv-text);
+  font: 500 14.5px/1 var(--rv-sans);
+  box-shadow: var(--rv-shadow);
+  cursor: pointer;
+  transition: transform .3s cubic-bezier(.2, .7, .2, 1), border-color .3s ease;
+}
+.rv-ask-pill:hover { transform: translateY(-2px); border-color: var(--rv-water); }
+.rv-ask-pill:focus-visible { outline: 2px solid var(--rv-water); outline-offset: 3px; }
+/* a little ripple source, like the stone and the river springs */
+.rv-ask-dot { position: relative; width: 9px; height: 9px; border-radius: 50%; background: var(--rv-water); }
+.rv-ask-dot::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px solid var(--rv-water);
+}
+.rv-ask-panel {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  background: transparent;
+}
+.rv-ask-head {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 16px 48px 12px 18px;
+  border-bottom: 1px solid var(--rv-line);
+}
+.rv-ask-title { font-family: var(--rv-serif) !important; font-style: italic; font-size: 22px; line-height: 1.1; color: var(--rv-text); }
+.rv-ask-sub { font-family: var(--rv-code) !important; font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--rv-label); }
+.rv-ask-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 32px;
+  height: 32px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--rv-muted);
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+}
+.rv-ask-close:hover { background: var(--rv-line); color: var(--rv-text); }
+.rv-ask-new {
+  align-self: flex-start;
+  margin-top: 8px;
+  padding: 4px 10px;
+  border: 1px solid var(--rv-line-strong);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--rv-soft);
+  font: 12px/1.2 var(--rv-sans);
+  cursor: pointer;
+}
+.rv-ask-new:hover { border-color: var(--rv-water); color: var(--rv-text); }
+.rv-ask-new:disabled { opacity: .4; cursor: default; }
+.rv-ask-log {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px 16px 8px;
+  overscroll-behavior: contain;
+}
+.rv .rv-ask-empty p { margin: 0 0 12px; font-size: 14px; line-height: 1.5; color: var(--rv-muted); }
+.rv-ask-starters { display: flex; flex-wrap: wrap; gap: 8px; }
+.rv-ask-starters button {
+  padding: 8px 12px;
+  border: 1px solid var(--rv-line-strong);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--rv-soft);
+  font: 13px/1.2 var(--rv-sans);
+  text-align: left;
+  cursor: pointer;
+}
+.rv-ask-starters button:hover { border-color: var(--rv-water); color: var(--rv-text); }
+.rv-ask-msg {
+  max-width: 92%;
+  padding: 9px 13px;
+  border-radius: 14px;
+  font-size: 14px;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.rv-ask-user { align-self: flex-end; background: var(--rv-accent); color: var(--rv-on-accent); border-bottom-right-radius: 4px; }
+.rv-ask-assistant { align-self: flex-start; background: var(--rv-seg-on); color: var(--rv-text); border-bottom-left-radius: 4px; }
+.rv-ask-error { background: transparent; border: 1px dashed var(--rv-line-strong); color: var(--rv-muted); }
+.rv .rv-ask-assistant a { color: inherit; text-decoration: underline; text-decoration-color: var(--rv-water); text-underline-offset: 3px; }
+.rv-ask-typing { display: inline-flex; gap: 4px; padding: 4px 0; }
+.rv-ask-typing span { width: 6px; height: 6px; border-radius: 50%; background: var(--rv-muted); opacity: .4; }
+.rv-ask-form { display: flex; gap: 8px; padding: 10px 12px 12px; border-top: 1px solid var(--rv-line); }
+.rv-ask-form input {
+  flex: 1 1 auto;
+  min-width: 0;
+  height: 40px;
+  padding: 0 14px;
+  border: 1px solid var(--rv-line-strong);
+  border-radius: 999px;
+  background: var(--rv-ground);
+  color: var(--rv-text);
+  font: 14px var(--rv-sans);
+  outline: none;
+}
+.rv-ask-form input:focus { border-color: var(--rv-water); }
+.rv-ask-form button {
+  flex: 0 0 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 50%;
+  background: var(--rv-accent);
+  color: var(--rv-on-accent);
+  cursor: pointer;
+}
+.rv-ask-form button:disabled { opacity: .35; cursor: default; }
+
+@keyframes rv-ask-in { from { opacity: 0; transform: translateX(12px); } }
+@keyframes rv-ask-type { 0%, 100% { opacity: .25; } 50% { opacity: .9; } }
+@media (prefers-reduced-motion: no-preference) {
+  .rv-ask-panel { animation: rv-ask-in .35s cubic-bezier(.2, .7, .2, 1) .08s both; }
+  .rv-ask-dot::after { animation: rv-pulse-dot 2.6s ease-out infinite; }
+  .rv-ask-typing span { animation: rv-ask-type 1.2s ease-in-out infinite; }
+  .rv-ask-typing span:nth-child(2) { animation-delay: .15s; }
+  .rv-ask-typing span:nth-child(3) { animation-delay: .3s; }
+}
+@keyframes rv-pulse-dot { 0% { transform: scale(1); opacity: .7; } 100% { transform: scale(2.8); opacity: 0; } }
+
+/* Phone: the chat sidebar becomes a full-screen sheet over the page */
+@media (max-width: 760px) {
+  .rv-askbar, .rv-askbar.rv-open { flex: 0 0 auto; width: 0; }
+  .rv-askbar.rv-open { position: fixed; inset: 0; width: 100%; z-index: 70; border: 0; }
+  .rv-askbar-inner { width: 100%; height: 100dvh; padding-bottom: env(safe-area-inset-bottom, 0px); }
+}
+
+/* ─── Mid widths: pads float in a column beside the intro instead of a blob below it ───
+   (e.g. a laptop with both sidebars open). Above this the pond sits beside the name at full
+   size; below it (phones) everything stacks. */
+@container rv-main (min-width: 640px) and (max-width: 1196px) {
+  .rv-hero-inner { grid-template-columns: minmax(0, 1fr) minmax(200px, 36%); gap: 16px; align-items: start; }
+  .rv .rv-name { font-size: clamp(36px, 6.2cqi, 84px); }
+  .rv-lake {
+    container: rv-lake / inline-size;
+    max-width: none;
+    margin: 0;
+    padding: 0 0 24px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0 8px;
+  }
+  .rv-slot, .rv-slot-1, .rv-slot-2, .rv-slot-3, .rv-slot-4, .rv-slot-5 { width: 190px; height: 168px; margin: 0; }
+  .rv-slot-5 { margin: 0 calc((100% - 190px) / 2); }
+  .rv-slot-2, .rv-slot-4 { margin-top: 28px; }
+}
+/* A narrow pond column: one pad per row, zigzagging and overlapping a little, like stepping stones */
+@container rv-lake (max-width: 395px) {
+  .rv-slot, .rv-slot-1, .rv-slot-2, .rv-slot-3, .rv-slot-4, .rv-slot-5 { margin: -26px 0 0 !important; }
+  /* A rough quarter circle around the text's bottom-right corner: down the right side, then
+     sweeping left under the text. cqi = the pond column's width (it's the container here). */
+  .rv-slot-5 { margin-top: 0 !important; translate: -12cqi 0; }
+  .rv-slot-1 { translate: 8cqi 0; }
+  .rv-slot-2 { translate: 10cqi 0; }
+  .rv-slot-3 { translate: -40cqi 0; margin-top: -44px !important; }
+  .rv-slot-4 { translate: -108cqi 0; margin-top: -92px !important; }
+}

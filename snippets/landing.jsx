@@ -59,6 +59,7 @@ export const Landing = () => {
       ['GET /me', '/api/get-me'],
       ['GET /skills', '/api/get-skills'],
       ['GET /availability', '/api/get-availability'],
+    ['POST /ask', '/api/post-ask'],
       ['POST /hire', '/api/post-hire'],
       ['POST /contact', '/api/post-contact'],
     ] },
@@ -162,6 +163,7 @@ export const Landing = () => {
   const [mode, setMode] = useState('all');
   const [open, setOpenState] = useState(false);
   const [instant, setInstant] = useState(false);
+  const [chatOpen, setChatOpen] = useState(false);   // the Ask-about-me sidebar
   // Mintlify re-mounts the page when the theme changes, which would reset the rail.
   // Remember it for the session and restore it without animating.
   const setOpen = (v) => {
@@ -242,7 +244,7 @@ export const Landing = () => {
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(trace);
     window.addEventListener('resize', trace);
     return () => { late.forEach(clearTimeout); window.removeEventListener('resize', trace); };
-  }, [mode, open]);   // re-measure when the filter changes or the rail opens/closes
+  }, [mode, open, chatOpen]);   // re-measure when the filter changes or a sidebar opens/closes
   const [drops, setDrops] = useState([]);
 
   // Pond: pads drift away from the pointer.
@@ -250,10 +252,10 @@ export const Landing = () => {
   const stir = (e) => {
     const lake = e.currentTarget;
     if (calm()) return;
-    const box = lake.getBoundingClientRect();
     lake.querySelectorAll('.rv-slot').forEach((slot) => {
-      const dx = box.left + slot.offsetLeft + slot.offsetWidth / 2 - e.clientX;
-      const dy = box.top + slot.offsetTop + slot.offsetHeight / 2 - e.clientY;
+      const r = slot.getBoundingClientRect();   // includes layout shifts like the mid-width arc
+      const dx = r.left + r.width / 2 - e.clientX;
+      const dy = r.top + r.height / 2 - e.clientY;
       const d = Math.hypot(dx, dy) || 1;
       const push = Math.max(0, 1 - d / 280) * 24;
       slot.style.setProperty('--dx', `${((dx / d) * push).toFixed(1)}px`);
@@ -352,7 +354,7 @@ export const Landing = () => {
       clearTimeout(late);
       if (raf) cancelAnimationFrame(raf);
     };
-  }, [mode, open]);   // re-measure when the filter changes or the rail opens/closes
+  }, [mode, open, chatOpen]);   // re-measure when the filter changes or a sidebar opens/closes
 
   // 3D lily pad, drawn already in perspective (an ellipse) in a 300×190 box — the same
   // leaf as the overview pages (snippets/pad-pond.jsx), minus the easel.
@@ -422,6 +424,91 @@ export const Landing = () => {
       ))}
     </div>
   );
+
+  // ── "Ask about me": a floating chat that answers from the whole site (maria-api POST /api/ask) ──
+  const ASK_URL = 'https://maria-api.vercel.app/api/ask';
+  const STARTERS = [
+    'What does Maria work on at Ocular?',
+    'Tell me about ApiLens',
+    "What's her design process like?",
+    'What are her strongest skills?',
+  ];
+  const [chat, setChatState] = useState([]);        // [{ role: 'user' | 'assistant', content, error? }]
+  const [chatInput, setChatInput] = useState('');
+  const [chatBusy, setChatBusy] = useState(false);
+  const chatLogRef = useRef(null);
+  const chatInputRef = useRef(null);
+  // Mintlify re-mounts the page on theme change; keep the conversation for the session.
+  const setChat = (updater) => setChatState((prev) => {
+    const next = typeof updater === 'function' ? updater(prev) : updater;
+    try { sessionStorage.setItem('rv-chat', JSON.stringify(next.filter((m) => !m.error))); } catch (e) { /* storage blocked */ }
+    return next;
+  });
+  useEffect(() => {
+    try { const saved = JSON.parse(sessionStorage.getItem('rv-chat') || '[]'); if (saved.length) setChatState(saved); } catch (e) { /* ignore */ }
+  }, []);
+  useEffect(() => {
+    if (chatOpen && chatInputRef.current) chatInputRef.current.focus();
+    if (!chatOpen) return;
+    const onKey = (e) => { if (e.key === 'Escape') setChatOpen(false); };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [chatOpen]);
+  useEffect(() => {
+    const log = chatLogRef.current;
+    if (log) log.scrollTop = log.scrollHeight;
+  }, [chat, chatOpen]);
+
+  const ask = async (q) => {
+    const question = (q ?? chatInput).trim();
+    if (!question || chatBusy) return;
+    const history = chat.filter((m) => !m.error).map(({ role, content }) => ({ role, content }));
+    setChatInput('');
+    setChatBusy(true);
+    setChat((c) => [...c, { role: 'user', content: question }, { role: 'assistant', content: '' }]);
+    const setAnswer = (fn) => setChat((c) => {
+      const next = c.slice();
+      next[next.length - 1] = fn(next[next.length - 1]);
+      return next;
+    });
+    try {
+      const res = await fetch(ASK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ question, history }),
+      });
+      if (!res.ok || !res.body) {
+        let msg = 'Something went wrong. Try again, or use the [contact form](/api/post-contact).';
+        try { msg = (await res.json()).error || msg; } catch (e) { /* not JSON */ }
+        setAnswer(() => ({ role: 'assistant', content: msg, error: true }));
+        return;
+      }
+      const reader = res.body.getReader();
+      const decoder = new TextDecoder();
+      for (;;) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        const text = decoder.decode(value, { stream: true });
+        setAnswer((m) => ({ ...m, content: m.content + text }));
+      }
+    } catch (e) {
+      setAnswer(() => ({ role: 'assistant', content: "Couldn't reach the server. Check your connection and try again.", error: true }));
+    } finally {
+      setChatBusy(false);
+    }
+  };
+
+  // Answers use light markdown: [links](/path) and **bold**. Rendered as elements, never as HTML.
+  const renderAnswer = (text) => text.split(/(\[[^\]]+\]\([^)\s]+\)|\*\*[^*]+\*\*)/g).map((part, i) => {
+    const link = part.match(/^\[([^\]]+)\]\(([^)\s]+)\)$/);
+    if (link && /^(\/|https?:\/\/)/.test(link[2])) {
+      const external = link[2].startsWith('http');
+      return <a key={i} href={link[2]} {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>{link[1]}</a>;
+    }
+    const bold = part.match(/^\*\*([^*]+)\*\*$/);
+    if (bold) return <strong key={i}>{bold[1]}</strong>;
+    return part;
+  });
 
   let k = 0;
   const rows = STOPS.map((s, i) => {
@@ -527,9 +614,9 @@ export const Landing = () => {
           <div className="rv-hero-inner">
             <div className="rv-hero-text" ref={heroTextRef}>
               <div className="rv-rise rv-hero-meta">
-                <span>San Francisco, CA</span>
+                <span>Design Engineer at Ocular AI (YC W24)</span>
                 <span className="rv-hero-sep" aria-hidden="true" />
-                <span>Building at Ocular AI (YC W24)</span>
+                <span>San Francisco, CA</span>
               </div>
               <div className="rv-rise rv-name-row">
                 {/* Photo is a background image, not <img>: Mintlify wraps <img> in its click-to-zoom */}
@@ -544,8 +631,7 @@ export const Landing = () => {
               <p className="rv-rise rv-tagline">thinks like a designer, executes like an engineer</p>
               <p className="rv-rise rv-bio">I work at the intersection of design and engineering, owning features end-to-end on small, fast-moving teams.</p>
               <div className="rv-rise rv-hero-cta">
-                <a href="/api/post-contact" className="rv-btn">Say hello</a>
-                <a href="#river" className="rv-link" onClick={() => setMode('projects')}>Jump to projects</a>
+                <a href="/api/post-contact" className="rv-btn">Contact me</a>
               </div>
             </div>
             {pond(lakeRef, 'rv-rise rv-lake')}
@@ -591,6 +677,57 @@ export const Landing = () => {
           </div>
         </footer>
       </main>
+
+      {/* Ask about me: a right sidebar, same width as the expanded left rail, that pushes the
+          page over like the rail does. Clicks inside don't drop pond ripples. */}
+      <aside className={`rv-askbar${chatOpen ? ' rv-open' : ''}`} onPointerDown={(e) => e.stopPropagation()}>
+        <div className="rv-askbar-inner">
+          {chatOpen && (
+              <section className="rv-ask-panel" role="dialog" aria-label="Ask about Maria">
+                <header className="rv-ask-head">
+                  <span className="rv-ask-title">Ask about Maria</span>
+                  <span className="rv-ask-sub">Answers from this site</span>
+                  {chat.length > 0 && (
+                    <button type="button" className="rv-ask-new" onClick={() => setChat([])} disabled={chatBusy}>New chat</button>
+                  )}
+                  <button type="button" className="rv-ask-close" onClick={() => setChatOpen(false)} aria-label="Close chat">×</button>
+                </header>
+                <div className="rv-ask-log" ref={chatLogRef} aria-live="polite">
+                  {chat.length === 0 && (
+                    <div className="rv-ask-empty">
+                      <p>Ask anything about Maria's work, skills, or experience.</p>
+                      <div className="rv-ask-starters">
+                        {STARTERS.map((q) => (
+                          <button key={q} type="button" onClick={() => ask(q)}>{q}</button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  {chat.map((m, i) => (
+                    <div key={i} className={`rv-ask-msg rv-ask-${m.role}${m.error ? ' rv-ask-error' : ''}`}>
+                      {m.role === 'assistant' && !m.content
+                        ? <span className="rv-ask-typing" aria-label="Thinking"><span /><span /><span /></span>
+                        : (m.role === 'assistant' ? renderAnswer(m.content) : m.content)}
+                    </div>
+                  ))}
+                </div>
+                <form className="rv-ask-form" onSubmit={(e) => { e.preventDefault(); ask(); }}>
+                  <input ref={chatInputRef} value={chatInput} onChange={(e) => setChatInput(e.target.value)}
+                    placeholder="Ask a question…" maxLength={600} aria-label="Your question" />
+                  <button type="submit" disabled={chatBusy || !chatInput.trim()} aria-label="Send">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 19V5" /><path d="M5 12l7-7 7 7" /></svg>
+                  </button>
+                </form>
+              </section>
+          )}
+        </div>
+      </aside>
+      {!chatOpen && (
+        <button type="button" className="rv-ask-pill" onClick={() => setChatOpen(true)} onPointerDown={(e) => e.stopPropagation()}>
+          <span className="rv-ask-dot" aria-hidden="true" />
+          Ask about me
+        </button>
+      )}
     </div>
   );
 };
