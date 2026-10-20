@@ -25,8 +25,12 @@
   --rv-shimmer: #FFFFFF;
   --rv-img: #E6EDF1;
   --rv-img-line: rgba(11, 22, 32, 0.22);
-  --rv-leaf: #DDF0EE;
-  --rv-leaf-hover: #C9E9E5;
+  --rv-leaf-hi: #EEF8F6;
+  --rv-leaf-lo: #CFE9E4;
+  --rv-leaf-under: rgba(18, 163, 148, 0.22);
+  --rv-leaf-vein: rgba(11, 116, 105, 0.16);
+  --rv-leaf-rim: #FFFFFF;
+  --rv-leaf-shade: rgba(11, 22, 32, 0.16);
   --rv-hero-wash: rgba(18, 163, 148, 0.10);
   --rv-lake: rgba(18, 163, 148, 0.08);
   --rv-shadow: 0 10px 40px rgba(11, 22, 32, 0.10);
@@ -57,8 +61,12 @@
   --rv-glow: 1;
   --rv-img: #0B1118;
   --rv-img-line: rgba(232, 238, 242, 0.24);
-  --rv-leaf: #0A1718;
-  --rv-leaf-hover: #0E2122;
+  --rv-leaf-hi: #133532;
+  --rv-leaf-lo: #08171A;
+  --rv-leaf-under: rgba(111, 227, 214, 0.10);
+  --rv-leaf-vein: rgba(111, 227, 214, 0.13);
+  --rv-leaf-rim: #6FE3D6;
+  --rv-leaf-shade: rgba(0, 0, 0, 0.6);
   --rv-hero-wash: rgba(150, 185, 215, 0.10);
   --rv-lake: rgba(111, 227, 214, 0.05);
   --rv-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
@@ -613,8 +621,8 @@ html:has(.rv) .almond-layout { top: 0 !important; }
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 6px;
-  padding: 34px 30px 26px;
+  gap: 4px;
+  padding: 0 24px;
   text-align: center;
   transition: transform .5s cubic-bezier(.2, .7, .2, 1);
 }
@@ -624,8 +632,8 @@ html:has(.rv) .almond-layout { top: 0 !important; }
   position: absolute;
   left: 50%;
   top: 50%;
-  width: 118%;
-  height: 118%;
+  width: 132%;
+  height: 80%;
   border-radius: 50%;
   border: 1px solid var(--rv-water);
   opacity: 0.1;
@@ -635,23 +643,46 @@ html:has(.rv) .almond-layout { top: 0 !important; }
 .rv-p2 .rv-ripple { animation-delay: -2s; }
 .rv-p3 .rv-ripple { animation-delay: -4s; }
 .rv-p4 .rv-ripple { animation-delay: -1s; }
-.rv-leaf { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
-.rv-leaf path { stroke: var(--rv-water); stroke-width: 1; transition: stroke-opacity .3s ease, fill .3s ease; }
-.rv-leaf-body { fill: var(--rv-leaf); stroke-opacity: 0.35; }
-.rv-leaf-veins { fill: none; stroke-opacity: 0.08; }
-.rv-pad:hover .rv-leaf-body, .rv-pad:focus-visible .rv-leaf-body { stroke-opacity: .85; fill: var(--rv-leaf-hover); }
+/* 3D leaf (same as the overview pages): a little wider than the slot, lying flat in perspective.
+   Stretched a touch taller than the overview leaf so the title and slug fit on it. The leaf's
+   centre sits at 63% of the drawing's height, so pull it up by that much to centre it in the slot. */
+.rv-leaf3d {
+  position: absolute;
+  left: -12%;
+  width: 124%;
+  top: 50%;
+  aspect-ratio: 300 / 250;
+  transform: translateY(-63%);
+  overflow: visible;
+}
+.rv-s-hi { stop-color: var(--rv-leaf-hi); }
+.rv-s-lo { stop-color: var(--rv-leaf-lo); }
+.rv-s-rim { stop-color: var(--rv-leaf-rim); }
+.rv-leaf-shadow { fill: var(--rv-leaf-shade); }
+.rv-leaf-under { fill: var(--rv-leaf-under); }
+.rv-leaf-top { stroke: var(--rv-water); stroke-opacity: .35; stroke-width: .8; transition: stroke-opacity .3s ease; }
+.rv-leaf-veins { fill: none; stroke: var(--rv-leaf-vein); stroke-width: .9; stroke-linecap: round; }
+.rv-leaf-rim { fill: none; stroke-width: 1.2; opacity: .6; }
+.rv-pad:hover .rv-leaf-top, .rv-pad:focus-visible .rv-leaf-top { stroke-opacity: .85; }
 .rv-pad-title { font-family: var(--rv-serif) !important; font-size: 25px; line-height: 1.1; color: var(--rv-text); }
-.rv-pad-desc {
+/* Description: a caption that surfaces just under the leaf on hover, so it never covers the pad */
+.rv .rv-pad-face > .rv-pad-desc {
+  position: absolute;
+  left: 50%;
+  top: calc(100% - 8px);
+  width: 230px;
+  translate: -50% 0;
   font-size: 13px;
   line-height: 1.4;
   color: var(--rv-muted);
-  max-height: 0;
   opacity: 0;
-  overflow: hidden;
-  transition: max-height .45s cubic-bezier(.2, .7, .2, 1), opacity .3s ease;
+  transform: translateY(-4px);
+  pointer-events: none;
+  transition: opacity .3s ease, transform .3s ease;
 }
 /* Title + slug at rest; the description surfaces on hover or keyboard focus */
-.rv-pad:hover .rv-pad-desc, .rv-pad:focus-visible .rv-pad-desc { max-height: 80px; opacity: 1; transition-delay: .05s; }
+.rv .rv-pad:hover .rv-pad-face > .rv-pad-desc, .rv .rv-pad:focus-visible .rv-pad-face > .rv-pad-desc { opacity: 1; transform: none; transition-delay: .05s; }
+.rv-slot:hover { z-index: 3; }
 .rv-pad-path { font-family: var(--rv-code) !important; font-size: 11px; color: var(--rv-label); margin-top: 2px; }
 
 /* A ripple wherever the pointer presses the page */

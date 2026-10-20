@@ -68,11 +68,11 @@ export const Landing = () => {
   const ABOUT_ME = null;
 
   const PADS = [
-    { title: 'Case Studies', href: '/work/overview', desc: 'Selected projects covering problem, approach, outcomes, and learnings.', rot: 62 },
-    { title: 'Writing', href: '/writing/overview', desc: 'Thoughts on design engineering, UX friction, and building in small teams.', rot: -128 },
-    { title: 'Skills', href: '/about/skills', desc: 'An API-style reference of languages, tools, and frameworks.', rot: 118 },
-    { title: 'Experience', href: '/about/changelog', desc: 'Roles, companies, and milestones formatted as a software changelog.', rot: -64 },
-    { title: 'About Me', href: ABOUT_ME, path: '/about/me', rot: -20 },
+    { title: 'Case Studies', href: '/work/overview', desc: 'Selected projects covering problem, approach, outcomes, and learnings.' },
+    { title: 'Writing', href: '/writing/overview', desc: 'Thoughts on design engineering, UX friction, and building in small teams.' },
+    { title: 'Skills', href: '/about/skills', desc: 'An API-style reference of languages, tools, and frameworks.' },
+    { title: 'Experience', href: '/about/changelog', desc: 'Roles, companies, and milestones formatted as a software changelog.' },
+    { title: 'About Me', href: ABOUT_ME, path: '/about/me' },
   ];
 
   const FILTERS = [
@@ -354,6 +354,55 @@ export const Landing = () => {
     };
   }, [mode, open]);   // re-measure when the filter changes or the rail opens/closes
 
+  // 3D lily pad, drawn already in perspective (an ellipse) in a 300×190 box — the same
+  // leaf as the overview pages (snippets/pad-pond.jsx), minus the easel.
+  const LCX = 150, LCY = 120, LRX = 135, LRY = 56;
+  const lrad = (d) => (d * Math.PI) / 180;
+  const lat = (t, r) => [LCX + LRX * r * Math.cos(lrad(t)), LCY + LRY * r * Math.sin(lrad(t))];
+  const leafPath = (seed, left) => {
+    const a1 = left ? 124 : 38, a2 = left ? 142 : 56;   // the notch, facing the viewer
+    const pts = [];
+    for (let t = a2; t <= a1 + 360; t += 3) {
+      const r = 1 + 0.022 * Math.sin(lrad(5 * t + seed * 40)) + 0.012 * Math.sin(lrad(11 * t + seed * 90));
+      const [x, y] = lat(t, r);
+      pts.push(`${x.toFixed(1)},${y.toFixed(1)}`);
+    }
+    return `M${LCX},${LCY - 2} L${pts.join(' L')} Z`;
+  };
+  const leafVeins = () => {
+    const out = [];
+    for (let t = 72; t < 396; t += 26) {
+      const [ex, ey] = lat(t, 0.9), [qx, qy] = lat(t + 5, 0.5);
+      out.push(`M${LCX},${LCY - 2} Q${qx.toFixed(1)},${qy.toFixed(1)} ${ex.toFixed(1)},${ey.toFixed(1)}`);
+    }
+    return out.join(' ');
+  };
+  const leaf3d = (n) => {
+    const id = `rvp${n}`, d = leafPath(n + 3, n % 2 === 1);
+    return (
+      <svg className="rv-leaf3d" viewBox="0 0 300 190" preserveAspectRatio="none" aria-hidden="true">
+        <defs>
+          <radialGradient id={`${id}-top`} cx="42%" cy="38%" r="70%">
+            <stop offset="0" className="rv-s-hi" />
+            <stop offset="1" className="rv-s-lo" />
+          </radialGradient>
+          <linearGradient id={`${id}-rim`} gradientUnits="userSpaceOnUse" x1="0" y1={LCY - LRY} x2="0" y2={LCY + LRY}>
+            <stop offset="0.35" className="rv-s-rim" stopOpacity="0" />
+            <stop offset="1" className="rv-s-rim" />
+          </linearGradient>
+          <filter id={`${id}-blur`} x="-20%" y="-50%" width="140%" height="200%">
+            <feGaussianBlur stdDeviation="6" />
+          </filter>
+        </defs>
+        <ellipse className="rv-leaf-shadow" cx={LCX + 4} cy={LCY + 14} rx={LRX * 0.97} ry={LRY * 0.85} filter={`url(#${id}-blur)`} />
+        <path className="rv-leaf-under" d={d} transform="translate(0 3)" />
+        <path className="rv-leaf-top" d={d} fill={`url(#${id}-top)`} />
+        <path className="rv-leaf-veins" d={leafVeins()} />
+        <path className="rv-leaf-rim" d={d} stroke={`url(#${id}-rim)`} />
+      </svg>
+    );
+  };
+
   // The lily-pad pond beside the intro.
   const pond = (ref, cls) => (
     <div className={cls} ref={ref} onPointerMove={stir} onPointerLeave={settle}>
@@ -363,10 +412,7 @@ export const Landing = () => {
             onClick={(e) => { if (!pad.href) e.preventDefault(); }}>
             <span className="rv-ripple" aria-hidden="true" />
             <span className="rv-pad-face">
-              <svg className="rv-leaf" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" style={{ transform: `rotate(${pad.rot}deg)` }}>
-                <path className="rv-leaf-body" d="M50,50 L62.4,3.6 A48,48 0 1,1 37.6,3.6 Z" vectorEffect="non-scaling-stroke" />
-                <path className="rv-leaf-veins" d="M50,50 L50,98 M50,50 L16,84 M50,50 L84,84 M50,50 L3,52 M50,50 L97,52 M50,50 L14,18 M50,50 L86,18" vectorEffect="non-scaling-stroke" />
-              </svg>
+              {leaf3d(n)}
               <span className="rv-pad-title">{pad.title}</span>
               {pad.desc && <span className="rv-pad-desc">{pad.desc}</span>}
               <span className="rv-pad-path">{pad.path || pad.href}</span>
