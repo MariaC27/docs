@@ -13,7 +13,7 @@
 
 | File | Purpose |
 |------|---------|
-| `index.mdx` | Home page (`mode: custom`) — renders `<Landing />` from `snippets/landing.jsx`, styled by `landing.css` |
+| `index.mdx` | Home page (`mode: custom`) — renders `<Landing work={<Work items={[...]} />} />`; `snippets/landing.jsx` (hero, pond, river) + `snippets/work.jsx` (Projects rows below the river), styled by `landing.css`. Project/article data lives in `index.mdx` |
 | `about/skills.mdx` | API-style skills reference — ACTIVE / FLUENT / FAMILIAR badges, parameter tables |
 | `about/changelog.mdx` | Career history formatted as a software changelog — versioned entries, interactive click-to-expand |
 | `work/overview.mdx` | Case studies overview (mode: frame) — `<PadPond>` lily pads from `snippets/pad-pond.jsx` |

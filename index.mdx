@@ -5,5 +5,46 @@ mode: custom
 ---
 
 import { Landing } from '/snippets/landing.jsx'
+import { Work } from '/snippets/work.jsx'
 
-<Landing />
+<Landing work={<Work items={[
+  {
+    kind: "project",
+    title: "Canvas & Annotation Revamp",
+    href: "/work/canvas-annotation-revamp",
+    img: "/images/canvas_study1_newcanvas.png",
+    meta: ["Ocular AI"],
+    summary: "A full redesign of Ocular’s image annotation canvas. I ran the research, worked through 8+ wireframe iterations in Figma, and built it.",
+    outcome: "Held up for over a year as the canvas expanded to other modalities."
+  },
+  {
+    kind: "project",
+    title: "Turn-Based Audio Annotation",
+    href: "/work/turn-based-audio-annotation",
+    img: "/images/audio_study1_blurred.png",
+    meta: ["Ocular AI", "Late 2025 – early 2026"],
+    summary: "A new interface for annotating multi-speaker audio. Each turn is a row with its transcript and rubric fields, tied to a full-width waveform.",
+    outcome: "Prototyped with AI tools, validated with the partner, then built for production."
+  },
+  {
+    kind: "project",
+    title: "ApiLens",
+    href: "/work/apilens",
+    img: "/images/apilens_study1_polished.png",
+    meta: ["Open source"],
+    summary: "A versioning and visual diff tool for OpenAPI specs. It snapshots the spec on each merge to main and shows color-coded, field-level diffs.",
+    outcome: "Published to PyPI as openapi-lens.",
+    links: [
+      { label: "GitHub", href: "https://github.com/MariaC27/api-lens" },
+      { label: "PyPI", href: "https://pypi.org/project/openapi-lens/" }
+    ]
+  },
+  {
+    kind: "article",
+    title: "The Design Process Shift",
+    href: "/writing/the-design-process-shift",
+    img: "/images/design_article1_graphic.png",
+    meta: ["Feb 2026", "8 min read"],
+    summary: "How the design and engineering process on small teams has changed recently, and what that means for design engineers."
+  }
+]} />} />

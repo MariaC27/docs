@@ -3,11 +3,10 @@
 // Mintlify keeps only the imported export from a snippet, so data and helpers
 // live inside Landing, and helpers are called as functions rather than <Tags>.
 
-export const Landing = () => {
+export const Landing = ({ work }) => {
   const STOPS = [
     { t: 'job', ghost: '2025', title: 'Design engineer at Ocular AI', start: 'Winter 2025', end: 'Now',
-      desc: 'Moved to SF to join Ocular AI (YC W24). I take features from first concept to full implementation on a five-person team, reporting to the founders.',
-      work: [['Canvas Revamp', '/work/canvas-annotation-revamp'], ['Audio Annotation', '/work/turn-based-audio-annotation']] },
+      desc: 'Moved to SF to join Ocular AI (YC W24). I take features from first concept to full implementation on a five-person team, reporting to the founders.' },
     { t: 'job', ghost: '2024', title: 'Fullstack SWE at NoxuData', start: 'Fall 2024', end: 'Winter 2024',
       desc: 'Reported directly to the two founders. Learned API design fundamentals and shipped clean code on a large existing codebase.' },
     { t: 'ms', ghost: '2024', title: 'Graduated Dartmouth', date: 'Spring 2024',
@@ -137,12 +136,6 @@ export const Landing = () => {
           <h2 className="rv-title-job">{s.title}</h2>
           {metaLine([s.end ? `${s.start} – ${s.end}` : s.start, s.intern && 'Internship'])}
           <p className="rv-desc">{s.desc}</p>
-          {s.work && (
-            <div className="rv-work-links">
-              <span>Built here</span>
-              {s.work.map(([label, href]) => <a key={href} href={href}>{label}</a>)}
-            </div>
-          )}
         </>
       );
     }
@@ -727,7 +720,11 @@ export const Landing = () => {
 
         <div className="rv-body" id="river">
           <div className="rv-wrap">
-            <div className="rv-label rv-river-label">Career path</div>
+            {/* Section tabs: anchors to the two sections below the hero */}
+            <nav className="rv-tabs" aria-label="Sections">
+              <a href="#river" className="rv-tab rv-tab-on" aria-current="true">Career path</a>
+              <a href="#projects" className="rv-tab">Projects <span aria-hidden="true">↓</span></a>
+            </nav>
             {rows.map(({ s, i, vis, first, ghost, x, cardSide, ghostSide, p, cls }) => (
               <section key={i} ref={(el) => { rowsRef.current[i] = el; }}
                 className={`rv-reach rv-row-${s.t}${vis ? '' : ' rv-hide'}${first ? ' rv-row-first' : ''}`}>
@@ -744,6 +741,18 @@ export const Landing = () => {
 
           </div>
         </div>
+
+        {work && (
+          <section className="rv-projects" id="projects" aria-labelledby="rv-projects-label">
+            <div className="rv-projects-inner">
+              <nav className="rv-tabs" aria-label="Sections">
+                <a href="#river" className="rv-tab">Career path <span aria-hidden="true">↑</span></a>
+                <span className="rv-tab rv-tab-on" id="rv-projects-label">Projects</span>
+              </nav>
+              {work}
+            </div>
+          </section>
+        )}
 
         <footer className="rv-footer">
           <div className="rv-footer-links">
