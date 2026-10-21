@@ -467,8 +467,6 @@ html:has(.rv) .almond-layout { top: 0 !important; }
 .rv-card.rv-side-right { grid-column: 3; grid-row: 1; }
 .rv-card.rv-side-left { grid-column: 1; grid-row: 1; text-align: right; justify-self: end; }
 .rv-card.rv-out { opacity: 0; transform: translateY(28px); }
-.rv-card-proj { gap: 14px; }
-.rv-card-ms { gap: 8px; }
 
 .rv-eyebrow, .rv-span, .rv-links { display: flex; align-items: center; flex-wrap: wrap; }
 .rv-eyebrow {
@@ -490,6 +488,21 @@ html:has(.rv) .almond-layout { top: 0 !important; }
 .rv-links { gap: 4px 24px; }
 .rv-card.rv-side-left .rv-eyebrow, .rv-card.rv-side-left .rv-span, .rv-card.rv-side-left .rv-links { justify-content: flex-end; }
 .rv-gap-top { margin-top: 8px; }
+.rv-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: -2px;
+  font-family: var(--rv-code) !important;
+  font-size: 11.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--rv-label);
+}
+.rv-meta > span { display: inline-flex; align-items: center; gap: 8px; }
+.rv-meta-sep { opacity: .6; }
+.rv-card.rv-side-left .rv-meta { justify-content: flex-end; }
 
 .rv-tag { padding: 3px 8px; border-radius: 3px; }
 .rv-tag-proj { background: var(--rv-accent); color: var(--rv-on-accent); }
@@ -499,11 +512,9 @@ html:has(.rv) .almond-layout { top: 0 !important; }
 .rv-bar-long { width: 88px; }
 .rv-bar-short { width: 40px; }
 
-.rv .rv-title-proj { font-style: italic; font-size: clamp(34px, 3.4vw, 46px); line-height: 1.05; }
-.rv .rv-title-job { font-size: 34px; line-height: 1.1; }
-.rv .rv-title-ms { font-size: 26px; line-height: 1.15; }
+/* Every stop on the river uses the same title and body style; the meta line carries the type */
+.rv .rv-title-proj, .rv .rv-title-job, .rv .rv-title-ms { font-style: normal; font-size: 34px; line-height: 1.1; }
 .rv-desc { font-size: 15.5px; color: var(--rv-muted); }
-.rv-desc-sm { font-size: 15px; }
 .rv-outcome { font-size: 15.5px; color: var(--rv-text); }
 .rv .rv-img {
   display: block;
@@ -538,32 +549,19 @@ html:has(.rv) .almond-layout { top: 0 !important; }
   transition: opacity .5s ease, transform .5s cubic-bezier(.2, .7, .2, 1);
 }
 .rv-dot.rv-out { opacity: 0; transform: translate(-50%, -50%) scale(.2); }
-.rv-dot-proj {
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  background: var(--rv-halo);
-  border: 2px solid var(--rv-water);
-  box-shadow: 0 0 0 5px var(--rv-halo), 0 0 28px color-mix(in srgb, var(--rv-water) calc(var(--rv-glow) * 100%), transparent);
-}
-.rv-dot-job {
-  width: 16px;
-  height: 16px;
-  border-radius: 3px;
-  background: var(--rv-role);
-  box-shadow: 0 0 0 5px var(--rv-halo), 0 0 20px color-mix(in srgb, var(--rv-role) calc(var(--rv-glow) * 100%), transparent);
-}
-.rv-dot-ms { width: 14px; height: 14px; }
-.rv-dot-ms::before {
-  content: '';
+/* Every stop is a lotus blooming in the river (see .rv-lotus below) */
+.rv-dot { width: 42px; height: 34px; }
+.rv-dot-ripple {
   position: absolute;
-  left: 2px;
-  top: 2px;
-  width: 10px;
-  height: 10px;
-  background: var(--rv-ms);
-  transform: rotate(45deg);
-  box-shadow: 0 0 0 4px var(--rv-ground), 0 0 16px color-mix(in srgb, var(--rv-ms) calc(var(--rv-glow) * 70%), transparent);
+  left: 50%;
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1px solid var(--rv-water);
+  opacity: 0;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
 }
 
 
@@ -755,6 +753,10 @@ html:has(.rv) .almond-layout { top: 0 !important; }
   0% { opacity: .28; transform: translate(-50%, -50%) scale(0); }
   100% { opacity: 0; transform: translate(-50%, -50%) scale(1); }
 }
+@keyframes rv-dot-ripple {
+  0% { opacity: .5; transform: translate(-50%, -50%) scale(1); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(3.4); }
+}
 @keyframes rv-bob {
   0% { transform: translateY(0) rotate(0deg); }
   30% { transform: translateY(-7px) rotate(-1.2deg); }
@@ -778,6 +780,7 @@ html:has(.rv) .almond-layout { top: 0 !important; }
   .rv .rv-ripple { animation: rv-ripple 6s ease-out infinite; }
   .rv .rv-pad:hover .rv-ripple { animation-duration: 2s; }
   .rv-stone-ring { animation: rv-ring 6s ease-out infinite; }
+  .rv-dot.rv-in .rv-dot-ripple { animation: rv-dot-ripple 4s ease-out infinite; }
   .rv-bob .rv-pad-face { animation: rv-bob 1.8s cubic-bezier(.3, .6, .3, 1); }
   .rv-shimmer, .rv-shimmer::after { animation: rv-shimmer 26s ease-in-out infinite alternate; }
   .rv-shimmer::after { animation-duration: 19s; animation-direction: alternate-reverse; }
@@ -1012,6 +1015,7 @@ html:has(.rv) .almond-layout { top: 0 !important; }
 /* Phone: the chat sidebar becomes a full-screen sheet over the page */
 @media (max-width: 760px) {
   .rv-askbar, .rv-askbar.rv-open { flex: 0 0 auto; width: 0; }
+  .rv-askbar:not(.rv-open) { display: none; }   /* closed: take no space in the stacked layout */
   .rv-askbar.rv-open { position: fixed; inset: 0; width: 100%; z-index: 70; border: 0; }
   .rv-askbar-inner { width: 100%; height: 100dvh; padding-bottom: env(safe-area-inset-bottom, 0px); }
 }
@@ -1046,4 +1050,192 @@ html:has(.rv) .almond-layout { top: 0 !important; }
   .rv-slot-2 { translate: 10cqi 0; }
   .rv-slot-3 { translate: -40cqi 0; margin-top: -44px !important; }
   .rv-slot-4 { translate: -108cqi 0; margin-top: -92px !important; }
+}
+
+/* "Built here" links under a role */
+.rv-work-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 16px;
+  margin-top: 2px;
+  font-size: 14.5px;
+}
+.rv-work-links > span {
+  font-family: var(--rv-code) !important;
+  font-size: 11.5px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--rv-label);
+}
+.rv .rv-work-links a { color: var(--rv-text); text-decoration: underline; text-decoration-color: var(--rv-water); text-underline-offset: 4px; }
+.rv-card.rv-side-left .rv-work-links { justify-content: flex-end; }
+.rv-label {
+  font-family: var(--rv-code) !important;
+  font-size: 12.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--rv-label);
+}
+
+/* ─── Work fan: screenshot cards that fan up out of the Case Studies pad ─── */
+.rv-has-fan { z-index: 6; }
+.rv .rv-has-fan .rv-pad-face > .rv-pad-desc { display: none; }   /* the fan replaces the caption */
+.rv-fan {
+  position: absolute;
+  left: 50%;
+  bottom: 62%;
+  width: 0;
+  height: 0;
+  z-index: 3;   /* above the pad it comes out of */
+  pointer-events: none;
+}
+/* an invisible bridge so the pointer can travel from the pad up to the cards */
+.rv-has-fan:is(:hover, :focus-within, .rv-fan-open) .rv-fan::before {
+  content: '';
+  position: absolute;
+  left: -380px;
+  width: 470px;
+  bottom: -20px;
+  height: 200px;
+  pointer-events: auto;
+}
+.rv .rv-fan-card {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 168px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 6px 6px 8px;
+  background: var(--rv-pill);
+  border: 1px solid var(--rv-line-strong);
+  border-radius: 10px;
+  box-shadow: var(--rv-shadow);
+  text-decoration: none;
+  opacity: 0;
+  transform: translate(-50%, 30px) rotate(0deg) scale(.55);
+  transform-origin: 50% 100%;
+  transition: transform .45s cubic-bezier(.2, .8, .2, 1.15), opacity .25s ease, border-color .2s ease;
+}
+.rv-fan-img {
+  display: block;
+  aspect-ratio: 16 / 10;
+  border-radius: 6px;
+  background-color: var(--rv-img);
+  background-size: cover;
+  background-position: center top;
+}
+.rv-fan-title { font-size: 12.5px; line-height: 1.25; color: var(--rv-text); padding: 0 2px; }
+/* open */
+.rv-has-fan:is(:hover, :focus-within, .rv-fan-open) .rv-fan-card { opacity: 1; pointer-events: auto; }
+.rv-fan-card.rv-fan-2 { transition-delay: .05s; }
+.rv-fan-card.rv-fan-3 { transition-delay: .1s; }
+/* Case Studies (bottom-right): up and to the left */
+.rv-fan-up:is(:hover, :focus-within, .rv-fan-open) .rv-fan-1 { transform: translate(calc(-50% - 290px), 10px) rotate(-10deg); }
+.rv-fan-up:is(:hover, :focus-within, .rv-fan-open) .rv-fan-2 { transform: translate(calc(-50% - 140px), -44px) rotate(-3deg); }
+.rv-fan-up:is(:hover, :focus-within, .rv-fan-open) .rv-fan-3 { transform: translate(calc(-50% + 10px), -64px) rotate(5deg); }
+/* Writing (top-right): down and to the left */
+.rv-fan-down .rv-fan { bottom: auto; top: 58%; }
+.rv-fan-down .rv-fan-card { bottom: auto; top: 0; transform: translate(-50%, -30px) scale(.55); transform-origin: 50% 0; }
+.rv-fan-down:is(:hover, :focus-within, .rv-fan-open) .rv-fan::before { bottom: auto; top: -20px; left: -320px; width: 400px; }
+.rv-fan-down:is(:hover, :focus-within, .rv-fan-open) .rv-fan-1 { transform: translate(calc(-50% - 230px), 24px) rotate(-6deg); }
+.rv-fan-down:is(:hover, :focus-within, .rv-fan-open) .rv-fan-2 { transform: translate(calc(-50% - 50px), 48px) rotate(5deg); }
+.rv .rv-fan-card:hover, .rv .rv-fan-card:focus-visible { border-color: var(--rv-water); opacity: 1; z-index: 2; }
+.rv-has-fan .rv-fan-card:hover { translate: 0 -6px; }
+@media (prefers-reduced-motion: reduce) {
+  .rv .rv-fan-card { transition: opacity .2s ease; }
+}
+/* phones: smaller cards and a tighter arc */
+@media (max-width: 760px) {
+  /* phones: a tighter fan */
+  .rv-fan-up.rv-fan-open .rv-fan-1 { transform: translate(calc(-50% - 220px), 0) rotate(-6deg); }
+  .rv-fan-up.rv-fan-open .rv-fan-2 { transform: translate(calc(-50% - 110px), -18px) rotate(0deg); }
+  .rv-fan-up.rv-fan-open .rv-fan-3 { transform: translate(-50%, 0) rotate(6deg); }
+  .rv-fan-down.rv-fan-open .rv-fan-1 { transform: translate(calc(-50% - 150px), 10px) rotate(-5deg); }
+  .rv-fan-down.rv-fan-open .rv-fan-2 { transform: translate(calc(-50% - 40px), 24px) rotate(4deg); }
+}
+
+/* ─── Lotus flowers ─── */
+.rv {
+  --rv-petal-hi: #FFFFFF;
+  --rv-petal-lo: #DCEFEB;
+  --rv-petal-edge: rgba(18, 163, 148, 0.45);
+  --rv-lotus-heart: #D8C67A;
+}
+.dark .rv {
+  --rv-petal-hi: #E9F4F2;
+  --rv-petal-lo: #8FC3BA;
+  --rv-petal-edge: rgba(111, 227, 214, 0.55);
+  --rv-lotus-heart: #CDBB6E;
+}
+.rv-lotus {
+  position: absolute;
+  inset: 0;
+  display: block;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  transform: translate(var(--lx, 0px), var(--ly, 0px));
+  transition: transform 1.5s cubic-bezier(.2, .8, .2, 1);
+}
+.rv-lotus svg { width: 100%; height: 100%; overflow: visible; display: block; }
+.rv-lotus-held { cursor: grabbing; transition: none; z-index: 10; }
+.rv-lotus-held svg { transform: scale(1.12) rotate(-4deg); }
+.rv-lotus svg { transition: transform .3s ease; }
+.rv-lotus:hover svg { transform: scale(1.08); }
+.rv-lotus-shadow { fill: var(--rv-leaf-shade); opacity: .55; }
+.rv-petal { stroke: var(--rv-petal-edge); stroke-width: .5; }
+.rv-petal-hi { fill: var(--rv-petal-hi); }
+.rv-petal-lo { fill: var(--rv-petal-lo); }
+.rv-lotus-heart { fill: var(--rv-lotus-heart); }
+.rv-lotus-outer, .rv-lotus-inner {
+  transform-box: view-box;
+  transform-origin: 50% 56%;
+  transition: transform .9s cubic-bezier(.2, .9, .3, 1.2);
+}
+.rv-lotus-inner { transition-delay: .15s; }
+/* bloom: closed until its stop scrolls into view */
+.rv-dot.rv-out .rv-lotus-outer { transform: scale(.25); }
+.rv-dot.rv-out .rv-lotus-inner { transform: scale(.15, .5); }
+.rv-dot .rv-dot-ripple { top: 62%; }
+
+/* free-floating lotuses: two among the hero pads, three across the footer */
+.rv-lotus-free { position: absolute; z-index: 2; width: calc(48px * var(--ls, 1)); height: calc(40px * var(--ls, 1)); translate: -50% -50%; }
+.rv-lotus-p1 { left: 292px; top: 92px; }     /* between Skills and Writing */
+.rv-lotus-p2 { left: 486px; top: 262px; }    /* between Writing and Case Studies */
+.rv-lotus-p3 { left: 112px; top: 288px; }    /* left, between About Me and API */
+.rv-footer-links { position: relative; }
+.rv-lotus-b1 { left: -96px; top: 50%; }
+.rv-lotus-b2 { left: calc(100% + 80px); top: 38%; }
+.rv-lotus-b3 { left: calc(100% + 150px); top: 70%; }
+/* in the stacked / stepping-stone pond layouts the pads move around: tuck the pond lotuses beside them */
+@container rv-main (max-width: 1196px) {
+  .rv-lotus-p1 { left: 10%; top: 34%; }
+  .rv-lotus-p2 { left: 4%; top: 54%; }
+  .rv-lotus-p3 { left: 86%; top: 76%; }
+}
+@keyframes rv-lotus-drift {
+  0%, 100% { translate: -50% -50%; rotate: 0deg; }
+  50% { translate: calc(-50% + 4px) calc(-50% - 3px); rotate: 6deg; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .rv-lotus-free { animation: rv-lotus-drift 14s ease-in-out infinite; }
+  .rv-lotus-p2 { animation-duration: 17s; animation-delay: -5s; }
+  .rv-lotus-p3 { animation-duration: 13s; animation-delay: -10s; }
+  .rv-lotus-b1 { animation-duration: 12s; animation-delay: -9s; }
+  .rv-lotus-b2 { animation-duration: 16s; animation-delay: -3s; }
+  .rv-lotus-b3 { animation-duration: 15s; animation-delay: -7s; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .rv-lotus { transition: none; }
+}
+@media (max-width: 760px) {
+  .rv-lotus-free { width: calc(38px * var(--ls, 1)); height: calc(32px * var(--ls, 1)); }
+  /* links wrap to two lines here: tuck the lotuses into the side margins */
+  .rv-lotus-b1 { left: 2%; top: 60%; }
+  .rv-lotus-b2 { left: 92%; top: 20%; }
+  .rv-lotus-b3 { left: 98%; top: 72%; }
 }

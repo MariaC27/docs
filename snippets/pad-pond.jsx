@@ -4,7 +4,7 @@
 // Each pad is a leaf lying flat in perspective with the preview standing on it on an easel.
 // Leaf wobble varies per pad and the notch alternates sides, so no two pads match.
 
-export const PadPond = ({ items = [] }) => {
+export const PadPond = ({ items = [], row = false }) => {
   // 3D pad, drawn already in perspective (an ellipse) in a 300×190 box.
   const CX = 150, CY = 120, RX = 135, RY = 56;
   const rad = (d) => (d * Math.PI) / 180;
@@ -72,7 +72,7 @@ export const PadPond = ({ items = [] }) => {
   };
 
   return (
-    <div className="lp-pond">
+    <div className={`lp-pond${row ? ' lp-row' : ''}`}>
       {items.map((it, n) => (
         <a key={it.href} href={it.href} className={`lp-pad lp-p${(n % 4) + 1}`}>
           {easelPad(it, n)}

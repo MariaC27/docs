@@ -480,3 +480,13 @@ a.muted-link:hover {
   .lp-ring-2 { animation-delay: -3.5s; }
   .lp-pad:hover .lp-ring { animation-duration: 2.8s; }
 }
+
+/* PadPond row layout (homepage "Selected work"): three across, the middle pad floats lower */
+.lp-pond.lp-row { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px 28px; padding: 8px 0 24px; }
+.lp-pond.lp-row .lp-p2 { margin-top: 56px; }
+.lp-pond.lp-row .lp-p4 { margin-top: 0; }
+.lp-pond.lp-row .lp-title { font-size: 1.6rem; }
+@media (max-width: 900px) {
+  .lp-pond.lp-row { grid-template-columns: minmax(0, 1fr); }
+  .lp-pond.lp-row .lp-p2 { margin-top: 0; }
+}

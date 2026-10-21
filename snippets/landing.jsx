@@ -5,25 +5,10 @@
 
 export const Landing = () => {
   const STOPS = [
-    { t: 'job', ghost: '2025', title: 'Design engineer at Ocular AI', start: 'Winter 2025', end: 'Now', bar: 'long',
-      desc: 'Moved to SF to join Ocular AI (YC W24). I take features from first concept to full implementation on a five-person team, reporting to the founders.' },
-    { t: 'proj', title: 'ApiLens', meta: 'Open source', img: '/images/apilens_study1_polished.png',
-      desc: 'A versioning and visual diff tool for OpenAPI specs. It snapshots the spec on each merge to main and shows color-coded, field-level diffs.',
-      outcome: 'Published to PyPI as openapi-lens.',
-      links: [
-        { label: 'Read the case study', href: '/work/apilens' },
-        { label: 'GitHub', href: 'https://github.com/MariaC27/api-lens' },
-        { label: 'PyPI', href: 'https://pypi.org/project/openapi-lens/' },
-      ] },
-    { t: 'proj', title: 'Turn-Based Audio Annotation', meta: 'Late 2025 to early 2026', img: '/images/audio_study1_blurred.png',
-      desc: 'A new interface for annotating multi-speaker audio. Each turn is a row with its transcript and rubric fields, tied to a full-width waveform.',
-      outcome: 'Prototyped with AI tools, validated with the partner, then built for production.',
-      links: [{ label: 'Read the case study', href: '/work/turn-based-audio-annotation' }] },
-    { t: 'proj', title: 'Canvas & Annotation Revamp', meta: 'At Ocular AI', img: '/images/canvas_study1_newcanvas.png',
-      desc: "A full redesign of Ocular's image annotation canvas. I ran the research, worked through 8+ wireframe iterations in Figma, and built it.",
-      outcome: 'Held up for over a year as the canvas expanded to other modalities.',
-      links: [{ label: 'Read the case study', href: '/work/canvas-annotation-revamp' }] },
-    { t: 'job', ghost: '2024', title: 'Fullstack SWE at NoxuData', start: 'Fall 2024', end: 'Winter 2024', bar: 'short',
+    { t: 'job', ghost: '2025', title: 'Design engineer at Ocular AI', start: 'Winter 2025', end: 'Now',
+      desc: 'Moved to SF to join Ocular AI (YC W24). I take features from first concept to full implementation on a five-person team, reporting to the founders.',
+      work: [['Canvas Revamp', '/work/canvas-annotation-revamp'], ['Audio Annotation', '/work/turn-based-audio-annotation']] },
+    { t: 'job', ghost: '2024', title: 'Fullstack SWE at NoxuData', start: 'Fall 2024', end: 'Winter 2024',
       desc: 'Reported directly to the two founders. Learned API design fundamentals and shipped clean code on a large existing codebase.' },
     { t: 'ms', ghost: '2024', title: 'Graduated Dartmouth', date: 'Spring 2024',
       desc: 'Computer Science and Human-Centered Design, with an honors thesis on accessible development practices.' },
@@ -31,14 +16,8 @@ export const Landing = () => {
       desc: 'Talked directly with customers, debugged issues, and ran user research. Saw what product support looks like at scale.' },
     { t: 'job', ghost: '2022', title: 'SWE at JHU Applied Physics Lab', start: 'Spring 2022', intern: true,
       desc: 'Built data visualization tools for global health research. Auditing a legacy internal tool sparked the interest in UX that changed my direction.' },
-    { t: 'job', ghost: '2021', title: 'First startup internship', start: 'Summer 2021', intern: true,
-      desc: 'Built the redesigned company website from scratch and shipped a customer-facing site with a small team.' },
     { t: 'ms', ghost: '2021', title: 'Started at the DALI Lab', date: 'Spring 2021',
       desc: 'Learned web development and UI/UX fundamentals, then designed and built full-stack on small student teams.' },
-    { t: 'ms', ghost: '2020', title: 'Enrolled at Dartmouth College', date: 'Fall 2020',
-      desc: 'Started out in Computer Science and Math.' },
-    { t: 'ms', ghost: '2017', title: 'First line of code', date: 'Spring 2017',
-      desc: 'Java, written for the FIRST Robotics Competition in high school.' },
   ];
 
   const NAV = [
@@ -68,20 +47,28 @@ export const Landing = () => {
   // About pad's destination. null keeps it inert; set to '/about/me' once that page exists.
   const ABOUT_ME = null;
 
-  const PADS = [
-    { title: 'Case Studies', href: '/work/overview', desc: 'Selected projects covering problem, approach, outcomes, and learnings.' },
-    { title: 'Writing', href: '/writing/overview', desc: 'Thoughts on design engineering, UX friction, and building in small teams.' },
-    { title: 'Skills', href: '/about/skills', desc: 'An API-style reference of languages, tools, and frameworks.' },
-    { title: 'Experience', href: '/about/changelog', desc: 'Roles, companies, and milestones formatted as a software changelog.' },
-    { title: 'About Me', href: ABOUT_ME, path: '/about/me' },
+  // Work previews that fan out of the Case Studies pad
+  const WORK = [
+    { title: 'Canvas & Annotation Revamp', href: '/work/canvas-annotation-revamp', img: '/images/canvas_study1_newcanvas.png' },
+    { title: 'ApiLens', href: '/work/apilens', img: '/images/apilens_study1_polished.png' },
+    { title: 'Turn-Based Audio Annotation', href: '/work/turn-based-audio-annotation', img: '/images/audio_study1_blurred.png' },
   ];
 
-  const FILTERS = [
-    { key: 'all', label: 'All' },
-    { key: 'projects', label: 'Projects', mark: 'proj' },
-    { key: 'jobs', label: 'Roles', mark: 'job' },
-    { key: 'milestones', label: 'Milestones', mark: 'ms' },
+  // Hero pond. `slot` fixes each pad's spot: 1 top-left, 2 top-right, 3 bottom-left, 4 bottom-right, 5 centre.
+  // Article previews that fan out of the Writing pad
+  const WRITING = [
+    { title: 'The Design Process Shift', href: '/writing/the-design-process-shift', img: '/images/design_article1_graphic.png' },
+    { title: 'UX Friction Coefficient', href: '/writing/ux-friction-coefficient', img: '/images/ux_article1_overall.png' },
   ];
+
+  const PADS = [
+    { title: 'Skills', href: '/about/skills', slot: 1, desc: 'An API-style reference of languages, tools, and frameworks.' },
+    { title: 'Writing', href: '/writing/overview', slot: 2, fan: WRITING, fanDir: 'down', desc: 'Thoughts on design engineering, UX friction, and building in small teams.' },
+    { title: 'API', href: '/api/get-me', path: '/api/get-me', slot: 3, desc: 'A live API about me. Send requests from the playground.' },
+    { title: 'Case Studies', href: '/work/overview', slot: 4, fan: WORK, fanDir: 'up' },
+    { title: 'About Me', href: ABOUT_ME, path: '/about/me', slot: 5 },
+  ];
+
 
   const shows = (mode, t) =>
     mode === 'all' || (mode === 'projects' && t === 'proj') || (mode === 'jobs' && t === 'job') || (mode === 'milestones' && t === 'ms');
@@ -118,15 +105,24 @@ export const Landing = () => {
     </div>
   );
 
+  // Meta line under each title: dates (and Internship) in quiet mono.
+  const metaLine = (parts) => (
+    <div className="rv-meta">
+      {parts.filter(Boolean).map((p, i) => (
+        <span key={i}>{i > 0 && <span className="rv-meta-sep" aria-hidden="true">·</span>}{p}</span>
+      ))}
+    </div>
+  );
+
   const stopCard = ({ s }) => {
     if (s.t === 'proj') {
       return (
         <>
-          {/* Background image, not <img>: Mintlify wraps <img> in its click-to-zoom */}
-        <a href={s.links[0].href} className="rv-img" role="img" aria-label={`${s.title} preview`}
-          style={{ backgroundImage: `url('${s.img}')` }} />
-          <div className="rv-eyebrow rv-gap-top"><span className="rv-tag rv-tag-proj">Project</span><span>{s.meta}</span></div>
           <h2 className="rv-title-proj">{s.title}</h2>
+          {metaLine('proj', ['Project', s.meta])}
+          {/* Background image, not <img>: Mintlify wraps <img> in its click-to-zoom */}
+          <a href={s.links[0].href} className="rv-img rv-gap-top" role="img" aria-label={`${s.title} preview`}
+            style={{ backgroundImage: `url('${s.img}')` }} />
           <p className="rv-desc">{s.desc}</p>
           <p className="rv-outcome">{s.outcome}</p>
           <div className="rv-links">
@@ -138,24 +134,23 @@ export const Landing = () => {
     if (s.t === 'job') {
       return (
         <>
-          <div className="rv-eyebrow">
-            <span className="rv-tag rv-tag-job">Role</span>
-            {s.intern && <span>Internship</span>}
-          </div>
           <h2 className="rv-title-job">{s.title}</h2>
-          <div className="rv-span">
-            <span>{s.start}</span>
-            {s.end && <><span className={`rv-bar rv-bar-${s.bar}`} /><span>{s.end}</span></>}
-          </div>
+          {metaLine([s.end ? `${s.start} – ${s.end}` : s.start, s.intern && 'Internship'])}
           <p className="rv-desc">{s.desc}</p>
+          {s.work && (
+            <div className="rv-work-links">
+              <span>Built here</span>
+              {s.work.map(([label, href]) => <a key={href} href={href}>{label}</a>)}
+            </div>
+          )}
         </>
       );
     }
     return (
       <>
-        <div className="rv-eyebrow"><span className="rv-tag rv-tag-ms">Milestone</span><span>{s.date}</span></div>
-        <h3 className="rv-title-ms">{s.title}</h3>
-        <p className="rv-desc rv-desc-sm">{s.desc}</p>
+        <h2 className="rv-title-ms">{s.title}</h2>
+        {metaLine([s.date])}
+        <p className="rv-desc">{s.desc}</p>
       </>
     );
   };
@@ -164,6 +159,7 @@ export const Landing = () => {
   const [open, setOpenState] = useState(false);
   const [instant, setInstant] = useState(false);
   const [chatOpen, setChatOpen] = useState(false);   // the Ask-about-me sidebar
+  const [fanOpen, setFanOpen] = useState(null);      // touch: first tap on a pad with a fan opens it (pad title)
   // Mintlify re-mounts the page when the theme changes, which would reset the rail.
   // Remember it for the session and restore it without animating.
   const setOpen = (v) => {
@@ -271,6 +267,7 @@ export const Landing = () => {
   };
   // Any press on the page drops a ripple where it lands.
   const drop = (e) => {
+    if (fanOpen && !(e.target.closest && e.target.closest('.rv-has-fan'))) setFanOpen(null);
     if (calm()) return;
     ripple(e.clientX, e.clientY, false);
   };
@@ -356,6 +353,73 @@ export const Landing = () => {
     };
   }, [mode, open, chatOpen]);   // re-measure when the filter changes or a sidebar opens/closes
 
+  // ── Lotus flowers: one blooms at every stop on the river, and a few float free on the water.
+  // All of them can be picked up and dragged; stop lotuses drift back to their stop when let go.
+  // Free lotuses live only in the hero pond and the footer, away from the river so they're never
+  // mistaken for its stops. Each is positioned by its class in landing.css.
+  const freeLotus = (k, size) => (
+    <span key={k} className={`rv-lotus-free rv-lotus-${k}`} style={{ '--ls': size }}>
+      {lotus(false, 'Drag me around the pond')}
+    </span>
+  );
+  const dragLotus = (e, returnHome) => {
+    if (e.button !== undefined && e.button !== 0) return;
+    e.stopPropagation();
+    e.preventDefault();
+    const el = e.currentTarget;
+    const start = { x: e.clientX, y: e.clientY };
+    const base = { x: parseFloat(el.dataset.dx || '0'), y: parseFloat(el.dataset.dy || '0') };
+    const host = el.closest('section');
+    if (host) host.style.zIndex = '5';
+    el.classList.add('rv-lotus-held');
+    try { el.setPointerCapture(e.pointerId); } catch (err) { /* not capturable */ }
+    const place = (dx, dy) => {
+      el.dataset.dx = String(dx);
+      el.dataset.dy = String(dy);
+      el.style.setProperty('--lx', `${dx}px`);
+      el.style.setProperty('--ly', `${dy}px`);
+    };
+    const move = (ev) => place(base.x + ev.clientX - start.x, base.y + ev.clientY - start.y);
+    const up = (ev) => {
+      el.removeEventListener('pointermove', move);
+      el.removeEventListener('pointerup', up);
+      el.removeEventListener('pointercancel', up);
+      el.classList.remove('rv-lotus-held');
+      if (!calm()) ripple(ev.clientX, ev.clientY, true);
+      if (returnHome) {
+        place(0, 0);
+        setTimeout(() => { if (host) host.style.zIndex = ''; }, 1600);
+      } else if (host) host.style.zIndex = '';
+    };
+    el.addEventListener('pointermove', move);
+    el.addEventListener('pointerup', up);
+    el.addEventListener('pointercancel', up);
+  };
+  const lotus = (returnHome, label) => {
+    const petal = 'M0,0 C-3.6,-3.4 -3.6,-10.5 0,-13.5 C3.6,-10.5 3.6,-3.4 0,0 Z';
+    return (
+      <span className="rv-lotus" data-dx="0" data-dy="0" title={label}
+        onPointerDown={(e) => dragLotus(e, returnHome)}>
+        <svg viewBox="-20 -18 40 32" aria-hidden="true">
+          <ellipse className="rv-lotus-shadow" cx="1.5" cy="5" rx="15" ry="4.5" />
+          <g className="rv-lotus-outer">
+            <g transform="scale(1 0.48)">
+              {[0, 45, 90, 135, 180, 225, 270, 315].map((a) => (
+                <path key={a} className="rv-petal rv-petal-lo" d={petal} transform={`rotate(${a + 22})`} />
+              ))}
+            </g>
+          </g>
+          <g className="rv-lotus-inner">
+            {[-58, -30, 30, 58, 0].map((a) => (
+              <path key={a} className="rv-petal rv-petal-hi" d={petal} transform={`rotate(${a}) scale(${a === 0 ? 1 : 0.92} 1)`} />
+            ))}
+          </g>
+          <ellipse className="rv-lotus-heart" cx="0" cy="-1.5" rx="2.6" ry="1.5" />
+        </svg>
+      </span>
+    );
+  };
+
   // 3D lily pad, drawn already in perspective (an ellipse) in a 300×190 box — the same
   // leaf as the overview pages (snippets/pad-pond.jsx), minus the easel.
   const LCX = 150, LCY = 120, LRX = 135, LRY = 56;
@@ -408,10 +472,31 @@ export const Landing = () => {
   // The lily-pad pond beside the intro.
   const pond = (ref, cls) => (
     <div className={cls} ref={ref} onPointerMove={stir} onPointerLeave={settle}>
+      {freeLotus('p1', 1)}
+      {freeLotus('p2', 0.85)}
+      {freeLotus('p3', 0.95)}
       {PADS.map((pad, n) => (
-        <div key={pad.title} className={`rv-slot rv-slot-${n + 1}`}>
-          <a href={pad.href || undefined} tabIndex={0} className={`rv-pad rv-p${n + 1}`}
-            onClick={(e) => { if (!pad.href) e.preventDefault(); }}>
+        <div key={pad.title} className={`rv-slot rv-slot-${pad.slot || n + 1}${pad.fan ? ` rv-has-fan rv-fan-${pad.fanDir}` : ''}${pad.fan && fanOpen === pad.title ? ' rv-fan-open' : ''}`}>
+          {pad.fan && (
+            <div className="rv-fan" onPointerDown={(e) => e.stopPropagation()}>
+              {pad.fan.map((w, i) => (
+                <a key={w.href} href={w.href} className={`rv-fan-card rv-fan-${i + 1}`}>
+                  {/* Background image, not <img>: Mintlify wraps <img> in its click-to-zoom */}
+                  <span className="rv-fan-img" role="img" aria-label={`${w.title} preview`} style={{ backgroundImage: `url('${w.img}')` }} />
+                  <span className="rv-fan-title">{w.title}</span>
+                </a>
+              ))}
+            </div>
+          )}
+          <a href={pad.href || undefined} tabIndex={0} className={`rv-pad rv-p${pad.slot || n + 1}`}
+            onClick={(e) => {
+              if (!pad.href) { e.preventDefault(); return; }
+              // On touch screens there's no hover: the first tap shows the work, the second navigates
+              if (pad.fan && fanOpen !== pad.title && window.matchMedia && window.matchMedia('(hover: none)').matches) {
+                e.preventDefault();
+                setFanOpen(pad.title);
+              }
+            }}>
             <span className="rv-ripple" aria-hidden="true" />
             <span className="rv-pad-face">
               {leaf3d(n)}
@@ -511,14 +596,17 @@ export const Landing = () => {
   });
 
   let k = 0;
+  let lastYear = null;   // each big year shows once, beside the first visible stop of that year
   const rows = STOPS.map((s, i) => {
     const vis = shows(mode, s.t);
     const right = k % 2 === 0;
-    const first = vis && k === 0;     // first visible stop: the muted headwater runs on to its marker
+    const first = vis && k === 0;
+    const ghost = vis && s.ghost && s.ghost !== lastYear ? s.ghost : null;
+    if (ghost) lastYear = ghost;     // first visible stop: the muted headwater runs on to its marker
     if (vis) k++;
     const [p, q] = ps[i] ?? [1, 1];   // p: river drawn, q: card progress
     return {
-      s, i, vis, first,
+      s, i, vis, first, ghost,
       x: right ? 70 : 30,
       cardSide: right ? 'rv-side-right' : 'rv-side-left',
       ghostSide: right ? 'rv-side-left' : 'rv-side-right',
@@ -629,7 +717,6 @@ export const Landing = () => {
                 <h1 className="rv-name">Maria Cristoforo</h1>
               </div>
               <p className="rv-rise rv-tagline">thinks like a designer, executes like an engineer</p>
-              <p className="rv-rise rv-bio">I work at the intersection of design and engineering, owning features end-to-end on small, fast-moving teams.</p>
               <div className="rv-rise rv-hero-cta">
                 <a href="/api/post-contact" className="rv-btn">Contact me</a>
               </div>
@@ -638,27 +725,16 @@ export const Landing = () => {
           </div>
         </header>
 
-        <div className="rv-body">
+        <div className="rv-body" id="river">
           <div className="rv-wrap">
-            <div className="rv-filter" id="river">
-              <div role="group" aria-label="Filter the timeline" className="rv-filter-pill">
-                {FILTERS.map((f) => (
-                  <button key={f.key} type="button" className={`rv-seg${mode === f.key ? ' rv-on' : ''}`}
-                    aria-pressed={mode === f.key} onClick={() => setMode(f.key)}>
-                    {f.mark && <span className={`rv-mark rv-mark-${f.mark}`} />}
-                    <span>{f.label}</span>
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {rows.map(({ s, i, vis, first, x, cardSide, ghostSide, p, cls }) => (
+            <div className="rv-label rv-river-label">Career path</div>
+            {rows.map(({ s, i, vis, first, ghost, x, cardSide, ghostSide, p, cls }) => (
               <section key={i} ref={(el) => { rowsRef.current[i] = el; }}
                 className={`rv-reach rv-row-${s.t}${vis ? '' : ' rv-hide'}${first ? ' rv-row-first' : ''}`}>
-                {s.ghost && <div className={`rv-ghost ${ghostSide}`} aria-hidden="true">{s.ghost}</div>}
+                {ghost && <div className={`rv-ghost ${ghostSide}`} aria-hidden="true">{ghost}</div>}
                 <div className="rv-river">
                   {riverSegment({ d: bend(x), clip: `inset(0 0 ${Math.round((1 - p) * 100)}% 0)` })}
-                  <span className={`rv-dot rv-dot-${s.t} ${cls}`} style={{ left: `${x}%` }} />
+                  <span className={`rv-dot ${cls}`} style={{ left: `${x}%` }}><span className="rv-dot-ripple" />{lotus(true, 'Drag me')}</span>
                 </div>
                 <div className={`rv-card ${cardSide} rv-card-${s.t} ${cls}`}>
                   {stopCard({ s })}
@@ -671,6 +747,10 @@ export const Landing = () => {
 
         <footer className="rv-footer">
           <div className="rv-footer-links">
+            {/* lotuses floating beside the links, after the river ends: one left, two right */}
+            {freeLotus('b1', 1.05)}
+            {freeLotus('b2', 1.1)}
+            {freeLotus('b3', 0.8)}
             <a href="https://github.com/MariaC27">GitHub</a>
             <a href="/about/changelog">Full changelog</a>
             <a href="/work/portfolio">How this portfolio was built</a>
