@@ -1243,65 +1243,67 @@ html:has(.rv) .almond-layout { top: 0 !important; }
 .rv-projects-inner { max-width: 1120px; margin: 0 auto; }
 #river { scroll-margin-top: 24px; }
 
-/* ─── Projects rows (snippets/work.jsx) ─── */
-.wk { display: flex; flex-direction: column; gap: 180px; padding: 56px 0 72px; }
-.wk-row {
+/* ─── Projects: polaroids floating on the water (snippets/work.jsx) ─── */
+.wk {
   display: grid;
-  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
-  align-items: center;
-  gap: clamp(28px, 5vw, 72px);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 72px clamp(40px, 6vw, 96px);
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 48px 0 96px;
+  align-items: start;   /* each card keeps its own height, so its water sits right beneath it */
+}
+.wk-row {
+  position: relative;
   opacity: 0;
-  transform: translateY(28px);
-  transition: opacity .7s ease, transform .7s cubic-bezier(.2, .7, .2, 1);
+  transform: translateY(32px);
+  transition: opacity .8s ease, transform .8s cubic-bezier(.2, .7, .2, 1);
 }
 .wk-row.wk-in { opacity: 1; transform: none; }
-.wk-flip .wk-media { order: 2; }
+.wk-n2, .wk-n4 { margin-top: 120px; }            /* staggered, like things floating */
+.wk-n1 { --wk-rot: -2.2deg; } .wk-n2 { --wk-rot: 1.8deg; }
+.wk-n3 { --wk-rot: 1.4deg; }  .wk-n4 { --wk-rot: -1.6deg; }
 
-/* the image: floats on the water, tilts toward the pointer, ripples on hover */
-.rv .wk-media {
-  position: relative;
-  display: block;
-  perspective: 900px;
-  text-decoration: none;
-  --wk-rx: 0deg;
-  --wk-ry: 0deg;
-}
-.rv .wk-media:hover { opacity: 1; }
-.wk-img {
+/* the polaroid */
+.wk-card {
   position: relative;
   z-index: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 14px 14px 22px;
+  background: var(--rv-pill);
+  border: 1px solid var(--rv-line);
+  border-radius: 18px;
+  box-shadow: 0 30px 50px -28px var(--rv-leaf-shade), 0 8px 18px -10px var(--rv-leaf-shade);
+  rotate: var(--wk-rot, 0deg);
+  transition: rotate .5s cubic-bezier(.2, .7, .2, 1), translate .5s cubic-bezier(.2, .7, .2, 1), box-shadow .5s ease, border-color .3s ease;
+}
+.wk-row:hover .wk-card, .wk-row:focus-within .wk-card {
+  rotate: 0deg;
+  translate: 0 -8px;
+  border-color: color-mix(in srgb, var(--rv-water) 50%, transparent);
+  box-shadow: 0 44px 60px -30px var(--rv-leaf-shade), 0 12px 24px -12px var(--rv-leaf-shade);
+}
+.rv .wk-media { display: block; perspective: 900px; text-decoration: none; --wk-rx: 0deg; --wk-ry: 0deg; }
+.rv .wk-media:hover { opacity: 1; }
+.wk-img {
   display: block;
   aspect-ratio: 16 / 10;
-  border-radius: 12px;
-  border: 1px solid var(--rv-line-strong);
+  border-radius: 10px;
   background-color: var(--rv-img);
   background-size: cover;
   background-position: center top;
-  box-shadow: 0 18px 40px -18px var(--rv-leaf-shade), 0 4px 12px -6px var(--rv-leaf-shade);
+  box-shadow: inset 0 0 0 1px var(--rv-line);
   transform: rotateX(var(--wk-rx)) rotateY(var(--wk-ry));
-  transition: transform .25s ease-out, box-shadow .4s ease, border-color .3s ease;
+  transition: transform .25s ease-out;
 }
-.wk-media:hover .wk-img { border-color: color-mix(in srgb, var(--rv-water) 60%, transparent); box-shadow: 0 28px 54px -18px var(--rv-leaf-shade), 0 6px 16px -6px var(--rv-leaf-shade); }
-.wk-ripple {
-  position: absolute;
-  left: 50%;
-  top: 56%;
-  width: 104%;
-  height: 70%;
-  border-radius: 50%;
-  border: 1px solid var(--rv-water);
-  opacity: 0;
-  transform: translate(-50%, -50%) scale(.9);
-  pointer-events: none;
-}
-
-.wk-text { display: flex; flex-direction: column; gap: 12px; }
+.wk-text { display: flex; flex-direction: column; gap: 8px; padding: 18px 8px 0; }
 .wk-meta {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
   font-family: var(--rv-code) !important;
-  font-size: 11.5px;
+  font-size: 11px;
   letter-spacing: .08em;
   text-transform: uppercase;
   color: var(--rv-label);
@@ -1309,21 +1311,20 @@ html:has(.rv) .almond-layout { top: 0 !important; }
 .wk-meta > span { display: inline-flex; gap: 8px; }
 .wk-kind { color: var(--rv-water); }
 .wk-sep { opacity: .6; }
-.rv .wk-title { margin: 0; font-family: var(--rv-serif) !important; font-weight: 400; font-size: 34px; line-height: 1.1; }
+.rv .wk-title { margin: 0; font-family: var(--rv-serif) !important; font-weight: 400; font-size: 28px; line-height: 1.1; }
 .rv .wk-title a { color: var(--rv-text); text-decoration: none; }
-.rv .wk-title a:hover { text-decoration: underline; text-decoration-color: var(--rv-water); text-underline-offset: 6px; opacity: 1; }
-.wk-summary { margin: 0; font-size: 15.5px; line-height: 1.6; color: var(--rv-muted); }
-.wk-outcome { margin: 0; font-size: 15.5px; line-height: 1.6; color: var(--rv-text); }
-.wk-links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+.rv .wk-title a:hover { opacity: 1; }
+.wk-summary { margin: 0; font-size: 14.5px; line-height: 1.55; color: var(--rv-muted); }
+.wk-links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
 .rv .wk-pill {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  min-height: 36px;
-  padding: 0 14px;
+  min-height: 34px;
+  padding: 0 13px;
   border: 1px solid var(--rv-line-strong);
   border-radius: 999px;
-  font-size: 13.5px !important;   /* style.css hides GitHub-link labels for the navbar */
+  font-size: 13px !important;   /* style.css hides GitHub-link labels for the navbar */
   color: var(--rv-soft);
   text-decoration: none;
   transition: border-color .2s ease, color .2s ease;
@@ -1332,11 +1333,40 @@ html:has(.rv) .almond-layout { top: 0 !important; }
 .rv .wk-pill-main { background: var(--rv-accent); border-color: var(--rv-accent); color: var(--rv-on-accent); }
 .rv .wk-pill-main:hover { color: var(--rv-on-accent); }
 
-@keyframes wk-bob { 0% { translate: 0 0; } 35% { translate: 0 -8px; } 65% { translate: 0 3px; } 100% { translate: 0 0; } }
-@keyframes wk-ripple { 0% { opacity: .4; transform: translate(-50%, -50%) scale(.9); } 100% { opacity: 0; transform: translate(-50%, -50%) scale(1.18); } }
+/* the water around each card: a soft halo where it sits on the surface, and ripple rings
+   spreading outward from all four edges (rounded rectangles, turned to match the card) */
+.wk-water {
+  position: absolute;
+  inset: 0;
+  rotate: var(--wk-rot, 0deg);
+  border-radius: 18px;
+  box-shadow: 0 0 0 10px color-mix(in srgb, var(--rv-water) 7%, transparent), 0 14px 40px 6px var(--rv-leaf-shade);
+  opacity: .7;
+  pointer-events: none;
+  transition: rotate .5s cubic-bezier(.2, .7, .2, 1);
+}
+.wk-row:hover .wk-water, .wk-row:focus-within .wk-water { rotate: 0deg; }
+.wk-water span {
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  border: 1px solid var(--rv-water);
+  opacity: 0;
+}
+
+@keyframes wk-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+@keyframes wk-ring {
+  0% { opacity: .45; inset: 0; border-radius: 18px; }
+  100% { opacity: 0; inset: -46px; border-radius: 48px; }
+}
 @media (prefers-reduced-motion: no-preference) {
-  .wk-row.wk-in .wk-media { animation: wk-bob 1.8s cubic-bezier(.3, .6, .3, 1) .2s; }
-  .wk-media:hover .wk-ripple { animation: wk-ripple 1.8s ease-out infinite; }
+  .wk-row.wk-in { animation: wk-float 8s ease-in-out infinite; }
+  .wk-n2.wk-in { animation-duration: 9.5s; animation-delay: -3s; }
+  .wk-n3.wk-in { animation-duration: 7.5s; animation-delay: -5s; }
+  .wk-n4.wk-in { animation-duration: 10s; animation-delay: -1.5s; }
+  .wk-row.wk-in .wk-water span { animation: wk-ring 6s ease-out infinite; }
+  .wk-row.wk-in .wk-water span:last-child { animation-delay: 3s; }
+  .wk-row:hover .wk-water span { animation-duration: 2.4s; }
 }
 @media (prefers-reduced-motion: reduce) {
   .wk-row { opacity: 1; transform: none; transition: none; }
@@ -1344,8 +1374,9 @@ html:has(.rv) .almond-layout { top: 0 !important; }
 }
 @container rv-main (max-width: 760px) {
   .rv-projects { padding-top: 120px; }
-  .wk { gap: 104px; padding-top: 32px; }
-  .wk-row { grid-template-columns: minmax(0, 1fr); gap: 20px; }
-  .wk-flip .wk-media { order: 0; }
-  .rv .wk-title { font-size: 28px; }
+  .wk { grid-template-columns: minmax(0, 1fr); gap: 64px; padding-top: 32px; }
+  .wk-n2, .wk-n4 { margin-top: 0; }
+  .rv .wk-title { font-size: 25px; }
+  .wk-card { rotate: 0deg; }   /* no tilt on phones: keeps the text crisp */
+  .wk-n1, .wk-n2, .wk-n3, .wk-n4 { --wk-rot: 0deg; }
 }

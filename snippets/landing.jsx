@@ -761,7 +761,7 @@ export const Landing = ({ work }) => {
             {freeLotus('b2', 1.1)}
             {freeLotus('b3', 0.8)}
             <a href="https://github.com/MariaC27">GitHub</a>
-            <a href="/about/changelog">Full changelog</a>
+            <a href="/api/post-contact">Contact me</a>
             <a href="/work/portfolio">How this portfolio was built</a>
           </div>
         </footer>

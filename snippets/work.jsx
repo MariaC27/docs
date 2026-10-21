@@ -1,7 +1,7 @@
 // Homepage "Projects" section, rendered below the river by <Landing work={...} />.
-// One item per row; the image alternates sides like the river's stops. The cards behave like
-// they're floating: they bob as they come into view, the image tilts toward the cursor, and a
-// ripple spreads behind it on hover. Styles live in /landing.css (.wk-*).
+// Polaroid-style cards floating on the water: image on top, description underneath, in a
+// staggered two-column grid. Each card sits at a slight angle, drifts gently, bobs as it comes
+// into view, and has its own shadow and ripple rings on the water beneath it. Styles live in /landing.css (.wk-*).
 // Mintlify keeps only the imported export from a snippet, so everything lives inside Work.
 
 export const Work = ({ items = [] }) => {
@@ -40,31 +40,33 @@ export const Work = ({ items = [] }) => {
   return (
     <div className="wk" ref={listRef}>
       {items.map((it, n) => (
-        <article key={it.href} className={`wk-row${n % 2 ? ' wk-flip' : ''}`}>
-          <a href={it.href} className="wk-media" onPointerMove={tilt} onPointerLeave={untilt}
-            aria-label={`${it.title}: ${it.kind === 'article' ? 'read the article' : 'read the case study'}`}>
-            <span className="wk-ripple" aria-hidden="true" />
-            {/* Background image, not <img>: Mintlify wraps <img> in its click-to-zoom */}
-            <span className="wk-img" style={{ backgroundImage: `url('${it.img}')` }} />
-          </a>
-          <div className="wk-text">
-            <div className="wk-meta">
-              <span className="wk-kind">{it.kind === 'article' ? 'Writing' : 'Project'}</span>
-              {(it.meta || []).map((m) => <span key={m}><span className="wk-sep" aria-hidden="true">·</span>{m}</span>)}
-            </div>
-            <h3 className="wk-title"><a href={it.href}>{it.title}</a></h3>
-            <p className="wk-summary">{it.summary}</p>
-            {it.outcome && <p className="wk-outcome">{it.outcome}</p>}
-            <div className="wk-links">
-              <a href={it.href} className="wk-pill wk-pill-main">
-                {it.kind === 'article' ? 'Read the article' : 'Read the case study'}
-              </a>
-              {(it.links || []).map((l) => (
-                <a key={l.href} href={l.href} className="wk-pill" target="_blank" rel="noopener noreferrer">
-                  {l.label}
-                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M7 17L17 7" /><path d="M8 7h9v9" /></svg>
+        <article key={it.href} className={`wk-row wk-n${(n % 4) + 1}`}>
+          {/* the water under the card: a soft shadow and slow ripple rings */}
+          <span className="wk-water" aria-hidden="true"><span /><span /></span>
+          <div className="wk-card">
+            <a href={it.href} className="wk-media" onPointerMove={tilt} onPointerLeave={untilt}
+              aria-label={`${it.title}: ${it.kind === 'article' ? 'read the article' : 'read the case study'}`}>
+              {/* Background image, not <img>: Mintlify wraps <img> in its click-to-zoom */}
+              <span className="wk-img" style={{ backgroundImage: `url('${it.img}')` }} />
+            </a>
+            <div className="wk-text">
+              <div className="wk-meta">
+                <span className="wk-kind">{it.kind === 'article' ? 'Writing' : 'Project'}</span>
+                {(it.meta || []).map((m) => <span key={m}><span className="wk-sep" aria-hidden="true">·</span>{m}</span>)}
+              </div>
+              <h3 className="wk-title"><a href={it.href}>{it.title}</a></h3>
+              <p className="wk-summary">{it.summary}</p>
+              <div className="wk-links">
+                <a href={it.href} className="wk-pill wk-pill-main">
+                  {it.kind === 'article' ? 'Read the article' : 'Case study'}
                 </a>
-              ))}
+                {(it.links || []).map((l) => (
+                  <a key={l.href} href={l.href} className="wk-pill" target="_blank" rel="noopener noreferrer">
+                    {l.label}
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M7 17L17 7" /><path d="M8 7h9v9" /></svg>
+                  </a>
+                ))}
+              </div>
             </div>
           </div>
         </article>
