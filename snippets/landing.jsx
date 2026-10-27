@@ -756,24 +756,24 @@ export const Landing = ({ work }) => {
         <header className="rv-hero">
           <div className="rv-hero-inner">
             <div className="rv-hero-text" ref={heroTextRef}>
-              <div className="rv-rise rv-hero-meta">
-                <span>Design Engineer at Ocular AI (YC W24)</span>
-                <span className="rv-hero-sep" aria-hidden="true" />
-                <span>San Francisco, CA</span>
-              </div>
               <div className="rv-rise rv-name-row">
                 {/* Photo is a background image, not <img>: Mintlify wraps <img> in its click-to-zoom */}
                 <span className="rv-stone" ref={stoneRef}>
-                  <span className="rv-stone-ring" aria-hidden="true" />
-                  <span className="rv-stone-ring" aria-hidden="true" />
-                  <span className="rv-stone-ring" aria-hidden="true" />
                   <span className="rv-photo" role="img" aria-label="Maria Cristoforo" style={{ backgroundImage: "url('/images/mc.jpg')" }} />
                 </span>
                 <h1 className="rv-name">Maria Cristoforo</h1>
               </div>
               <p className="rv-rise rv-tagline">thinks like a designer, executes like an engineer</p>
+              <div className="rv-rise rv-now">
+                <span>Design Engineer at Ocular AI (YC W24)</span>
+                <span className="rv-hero-sep" aria-hidden="true" />
+                <span>San Francisco, CA</span>
+              </div>
               <div className="rv-rise rv-hero-cta">
-                <a href="/api/post-contact" className="rv-btn">Contact me</a>
+                <a href="/api/post-contact" className="rv-btn">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5" /><path d="M3.5 7l8.5 6 8.5-6" /></svg>
+                  Contact me
+                </a>
               </div>
             </div>
             {pond(lakeRef, 'rv-rise rv-lake')}
