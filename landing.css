@@ -814,6 +814,7 @@ html:has(.rv) .almond-layout { top: 0 !important; }
 @media (max-width: 760px) {
   .rv { flex-direction: column; }
   .rv-hero-sep { display: none; }
+  .rv-hero { padding-top: 64px; }   /* room under the header icons */
   .rv-rail, .rv-rail.rv-open {
     flex: 0 0 auto;
     width: 100%;
@@ -1379,4 +1380,108 @@ html:has(.rv) .almond-layout { top: 0 !important; }
   .rv .wk-title { font-size: 25px; }
   .wk-card { rotate: 0deg; }   /* no tilt on phones: keeps the text crisp */
   .wk-n1, .wk-n2, .wk-n3, .wk-n4 { --wk-rot: 0deg; }
+}
+
+/* ─── Header (top right): plain icons, a ripple on hover ─── */
+.rv-dock {
+  position: fixed;
+  top: calc(18px + env(safe-area-inset-top, 0px));
+  right: 26px;
+  z-index: 55;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: right .28s ease;
+}
+.rv-dock.rv-dock-shift { right: 306px; }   /* clear of the chat sidebar */
+.rv .rv-dock-btn {
+  position: relative;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--rv-label);
+  font-size: 0 !important;   /* the navbar rule in style.css targets these hrefs… */
+  overflow: visible !important;   /* …and clips them, which would hide the tooltip */
+  cursor: pointer;
+  transition: color .25s ease;
+}
+.rv .rv-dock-btn svg { position: relative; z-index: 1; }
+.rv .rv-dock-btn:hover, .rv .rv-dock-btn:focus-visible { color: var(--rv-water); opacity: 1; }
+.rv-dock-btn:focus-visible { outline: 2px solid var(--rv-water); outline-offset: 2px; }
+/* the ripple behind an icon */
+.rv-dock-ring {
+  position: absolute;
+  inset: 4px;
+  border-radius: 50%;
+  border: 1px solid var(--rv-water);
+  opacity: 0;
+  pointer-events: none;
+}
+.rv-dock-btn:hover .rv-dock-ring, .rv-dock-btn:focus-visible .rv-dock-ring { opacity: .35; }
+@keyframes rv-dock-ripple { 0% { opacity: .5; transform: scale(.7); } 100% { opacity: 0; transform: scale(1.7); } }
+@media (prefers-reduced-motion: no-preference) {
+  .rv-dock-btn:hover .rv-dock-ring, .rv-dock-btn:focus-visible .rv-dock-ring { animation: rv-dock-ripple 1.5s ease-out infinite; }
+}
+/* tooltip */
+.rv-dock-btn::after {
+  content: attr(data-tip);
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 50%;
+  translate: -50% -4px;
+  padding: 5px 9px;
+  border-radius: 6px;
+  background: var(--rv-text);
+  color: var(--rv-ground);
+  font: 500 11.5px/1 var(--rv-sans);
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .15s ease, translate .15s ease;
+}
+.rv-dock-btn:hover::after, .rv-dock-btn:focus-visible::after { opacity: 1; translate: -50% 0; }
+/* the lotus, set a little apart */
+.rv .rv-dock-lotus { margin-left: 8px; }
+.rv-dock-lotus svg path { fill: var(--rv-petal-hi); stroke: var(--rv-water); stroke-width: .9; }
+.rv-dock-lotus svg { transition: transform .4s cubic-bezier(.2, .9, .3, 1.3); }
+.rv-dock-lotus:hover svg { transform: scale(1.12); }
+.rv-dock-lotus:active svg { transform: scale(.85); }
+.rv-dock-plus {
+  position: absolute;
+  z-index: 2;
+  right: 2px;
+  bottom: 3px;
+  width: 13px;
+  height: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--rv-accent);
+  color: var(--rv-on-accent);
+  font: 700 11px/1 var(--rv-sans);
+  box-shadow: 0 0 0 2px var(--rv-ground);
+}
+
+/* new lotuses drop in and bloom where they land */
+@keyframes rv-lotus-land {
+  0% { opacity: 0; transform: translateY(-60px) scale(.4) rotate(-20deg); }
+  70% { opacity: 1; transform: translateY(4px) scale(1.05) rotate(4deg); }
+  100% { opacity: 1; transform: none; }
+}
+.rv-lotus-added { z-index: 3; }
+@media (prefers-reduced-motion: no-preference) {
+  .rv-lotus-added > .rv-lotus svg { animation: rv-lotus-land .55s cubic-bezier(.3, .7, .3, 1) both; }
+}
+
+@media (max-width: 760px) {
+  .rv-dock { position: absolute; top: 72px; right: 12px; }   /* sits under the top bar and scrolls away on phones */
+  .rv-dock-btn::after { display: none; }
+  .rv-dock-btn::after { display: none; }
 }

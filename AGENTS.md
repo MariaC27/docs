@@ -23,6 +23,7 @@
 | `writing/overview.mdx` | Writing overview (mode: frame) — `<PadPond>` lily pads |
 | `writing/the-design-process-shift.mdx` | Essay: The Design Process Shift |
 | `writing/ux-friction-coefficient.mdx` | Essay: UX Friction Coefficient |
+| `lab/*.mdx` | Hidden standalone design lab (mode: custom, noindex, not in nav, no site chrome; own nav from `snippets/lab-nav.jsx`; root class `.lab-root` — not `.al`, Mintlify rewrites it to `mint-al`): `overview`, `design-system` (keep in sync with `landing.css` tokens), `process` (iteration log of the redesign), `art-styles` (art-direction prototype via `snippets/art-lab.jsx`) |
 
 ## Navigation
 

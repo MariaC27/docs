@@ -1,0 +1,46 @@
+---
+title: "Lab"
+description: "Where the design of this site gets worked out."
+mode: custom
+noindex: true
+---
+
+import { LabNav } from '/snippets/lab-nav.jsx'
+
+<div className="lab-root al-doc">
+
+<LabNav current="overview" />
+
+<span className="al-eyebrow">Design lab</span>
+
+<h1 className="al-h1">The Lab</h1>
+
+<p className="al-lede">The working side of this portfolio. The rest of the site is the finished story; this is where I keep the design system it's built on, a log of how the redesign got here, and the prototypes I'm still deciding on.</p>
+
+<div className="al-cards">
+  <a className="al-card" href="/lab/design-system">
+    <span className="al-card-k">01</span>
+    <span className="al-card-t">Design System</span>
+    <span className="al-card-d">The current palette, type, components and motion rules, as they're built today.</span>
+  </a>
+  <a className="al-card" href="/lab/process">
+    <span className="al-card-k">02</span>
+    <span className="al-card-t">Process Log</span>
+    <span className="al-card-d">How the "pond" redesign evolved, iteration by iteration, including the directions I dropped.</span>
+  </a>
+  <a className="al-card" href="/lab/art-styles">
+    <span className="al-card-k">03</span>
+    <span className="al-card-t">Art Direction</span>
+    <span className="al-card-d">Prototype: the same assets in soft 3D and watercolor, to choose a style for the final graphics.</span>
+  </a>
+</div>
+
+## How I use it
+
+- **Prototypes start here.** New directions get a lab page before they touch the real site, so I can compare options side by side and decide by eye.
+- **Decisions get written down.** Every iteration in the process log records what I tried, what I kept, and why. The rejected directions are as useful as the kept ones.
+- **The design system is the source of truth.** It documents what's actually in the code (`landing.css`, `style.css` and the snippets), so it stays honest.
+
+<p className="al-note">The lab isn't linked from anywhere on the site. Parts of it will feed into the portfolio case study.</p>
+
+</div>

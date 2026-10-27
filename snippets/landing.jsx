@@ -350,6 +350,43 @@ export const Landing = ({ work }) => {
   // All of them can be picked up and dragged; stop lotuses drift back to their stop when let go.
   // Free lotuses live only in the hero pond and the footer, away from the river so they're never
   // mistaken for its stops. Each is positioned by its class in landing.css.
+  // ── Header dock: social links + "add a lotus" ───────────────────────────────
+  const SOCIALS = [
+    { label: 'GitHub', href: 'https://github.com/MariaC27', icon: 'github' },
+    { label: 'LinkedIn', href: 'https://www.linkedin.com/in/maria-cristoforo/', icon: 'linkedin' },
+    { label: 'Medium', href: 'https://medium.com/@maria_cristoforo', icon: 'medium' },
+    { label: 'Email maria.h.cristoforo@gmail.com', href: 'mailto:maria.h.cristoforo@gmail.com', icon: 'mail' },
+  ];
+  const dockIcon = (name) => {
+    const p = { width: 18, height: 18, viewBox: '0 0 24 24', 'aria-hidden': 'true' };
+    const line = { fill: 'none', stroke: 'currentColor', strokeWidth: 1.7, strokeLinecap: 'round', strokeLinejoin: 'round' };
+    if (name === 'github') return <svg {...p} {...line}><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21" /></svg>;
+    if (name === 'linkedin') return <svg {...p} {...line}><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z" /><rect x="2" y="9" width="4" height="12" /><circle cx="4" cy="4" r="2" /></svg>;
+    if (name === 'medium') return <svg {...p} fill="currentColor"><ellipse cx="7" cy="12" rx="5.5" ry="5.8" /><ellipse cx="16.2" cy="12" rx="2.7" ry="5.4" /><ellipse cx="21.3" cy="12" rx="1" ry="4.9" /></svg>;
+    return <svg {...p} {...line}><rect x="3" y="5" width="18" height="14" rx="2" /><path d="M3 7l9 6 9-6" /></svg>;
+  };
+
+  // Add-a-lotus: drops a new free lotus into open water on screen, with a ripple.
+  const LOTUS_CAP = 20;
+  const [added, setAdded] = useState([]);
+  const addLotus = () => {
+    const root = pageRef.current;
+    if (!root) return;
+    const box = root.getBoundingClientRect();
+    const WATER = '.rv, .rv-main, .rv-hero, .rv-hero-inner, .rv-body, .rv-wrap, .rv-reach, .rv-ghost, .rv-lake, .rv-footer, .rv-projects, .rv-projects-inner, .wk';
+    let spot = null;
+    for (let tries = 0; tries < 24 && !spot; tries++) {
+      const x = window.innerWidth * (0.15 + Math.random() * 0.75);
+      const y = window.innerHeight * (0.18 + Math.random() * 0.6);
+      const el = document.elementFromPoint(x, y);
+      if (el && el.closest('.rv') && el.matches(WATER)) spot = { x, y };
+    }
+    if (!spot) spot = { x: window.innerWidth * 0.6, y: window.innerHeight * 0.4 };
+    const id = `${Date.now()}-${Math.random()}`;
+    setAdded((a) => [...a.slice(-(LOTUS_CAP - 1)), { id, x: spot.x - box.left, y: spot.y - box.top, size: 0.8 + Math.random() * 0.4 }]);
+    setTimeout(() => ripple(spot.x, spot.y, false), 420);
+  };
+
   const freeLotus = (k, size) => (
     <span key={k} className={`rv-lotus-free rv-lotus-${k}`} style={{ '--ls': size }}>
       {lotus(false, 'Drag me around the pond')}
@@ -613,6 +650,31 @@ export const Landing = ({ work }) => {
       {drops.map((q) => (
         <span key={q.id} className={`rv-drop${q.soft ? ' rv-drop-soft' : ''}`} style={{ left: `${q.x}px`, top: `${q.y}px` }} aria-hidden="true" />
       ))}
+      {added.map((l) => (
+        <span key={l.id} className="rv-lotus-free rv-lotus-added" style={{ left: `${l.x}px`, top: `${l.y}px`, '--ls': l.size }}>
+          {lotus(false, 'Drag me around the pond')}
+        </span>
+      ))}
+
+      {/* Header: socials + add a lotus, as plain icons in the corner with a ripple on hover. Clicks here don't drop pond ripples. */}
+      <div className={`rv-dock${chatOpen ? ' rv-dock-shift' : ''}`} onPointerDown={(e) => e.stopPropagation()}>
+        {SOCIALS.map((so) => (
+          <a key={so.icon} href={so.href} className="rv-dock-btn" aria-label={so.label} data-tip={so.label.split(' ')[0]}
+            {...(so.href.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>
+            <span className="rv-dock-ring" aria-hidden="true" />
+            {dockIcon(so.icon)}
+          </a>
+        ))}
+        <button type="button" className="rv-dock-btn rv-dock-lotus" onClick={addLotus} aria-label="Add a lotus to the pond" data-tip="Add a lotus">
+          <span className="rv-dock-ring" aria-hidden="true" />
+          <svg width="22" height="18" viewBox="-14 -14 28 20" aria-hidden="true">
+            {[-56, -28, 0, 28, 56].map((a) => (
+              <path key={a} d="M0,0 C-3.2,-3 -3.2,-9.5 0,-12 C3.2,-9.5 3.2,-3 0,0 Z" transform={`rotate(${a}) scale(${a === 0 ? 1 : 0.9} 1)`} />
+            ))}
+          </svg>
+          <span className="rv-dock-plus" aria-hidden="true">+</span>
+        </button>
+      </div>
       <nav className={`rv-rail${open ? ' rv-open' : ''}${instant ? ' rv-instant' : ''}`} aria-label="Site">
         <div className="rv-rail-inner">
           <div className="rv-rail-head">
