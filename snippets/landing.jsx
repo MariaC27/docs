@@ -20,7 +20,7 @@ export const Landing = ({ work }) => {
   ];
 
   const NAV = [
-    { group: 'About', icon: 'about', links: [['Skills', '/about/skills'], ['Changelog', '/about/changelog']] },
+    { group: 'About', icon: 'about', links: [['About Me', '/about/me'], ['Skills', '/about/skills'], ['Changelog', '/about/changelog']] },
     { group: 'Case Studies', icon: 'work', links: [
       ['Overview', '/work/overview'],
       ['Canvas Annotation Revamp', '/work/canvas-annotation-revamp'],
@@ -44,7 +44,7 @@ export const Landing = ({ work }) => {
   ];
 
   // About pad's destination. null keeps it inert; set to '/about/me' once that page exists.
-  const ABOUT_ME = null;
+  const ABOUT_ME = '/about/me';
 
   // Work previews that fan out of the Case Studies pad
   const WORK = [
@@ -106,7 +106,7 @@ export const Landing = ({ work }) => {
 
   // Every segment leaves and rejoins the column's center, so any filtered subset
   // still joins into one line; it bows toward the side the card sits on.
-  const bend = (x) => `M50,0 C50,30 ${x},20 ${x},50 C${x},80 50,70 50,100`;
+  const bend = (x, sx = 50) => `M${sx},0 C${sx},30 ${x},20 ${x},50 C${x},80 50,70 50,100`;
 
   const railIcon = ({ name }) => {
     const paths = {
@@ -131,7 +131,6 @@ export const Landing = ({ work }) => {
         <path d={d} className="rv-w1" vectorEffect="non-scaling-stroke" />
         <path d={d} className="rv-w2" vectorEffect="non-scaling-stroke" />
         <path d={d} className="rv-w3" vectorEffect="non-scaling-stroke" />
-        <path d={d} className="rv-flow" vectorEffect="non-scaling-stroke" />
       </svg>
     </div>
   );
@@ -235,6 +234,26 @@ export const Landing = ({ work }) => {
   };
   const [ps, setPs] = useState([]);
   const rowsRef = useRef([]);
+  // The first stop's river starts under the "Career path" label (the label pair is centred on the
+  // page, so the label sits left of the river's centre line). Measured, in the segment's units.
+  const tabsRef = useRef(null);
+  const [srcX, setSrcX] = useState(50);
+  useEffect(() => {
+    const place = () => {
+      const tabs = tabsRef.current, row = rowsRef.current.find((el) => el && el.offsetHeight);
+      if (!tabs || !row) return;
+      const label = tabs.querySelector('a').getBoundingClientRect();
+      const svg = row.querySelector('.rv-clip svg');
+      if (!svg) return;
+      const r = svg.getBoundingClientRect();
+      if (!r.width) return;
+      setSrcX(Math.round(((label.left + label.width / 2 - r.left) / r.width) * 1000) / 10);
+    };
+    place();
+    const late = setTimeout(place, 600);
+    window.addEventListener('resize', place);
+    return () => { clearTimeout(late); window.removeEventListener('resize', place); };
+  }, [mode, open, chatOpen]);
   const pageRef = useRef(null);
   const lakeRef = useRef(null);
   const mainRef = useRef(null);
@@ -824,7 +843,6 @@ export const Landing = ({ work }) => {
               <path d={waters.tail} className="rv-w1" />
               <path d={waters.tail} className="rv-w2" />
               <path d={waters.tail} className="rv-w3" />
-              <path d={waters.tail} className="rv-flow" />
             </g>
           </svg>
         )}
@@ -863,7 +881,7 @@ export const Landing = ({ work }) => {
         <div className="rv-body" id="river">
           <div className="rv-wrap">
             {/* Section tabs: anchors to the two sections below the hero */}
-            <nav className="rv-tabs" aria-label="Sections">
+            <nav className="rv-tabs rv-tabs-river" aria-label="Sections" ref={tabsRef}>
               <a href="#river" className="rv-tab rv-tab-on" aria-current="true">Career path</a>
               <a href="#projects" className="rv-tab">Projects <span aria-hidden="true">↓</span></a>
             </nav>
@@ -872,7 +890,7 @@ export const Landing = ({ work }) => {
                 className={`rv-reach rv-row-${s.t}${vis ? '' : ' rv-hide'}${first ? ' rv-row-first' : ''}`}>
                 {ghost && <div className={`rv-ghost ${ghostSide}`} aria-hidden="true">{ghost}</div>}
                 <div className="rv-river">
-                  {riverSegment({ d: bend(x), clip: `inset(0 0 ${Math.round((1 - p) * 100)}% 0)` })}
+                  {riverSegment({ d: bend(x, first ? srcX : 50), clip: `inset(0 0 ${Math.round((1 - p) * 100)}% 0)` })}
                   <span className={`rv-dot ${cls}`} style={{ left: `${x}%` }}><span className="rv-dot-ripple" />{lotus(true, 'Drag me')}</span>
                 </div>
                 <div className={`rv-card ${cardSide} rv-card-${s.t} ${cls}`}>

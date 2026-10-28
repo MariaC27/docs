@@ -1,0 +1,59 @@
+---
+title: About Me
+description: "Where I'm from, where I've been, what I care about outside of work."
+---
+
+{/* Photos: add images to /images and swap each placeholder <div> for an <img src="/images/…" /> */}
+export const PhotoSlot = ({ label }) => (
+  <div className="aspect-[4/5] rounded-xl border border-dashed border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-white/5 flex items-center justify-center text-center px-3 font-mono text-[11px] uppercase tracking-widest text-gray-400">{label}</div>
+);
+
+## Where I'm from
+
+I grew up in coastal Massachusetts. I love and currently very much miss New England summers at the beach, fall foliage, Dunkin' iced coffee, and the straightforward but deep-down kind nature of the people.
+
+<div className="grid grid-cols-2 sm:grid-cols-3 gap-3 my-8 not-prose">
+  <PhotoSlot label="Photo · Massachusetts" />
+  <PhotoSlot label="Photo · the beach" />
+  <PhotoSlot label="Photo · fall" />
+</div>
+
+## Dartmouth
+
+I went to Dartmouth College in Hanover, NH, where I studied computer science and human-centered design. Outside of class I played club ultimate frisbee and was very involved with the DALI Lab and the WISP program on campus.
+
+<div className="grid grid-cols-2 sm:grid-cols-3 gap-3 my-8 not-prose">
+  <PhotoSlot label="Photo · Dartmouth" />
+  <PhotoSlot label="Photo · ultimate" />
+  <PhotoSlot label="Photo · DALI Lab" />
+</div>
+
+## San Francisco
+
+I live in San Francisco now, where I enjoy lots of scenic running, beautiful views and architecture, and trying the city's amazing cafes and restaurants. I'm doing my best to immerse myself in the city: going to free local events and discussions, supporting small businesses, and taking the time to explore and learn about each of the neighborhoods.
+
+<div className="grid grid-cols-2 sm:grid-cols-3 gap-3 my-8 not-prose">
+  <PhotoSlot label="Photo · SF run" />
+  <PhotoSlot label="Photo · a favorite café" />
+  <PhotoSlot label="Photo · the city" />
+</div>
+
+## Outside of work
+
+<CardGroup cols={3}>
+  <Card title="Running" icon="footprints">
+    Scenic routes around San Francisco.
+  </Card>
+  <Card title="Coffee" icon="coffee">
+    Exploring the city one café at a time.
+  </Card>
+  <Card title="Ultimate frisbee" icon="disc">
+    Since my club days at Dartmouth.
+  </Card>
+</CardGroup>
+
+{/* Add more things you do outside of work here */}
+
+## What I believe
+
+I think we should be thoughtful and critical about how we use AI, not just how fast we can adopt it. I believe in stronger regulation and real attention to safety, and I try to bring that same care to how I use these tools in my own work.

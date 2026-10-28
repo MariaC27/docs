@@ -52,6 +52,7 @@
         "icon": "user",
         "expanded": true,
         "pages": [
+          "about/me",
           "about/skills",
           "about/changelog"
         ]
