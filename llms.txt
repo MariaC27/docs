@@ -4,7 +4,7 @@
 
 ## About
 
-- [Skills API](/about/skills): API-style reference of capabilities across development, design, and workflows with proficiency levels (Active / Fluent / Familiar)
+- [Skills](/about/skills): API-style reference of capabilities across development, design, and workflows with proficiency levels (Active / Fluent / Familiar)
 - [Changelog](/about/changelog): Career history as versioned software releases, v0.1.0 (2017) through v3.3.0 (2026)
 
 ## Case Studies

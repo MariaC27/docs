@@ -20,7 +20,7 @@ export const Landing = ({ work }) => {
   ];
 
   const NAV = [
-    { group: 'About', icon: 'about', links: [['Skills API', '/about/skills'], ['Changelog', '/about/changelog']] },
+    { group: 'About', icon: 'about', links: [['Skills', '/about/skills'], ['Changelog', '/about/changelog']] },
     { group: 'Case Studies', icon: 'work', links: [
       ['Overview', '/work/overview'],
       ['Canvas Annotation Revamp', '/work/canvas-annotation-revamp'],
@@ -60,13 +60,45 @@ export const Landing = ({ work }) => {
     { title: 'UX Friction Coefficient', href: '/writing/ux-friction-coefficient', img: '/images/ux_article1_overall.png' },
   ];
 
-  const PADS = [
-    { title: 'Skills', href: '/about/skills', slot: 1, desc: 'An API-style reference of languages, tools, and frameworks.' },
-    { title: 'Writing', href: '/writing/overview', slot: 2, fan: WRITING, fanDir: 'down', desc: 'Thoughts on design engineering, UX friction, and building in small teams.' },
-    { title: 'API', href: '/api/get-me', path: '/api/get-me', slot: 3, desc: 'A live API about me. Send requests from the playground.' },
-    { title: 'Case Studies', href: '/work/overview', slot: 4, fan: WORK, fanDir: 'up' },
-    { title: 'About Me', href: ABOUT_ME, path: '/about/me', slot: 5 },
+  // Skills that fan out around the Skills pad (logos from devicon, pinned version)
+  const ICON = (n) => `https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/${n}.svg`;
+  const SKILLS = [
+    { name: 'TypeScript', icon: ICON('typescript/typescript-original') },
+    { name: 'React', icon: ICON('react/react-original') },
+    { name: 'Next.js', icon: ICON('nextjs/nextjs-original') },
+    { name: 'Tailwind', icon: ICON('tailwindcss/tailwindcss-original') },
+    { name: 'Figma', icon: ICON('figma/figma-original') },
+    { name: 'Python', icon: ICON('python/python-original') },
+    { name: 'JavaScript', icon: ICON('javascript/javascript-original') },
+    { name: 'Java', icon: ICON('java/java-original') },
   ];
+  // Endpoints previewed on the API pad
+  const ENDPOINTS = [
+    ['GET', '/me', 'Profile and links', '/api/get-me'],
+    ['GET', '/skills', 'Skills, filterable', '/api/get-skills'],
+    ['GET', '/availability', 'When I can chat', '/api/get-availability'],
+    ['POST', '/ask', 'Ask about me', '/api/post-ask'],
+    ['POST', '/hire', 'Check a role fit', '/api/post-hire'],
+    ['POST', '/contact', 'Send a message', '/api/post-contact'],
+  ];
+  // Photos that fan out of the About Me pad: placeholders until real ones are added (set img)
+  const ABOUT_PHOTOS = [
+    { title: 'Photo 1', img: null },
+    { title: 'Photo 2', img: null },
+    { title: 'Photo 3', img: null },
+    { title: 'Photo 4', img: null },
+  ];
+
+  // Hero pond. `slot` fixes each pad's spot (positions in landing.css); `kind` is its hover preview:
+  // cards (screenshots fan out below), ring (skill icons circle the pad), api (endpoint panel).
+  const PADS = [
+    { title: 'Skills', href: '/about/skills', slot: 1, kind: 'ring' },
+    { title: 'Writing', href: '/writing/overview', slot: 2, kind: 'cards', fan: WRITING },
+    { title: 'API', href: '/api/get-me', path: '/api/get-me', slot: 3, kind: 'api' },
+    { title: 'Case Studies', href: '/work/overview', slot: 4, kind: 'cards', fan: WORK },
+    { title: 'About Me', href: ABOUT_ME, path: '/about/me', slot: 5, kind: 'cards', fan: ABOUT_PHOTOS },
+  ];
+
 
 
   const shows = (mode, t) =>
@@ -152,7 +184,21 @@ export const Landing = ({ work }) => {
   const [open, setOpenState] = useState(false);
   const [instant, setInstant] = useState(false);
   const [chatOpen, setChatOpen] = useState(false);   // the Ask-about-me sidebar
-  const [fanOpen, setFanOpen] = useState(null);      // touch: first tap on a pad with a fan opens it (pad title)
+  const [fanOpen, setFanOpen] = useState(null);      // the pad whose preview is open (its title)
+  // Previews open only after resting on a pad for a moment, so sweeping the mouse across the
+  // pond doesn't set them all off. (Touch: first tap opens, see the pad's onClick.)
+  const HOVER_DELAY = 500;
+  const hoverTimer = useRef(null);
+  const padEnter = (e, title) => {
+    if (e.pointerType !== 'mouse') return;
+    clearTimeout(hoverTimer.current);
+    hoverTimer.current = setTimeout(() => setFanOpen(title), HOVER_DELAY);
+  };
+  const padLeave = (e, title) => {
+    if (e.pointerType !== 'mouse') return;
+    clearTimeout(hoverTimer.current);
+    setFanOpen((cur) => (cur === title ? null : cur));
+  };
   // Mintlify re-mounts the page when the theme changes, which would reset the rail.
   // Remember it for the session and restore it without animating.
   const setOpen = (v) => {
@@ -506,23 +552,60 @@ export const Landing = ({ work }) => {
       {freeLotus('p2', 0.85)}
       {freeLotus('p3', 0.95)}
       {PADS.map((pad, n) => (
-        <div key={pad.title} className={`rv-slot rv-slot-${pad.slot || n + 1}${pad.fan ? ` rv-has-fan rv-fan-${pad.fanDir}` : ''}${pad.fan && fanOpen === pad.title ? ' rv-fan-open' : ''}`}>
-          {pad.fan && (
+        <div key={pad.title} className={`rv-slot rv-slot-${pad.slot || n + 1} rv-has-fan rv-kind-${pad.kind}${pad.fan ? ` rv-fan-n${pad.fan.length}` : ''}${fanOpen === pad.title ? ' rv-fan-open' : ''}`}
+          onPointerEnter={(e) => padEnter(e, pad.title)} onPointerLeave={(e) => padLeave(e, pad.title)}>
+          {pad.kind === 'cards' && (
             <div className="rv-fan" onPointerDown={(e) => e.stopPropagation()}>
-              {pad.fan.map((w, i) => (
+              {pad.fan.map((w, i) => (w.href ? (
                 <a key={w.href} href={w.href} className={`rv-fan-card rv-fan-${i + 1}`}>
                   {/* Background image, not <img>: Mintlify wraps <img> in its click-to-zoom */}
                   <span className="rv-fan-img" role="img" aria-label={`${w.title} preview`} style={{ backgroundImage: `url('${w.img}')` }} />
                   <span className="rv-fan-title">{w.title}</span>
                 </a>
-              ))}
+              ) : (
+                <span key={w.title} className={`rv-fan-card rv-fan-photo rv-fan-${i + 1}`}>
+                  {w.img
+                    ? <span className="rv-fan-img" role="img" aria-label={w.title} style={{ backgroundImage: `url('${w.img}')` }} />
+                    : <span className="rv-fan-img rv-fan-ph" aria-label="Photo placeholder">{w.title}</span>}
+                </span>
+              )))}
+            </div>
+          )}
+          {pad.kind === 'ring' && (
+            <div className="rv-ring" onPointerDown={(e) => e.stopPropagation()}>
+              {SKILLS.map((sk, i) => {
+                const ang = (-90 + (360 / SKILLS.length) * i) * Math.PI / 180;
+                return (
+                  <a key={sk.name} href="/about/skills" className="rv-ring-chip"
+                    style={{ '--x': `${(Math.cos(ang) * 150).toFixed(1)}px`, '--y': `${(Math.sin(ang) * 112).toFixed(1)}px`, transitionDelay: `${i * 0.03}s` }}>
+                    {/* Background image, not <img>: Mintlify wraps <img> in its click-to-zoom */}
+                    <span className="rv-ring-icon" role="img" aria-label={sk.name} style={{ backgroundImage: `url('${sk.icon}')` }} />
+                    <span className="rv-ring-name">{sk.name}</span>
+                  </a>
+                );
+              })}
+            </div>
+          )}
+          {pad.kind === 'api' && (
+            <div className="rv-api" onPointerDown={(e) => e.stopPropagation()}>
+              <div className="rv-api-card">
+                <div className="rv-api-host">maria-api.vercel.app</div>
+                {ENDPOINTS.map(([m, path, what, href]) => (
+                  <a key={path} href={href} className="rv-api-row">
+                    <span className={`rv-api-m rv-api-${m.toLowerCase()}`}>{m}</span>
+                    <span className="rv-api-path">{path}</span>
+                    <span className="rv-api-what">{what}</span>
+                  </a>
+                ))}
+                <a href="/api/get-me" className="rv-api-open">Open the playground →</a>
+              </div>
             </div>
           )}
           <a href={pad.href || undefined} tabIndex={0} className={`rv-pad rv-p${pad.slot || n + 1}`}
             onClick={(e) => {
-              if (!pad.href) { e.preventDefault(); return; }
-              // On touch screens there's no hover: the first tap shows the work, the second navigates
-              if (pad.fan && fanOpen !== pad.title && window.matchMedia && window.matchMedia('(hover: none)').matches) {
+              // On touch screens there's no hover: the first tap shows the preview, the second navigates
+              if (!pad.href) { e.preventDefault(); setFanOpen(fanOpen === pad.title ? null : pad.title); return; }
+              if (fanOpen !== pad.title && window.matchMedia && window.matchMedia('(hover: none)').matches) {
                 e.preventDefault();
                 setFanOpen(pad.title);
               }
@@ -531,8 +614,6 @@ export const Landing = ({ work }) => {
             <span className="rv-pad-face">
               {leaf3d(n)}
               <span className="rv-pad-title">{pad.title}</span>
-              {pad.desc && <span className="rv-pad-desc">{pad.desc}</span>}
-              <span className="rv-pad-path">{pad.path || pad.href}</span>
             </span>
           </a>
         </div>
@@ -739,12 +820,6 @@ export const Landing = ({ work }) => {
                 <stop offset="1" className="rv-tail-stop" stopOpacity="0" />
               </linearGradient>
             </defs>
-            <g className="rv-headwater">
-              <path d={waters.head} className="rv-w1" />
-              <path d={waters.head} className="rv-w2" />
-              <path d={waters.head} className="rv-w3" />
-              <path d={waters.head} className="rv-flow" />
-            </g>
             <g className="rv-tailwater">
               <path d={waters.tail} className="rv-w1" />
               <path d={waters.tail} className="rv-w2" />
@@ -753,7 +828,7 @@ export const Landing = ({ work }) => {
             </g>
           </svg>
         )}
-        <header className="rv-hero">
+        <header className="rv-hero rv-h4">
           <div className="rv-hero-inner">
             <div className="rv-hero-text" ref={heroTextRef}>
               <div className="rv-rise rv-name-row">
@@ -764,16 +839,21 @@ export const Landing = ({ work }) => {
                 <h1 className="rv-name">Maria Cristoforo</h1>
               </div>
               <p className="rv-rise rv-tagline">thinks like a designer, executes like an engineer</p>
+              <div className="rv-rise rv-hero-cta">
+                <a href="/api/post-contact" className="rv-btn rv-btn-main">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5" /><path d="M3.5 7l8.5 6 8.5-6" /></svg>
+                  Contact
+                </a>
+                {/* Résumé: drop the PDF at /resume.pdf (repo root) */}
+                <a href="/resume.pdf" download="Maria-Cristoforo-Resume.pdf" className="rv-btn rv-btn-quiet">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 4v11" /><path d="M7 10l5 5 5-5" /><path d="M5 20h14" /></svg>
+                  CV
+                </a>
+              </div>
               <div className="rv-rise rv-now">
                 <span>Design Engineer at Ocular AI (YC W24)</span>
                 <span className="rv-hero-sep" aria-hidden="true" />
                 <span>San Francisco, CA</span>
-              </div>
-              <div className="rv-rise rv-hero-cta">
-                <a href="/api/post-contact" className="rv-btn">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5" /><path d="M3.5 7l8.5 6 8.5-6" /></svg>
-                  Contact me
-                </a>
               </div>
             </div>
             {pond(lakeRef, 'rv-rise rv-lake')}
@@ -808,7 +888,7 @@ export const Landing = ({ work }) => {
           <section className="rv-projects" id="projects" aria-labelledby="rv-projects-label">
             <div className="rv-projects-inner">
               <nav className="rv-tabs" aria-label="Sections">
-                <a href="#river" className="rv-tab">Career path <span aria-hidden="true">↑</span></a>
+                <a href="#river" className="rv-tab">Career Path <span aria-hidden="true">↑</span></a>
                 <span className="rv-tab rv-tab-on" id="rv-projects-label">Projects</span>
               </nav>
               {work}
@@ -873,12 +953,15 @@ export const Landing = ({ work }) => {
           )}
         </div>
       </aside>
-      {!chatOpen && (
-        <button type="button" className="rv-ask-pill" onClick={() => setChatOpen(true)} onPointerDown={(e) => e.stopPropagation()}>
-          <span className="rv-ask-dot" aria-hidden="true" />
-          Ask about me
-        </button>
-      )}
+      {/* Sticky "Ask about me", bottom-right: always there, never over the centred tabs */}
+      <div className={`rv-actions${chatOpen ? ' rv-actions-shift' : ''}`} onPointerDown={(e) => e.stopPropagation()}>
+        {!chatOpen && (
+          <button type="button" className="rv-act rv-act-ask" onClick={() => setChatOpen(true)}>
+            <span className="rv-ask-dot" aria-hidden="true" />
+            Ask about me
+          </button>
+        )}
+      </div>
     </div>
   );
 };

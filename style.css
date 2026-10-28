@@ -575,7 +575,7 @@ html.dark:has(.lab-root), html.dark:has(.lab-root) body { background: #06090D !i
 .al-doc th { font-family: 'Geist Mono', monospace !important; font-size: 11.5px; letter-spacing: .06em; text-transform: uppercase; font-weight: 500; color: #5F6E7B; }
 .al-note { font-size: 14px !important; color: #5F6E7B !important; margin-top: 32px !important; }
 
-.al-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin: 0 0 16px; }
+.al-cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin: 0 0 16px; }
 .al-card {
   display: flex;
   flex-direction: column;
@@ -603,3 +603,54 @@ html.dark:has(.lab-root), html.dark:has(.lab-root) body { background: #06090D !i
 .al-doc span[data-as="p"] { display: block; margin: 0 0 16px; color: #33424F; }
 .dark .al-doc span[data-as="p"] { color: #C9D2DA; }
 .al-doc li span[data-as="p"] { margin: 0; color: inherit; }
+
+/* ─── Lab prototypes: homepage layout slides (snippets/hero-protos.jsx) ─── */
+.al-doc.al-wide { max-width: 1240px; }
+.hp { display: flex; flex-direction: column; gap: 64px; margin-top: 16px; }
+.hp-slide-head { display: flex; gap: 18px; align-items: flex-start; margin-bottom: 16px; max-width: 820px; }
+.hp-num { font-family: 'Geist Mono', monospace !important; font-size: 12px; color: #12A394; padding-top: 10px; }
+.hp-slide-head h2 { margin: 0 !important; padding: 0 !important; border: 0 !important; font-size: 30px !important; }
+.hp-slide-head p { margin: 4px 0 0 !important; font-size: 15px; color: #4A5866 !important; }
+.hp-frame {
+  --hp-s: .9;
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: 16px;
+  border: 1px solid rgba(127, 140, 150, .25);
+  box-shadow: 0 20px 50px -30px rgba(11, 22, 32, .35);
+}
+.hp-stage {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1280px;
+  height: 720px;
+  transform: scale(var(--hp-s));
+  transform-origin: 0 0;
+  background: radial-gradient(60% 50% at 50% 70%, rgba(18, 163, 148, .07), transparent 70%), #F3F6F8;
+  font-family: 'Geist', sans-serif;
+  color: #0B1620;
+}
+.hp-stage > * { position: absolute; }
+.hp-river { inset: 0; width: 100%; height: 100%; }
+.hp-pad svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.hp-pad-label { position: absolute; left: 0; right: 0; top: 34%; display: flex; flex-direction: column; align-items: center; gap: 2px; font-family: 'Instrument Serif', serif !important; color: #0B1620; line-height: 1.1; }
+.hp-pad-label em { font-style: normal; font-family: 'Geist Mono', monospace !important; font-size: 11px; color: #5F6E7B; }
+.hp-lotus { overflow: visible; }
+.hp-photo { border-radius: 50%; background-size: cover; background-position: center; box-shadow: 0 0 0 1px rgba(18, 163, 148, .4), 0 0 0 6px #F3F6F8; }
+.hp-t.hp-c { text-align: center; }
+.hp-name { font-family: 'Instrument Serif', serif !important; font-style: italic; font-weight: 400; line-height: 1; letter-spacing: -0.02em; white-space: nowrap; }
+.hp-tag { font-size: 23px; line-height: 1.35; }
+.hp-meta { font-family: 'Geist Mono', monospace !important; font-size: 12.5px; letter-spacing: .08em; text-transform: uppercase; color: #4A5866; display: flex; align-items: center; gap: 12px; }
+.hp-meta.hp-c { justify-content: center; }
+.hp-dot { width: 4px; height: 4px; border-radius: 50%; background: #12A394; display: inline-block; }
+.hp-btn { display: inline-flex; align-items: center; gap: 9px; height: 46px; padding: 0 22px 0 18px; border-radius: 999px; border: 1px solid rgba(18, 163, 148, .38); background: #E3F2F0; color: #0B7469; font-size: 15.5px; font-weight: 500; white-space: nowrap; }
+.hp-btn.hp-c { translate: -50% 0; }
+.hp-icons { right: 28px; top: 22px; display: flex; gap: 22px; align-items: center; }
+.hp-icons i { width: 16px; height: 16px; border-radius: 4px; border: 1.6px solid #5F6E7B; display: block; opacity: .7; }
+.hp-icons b { width: 18px; height: 14px; margin-left: 8px; border-radius: 50% 50% 40% 40%; background: #fff; box-shadow: 0 0 0 1px rgba(18, 163, 148, .5); display: block; }
+.hp-caption { left: 70px; bottom: 60px; display: flex; align-items: flex-start; }
+.hp-caption .hp-photo { position: absolute; }
+@media (max-width: 760px) { .al-cards { grid-template-columns: minmax(0, 1fr); } }
