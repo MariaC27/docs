@@ -1766,3 +1766,12 @@ html:has(.rv) .almond-layout { top: 0 !important; }
 /* API preview: description pushed to the right edge of the card */
 .rv .rv-api-row { grid-template-columns: 44px auto 1fr; column-gap: 12px; padding: 0 6px; }
 .rv-api-what { text-align: right; }
+
+/* About Me: photos fan out above the pad instead of below it */
+.rv-slot-5.rv-kind-cards .rv-fan { top: auto; bottom: 62%; }
+.rv-slot-5.rv-kind-cards .rv-fan-card { top: auto; bottom: 0; transform: translate(-50%, 30px) scale(.55); transform-origin: 50% 100%; }
+.rv-slot-5.rv-kind-cards:is(:has(:focus-visible), .rv-fan-open) .rv-fan::before { top: auto; bottom: -30px; height: 120px; }
+.rv-slot-5.rv-fan-n4:is(:has(:focus-visible), .rv-fan-open) .rv-fan-1 { transform: translate(calc(-50% - 186px), -26px); }
+.rv-slot-5.rv-fan-n4:is(:has(:focus-visible), .rv-fan-open) .rv-fan-2 { transform: translate(calc(-50% - 64px), -50px); }
+.rv-slot-5.rv-fan-n4:is(:has(:focus-visible), .rv-fan-open) .rv-fan-3 { transform: translate(calc(-50% + 64px), -50px); }
+.rv-slot-5.rv-fan-n4:is(:has(:focus-visible), .rv-fan-open) .rv-fan-4 { transform: translate(calc(-50% + 186px), -26px); }

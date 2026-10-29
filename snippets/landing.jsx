@@ -81,12 +81,12 @@ export const Landing = ({ work }) => {
     ['POST', '/hire', 'Check a role fit', '/api/post-hire'],
     ['POST', '/contact', 'Send a message', '/api/post-contact'],
   ];
-  // Photos that fan out of the About Me pad: placeholders until real ones are added (set img)
+  // Photos that fan out of the About Me pad
   const ABOUT_PHOTOS = [
-    { title: 'Photo 1', img: null },
-    { title: 'Photo 2', img: null },
-    { title: 'Photo 3', img: null },
-    { title: 'Photo 4', img: null },
+    { title: 'Boston', img: '/images/me_boston.jpg' },
+    { title: 'Fall foliage', img: '/images/fall.jpg' },
+    { title: 'Dartmouth in the snow', img: '/images/dartwinter.jpg' },
+    { title: 'New England beach', img: '/images/beach.jpg' },
   ];
 
   // Hero pond. `slot` fixes each pad's spot (positions in landing.css); `kind` is its hover preview:

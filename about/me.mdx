@@ -3,19 +3,23 @@ title: About Me
 description: "Where I'm from, where I've been, what I care about outside of work."
 ---
 
-{/* Photos: add images to /images and swap each placeholder <div> for an <img src="/images/…" /> */}
+{/* Photos: add images to /images (JPG/PNG — HEIC doesn't show in most browsers) and swap a <PhotoSlot> for a <Photo> */}
+export const Photo = ({ src, alt, focus = 'center' }) => (
+  <img src={src} alt={alt} className="aspect-[4/5] w-full rounded-xl object-cover m-0" style={{ objectPosition: focus }} />
+);
 export const PhotoSlot = ({ label }) => (
   <div className="aspect-[4/5] rounded-xl border border-dashed border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-white/5 flex items-center justify-center text-center px-3 font-mono text-[11px] uppercase tracking-widest text-gray-400">{label}</div>
 );
 
-## Where I'm from
+## My background
 
-I grew up in coastal Massachusetts. I love and currently very much miss New England summers at the beach, fall foliage, Dunkin' iced coffee, and the straightforward but deep-down kind nature of the people.
+I grew up in coastal Massachusetts. I love and currently very much miss New England summers at the beach, fall foliage, and Dunkin' iced coffee (finding one in the Bay Area is a challenge). I'm also mixed Chinese and Italian-American and I speak conversational Mandarin.
+
 
 <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 my-8 not-prose">
-  <PhotoSlot label="Photo · Massachusetts" />
-  <PhotoSlot label="Photo · the beach" />
-  <PhotoSlot label="Photo · fall" />
+  <Photo src="/images/me_boston.jpg" alt="Me in Boston" />
+  <Photo src="/images/beach.jpg" alt="A New England beach" />
+  <Photo src="/images/fall.jpg" alt="Fall foliage in New England" />
 </div>
 
 ## Dartmouth
@@ -23,19 +27,19 @@ I grew up in coastal Massachusetts. I love and currently very much miss New Engl
 I went to Dartmouth College in Hanover, NH, where I studied computer science and human-centered design. Outside of class I played club ultimate frisbee and was very involved with the DALI Lab and the WISP program on campus.
 
 <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 my-8 not-prose">
-  <PhotoSlot label="Photo · Dartmouth" />
-  <PhotoSlot label="Photo · ultimate" />
-  <PhotoSlot label="Photo · DALI Lab" />
+  <Photo src="/images/dartwinter.jpg" alt="Dartmouth campus in the snow, with Baker Library's tower" />
+  <Photo src="/images/frisbee.jpg" alt="Playing club ultimate frisbee at Dartmouth" />
+  <Photo src="/images/dali.jpg" alt="The signed DALI letters in the DALI Lab" />
 </div>
 
 ## San Francisco
 
-I live in San Francisco now, where I enjoy lots of scenic running, beautiful views and architecture, and trying the city's amazing cafes and restaurants. I'm doing my best to immerse myself in the city: going to free local events and discussions, supporting small businesses, and taking the time to explore and learn about each of the neighborhoods.
+I live in San Francisco now, where I enjoy lots of scenic running, beautiful views and architecture, and trying the city's amazing cafes and restaurants. I love how walkable the city is and how there are so many parks throughout - my favorites are Dolores Park and Ina Coolbrith Park!
 
 <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 my-8 not-prose">
-  <PhotoSlot label="Photo · SF run" />
-  <PhotoSlot label="Photo · a favorite café" />
-  <PhotoSlot label="Photo · the city" />
+  <Photo src="/images/bday.jpg" alt="My birthday picnic in the park" />
+  <Photo src="/images/houses.jpg" alt="Victorian houses on a tree-lined San Francisco street" />
+  <Photo src="/images/run.jpg" alt="A group run toward the Golden Gate Bridge" focus="bottom" />
 </div>
 
 ## Outside of work
@@ -56,4 +60,8 @@ I live in San Francisco now, where I enjoy lots of scenic running, beautiful vie
 
 ## What I believe
 
-I think we should be thoughtful and critical about how we use AI, not just how fast we can adopt it. I believe in stronger regulation and real attention to safety, and I try to bring that same care to how I use these tools in my own work.
+- **Technology should make people's lives better.** I want to build things that help improve people's everyday lives, not things that just enrich the 1%.
+- **We should be more critical about AI usage.** Not everything needs to be "AI this AI that." For the love of god we can still use our brains. I believe in stronger regulation and making time for disucssion of safety and privacy.
+- **People do their best work when they have balanced lives** and time to do things they enjoy. 996 is ridiculous and it's a no from me. 
+- **Get to the point.** I always try to explain things concisely and answer things directly, and like working with people who do the same.
+- **Integrity matters.** Be transparent, treat people fairly, and never take advantage of them. I'm drawn to people and teams who hold onto their integrity even when it would be easier not to.
