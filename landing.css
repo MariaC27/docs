@@ -1586,11 +1586,6 @@ html:has(.rv) .almond-layout { top: 0 !important; }
 .rv-kind-cards .rv-fan-card { bottom: auto; top: 0; transform: translate(-50%, -30px) scale(.55); transform-origin: 50% 0; }
 .rv-kind-cards:is(:has(:focus-visible), .rv-fan-open) .rv-fan::before { bottom: auto; top: -30px; left: -320px; width: 640px; height: 120px; }
 .rv-slot-4 { --fan-shift: -130px; }   /* Case Studies sits near the right edge */
-.rv-fan-n2:is(:has(:focus-visible), .rv-fan-open) .rv-fan-1 { transform: translate(calc(-50% - 96px + var(--fan-shift, 0px)), 40px); }
-.rv-fan-n2:is(:has(:focus-visible), .rv-fan-open) .rv-fan-2 { transform: translate(calc(-50% + 96px + var(--fan-shift, 0px)), 40px); }
-.rv-fan-n3:is(:has(:focus-visible), .rv-fan-open) .rv-fan-1 { transform: translate(calc(-50% - 176px + var(--fan-shift, 0px)), 34px); }
-.rv-fan-n3:is(:has(:focus-visible), .rv-fan-open) .rv-fan-2 { transform: translate(calc(-50% + var(--fan-shift, 0px)), 58px); }
-.rv-fan-n3:is(:has(:focus-visible), .rv-fan-open) .rv-fan-3 { transform: translate(calc(-50% + 176px + var(--fan-shift, 0px)), 34px); }
 /* About Me photos: smaller, portrait, like snapshots */
 .rv .rv-fan-photo { width: 112px; padding: 6px 6px 18px; }
 .rv-fan-photo .rv-fan-img { aspect-ratio: 4 / 5; }
@@ -1611,11 +1606,6 @@ html:has(.rv) .almond-layout { top: 0 !important; }
 .rv-fan-n4:is(:has(:focus-visible), .rv-fan-open) .rv-fan-3 { transform: translate(calc(-50% + 64px), 50px); }
 .rv-fan-n4:is(:has(:focus-visible), .rv-fan-open) .rv-fan-4 { transform: translate(calc(-50% + 186px), 26px); }
 .rv-fan-card.rv-fan-4 { transition-delay: .15s; }
-/* Case Studies: the cards wrap around the pad's left side and underneath, rather than in a row */
-.rv-slot-4.rv-fan-n3:is(:has(:focus-visible), .rv-fan-open) .rv-fan-1 { transform: translate(calc(-50% - 230px), -96px); }
-.rv-slot-4.rv-fan-n3:is(:has(:focus-visible), .rv-fan-open) .rv-fan-2 { transform: translate(calc(-50% - 170px), 48px); }
-.rv-slot-4.rv-fan-n3:is(:has(:focus-visible), .rv-fan-open) .rv-fan-3 { transform: translate(calc(-50% + 10px), 76px); }
-.rv-slot-4.rv-kind-cards:is(:has(:focus-visible), .rv-fan-open) .rv-fan::before { top: -140px; left: -330px; width: 460px; height: 260px; }
 
 /* ── previews: skill icons circle the Skills pad ── */
 .rv-ring { position: absolute; left: 50%; top: 46%; width: 0; height: 0; pointer-events: none; }
@@ -1767,11 +1757,20 @@ html:has(.rv) .almond-layout { top: 0 !important; }
 .rv .rv-api-row { grid-template-columns: 44px auto 1fr; column-gap: 12px; padding: 0 6px; }
 .rv-api-what { text-align: right; }
 
-/* About Me: photos fan out above the pad instead of below it */
-.rv-slot-5.rv-kind-cards .rv-fan { top: auto; bottom: 62%; }
-.rv-slot-5.rv-kind-cards .rv-fan-card { top: auto; bottom: 0; transform: translate(-50%, 30px) scale(.55); transform-origin: 50% 100%; }
-.rv-slot-5.rv-kind-cards:is(:has(:focus-visible), .rv-fan-open) .rv-fan::before { top: auto; bottom: -30px; height: 120px; }
-.rv-slot-5.rv-fan-n4:is(:has(:focus-visible), .rv-fan-open) .rv-fan-1 { transform: translate(calc(-50% - 186px), -26px); }
-.rv-slot-5.rv-fan-n4:is(:has(:focus-visible), .rv-fan-open) .rv-fan-2 { transform: translate(calc(-50% - 64px), -50px); }
-.rv-slot-5.rv-fan-n4:is(:has(:focus-visible), .rv-fan-open) .rv-fan-3 { transform: translate(calc(-50% + 64px), -50px); }
-.rv-slot-5.rv-fan-n4:is(:has(:focus-visible), .rv-fan-open) .rv-fan-4 { transform: translate(calc(-50% + 186px), -26px); }
+
+/* River stop dates: the same teal as the river itself */
+.rv .rv-meta, .dark .rv .rv-meta { color: var(--rv-water); }
+
+/* River stops: company as the title, role/degree on its own line beneath */
+.rv .rv-role { margin: -4px 0 0; font-size: 16px; font-weight: 500; color: var(--rv-soft); }
+
+/* Card fans: Writing in a row below its leaf, Case Studies wrapping around its leaf's left side */
+.rv-fan-n2:is(:has(:focus-visible), .rv-fan-open) .rv-fan-1 { transform: translate(calc(-50% - 96px + var(--fan-shift, 0px)), 40px); }
+.rv-fan-n2:is(:has(:focus-visible), .rv-fan-open) .rv-fan-2 { transform: translate(calc(-50% + 96px + var(--fan-shift, 0px)), 40px); }
+.rv-fan-n3:is(:has(:focus-visible), .rv-fan-open) .rv-fan-1 { transform: translate(calc(-50% - 176px + var(--fan-shift, 0px)), 34px); }
+.rv-fan-n3:is(:has(:focus-visible), .rv-fan-open) .rv-fan-2 { transform: translate(calc(-50% + var(--fan-shift, 0px)), 58px); }
+.rv-fan-n3:is(:has(:focus-visible), .rv-fan-open) .rv-fan-3 { transform: translate(calc(-50% + 176px + var(--fan-shift, 0px)), 34px); }
+.rv-slot-4.rv-fan-n3:is(:has(:focus-visible), .rv-fan-open) .rv-fan-1 { transform: translate(calc(-50% - 230px), -96px); }
+.rv-slot-4.rv-fan-n3:is(:has(:focus-visible), .rv-fan-open) .rv-fan-2 { transform: translate(calc(-50% - 170px), 48px); }
+.rv-slot-4.rv-fan-n3:is(:has(:focus-visible), .rv-fan-open) .rv-fan-3 { transform: translate(calc(-50% + 10px), 76px); }
+.rv-slot-4.rv-kind-cards:is(:has(:focus-visible), .rv-fan-open) .rv-fan::before { top: -140px; left: -330px; width: 460px; height: 260px; }

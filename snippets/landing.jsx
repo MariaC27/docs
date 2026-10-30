@@ -5,18 +5,18 @@
 
 export const Landing = ({ work }) => {
   const STOPS = [
-    { t: 'job', ghost: '2025', title: 'Design engineer at Ocular AI', start: 'Winter 2025', end: 'Now',
-      desc: 'Moved to SF to join Ocular AI (YC W24). I take features from first concept to full implementation on a five-person team, reporting to the founders.' },
-    { t: 'job', ghost: '2024', title: 'Fullstack SWE at NoxuData', start: 'Fall 2024', end: 'Winter 2024',
-      desc: 'Reported directly to the two founders. Learned API design fundamentals and shipped clean code on a large existing codebase.' },
-    { t: 'ms', ghost: '2024', title: 'Graduated Dartmouth', date: 'Spring 2024',
-      desc: 'Computer Science and Human-Centered Design, with an honors thesis on accessible development practices.' },
-    { t: 'job', ghost: '2023', title: 'Support engineering at Atlassian', start: 'Summer 2023', intern: true,
-      desc: 'Talked directly with customers, debugged issues, and ran user research. Saw what product support looks like at scale.' },
-    { t: 'job', ghost: '2022', title: 'SWE at JHU Applied Physics Lab', start: 'Spring 2022', intern: true,
-      desc: 'Built data visualization tools for global health research. Auditing a legacy internal tool sparked the interest in UX that changed my direction.' },
-    { t: 'ms', ghost: '2021', title: 'Started at the DALI Lab', date: 'Spring 2021',
-      desc: 'Learned web development and UI/UX fundamentals, then designed and built full-stack on small student teams.' },
+    { t: 'job', ghost: '2025', org: 'Ocular AI (YC W24)', role: 'Founding Design Engineer', start: 'Jan 2025', end: 'Now',
+      desc: 'Operate at the intersection of product design and software engineering on a small fast-paced team, taking features from initial concept to full implementation.' },
+    { t: 'job', ghost: '2024', org: 'NoxuData', role: 'Software Engineer', start: 'Aug 2024', end: 'Dec 2024',
+      desc: 'Fullstack SWE reporting directly to the founders on a small team, shipping features for the startup’s AI-powered data analytics platform.' },
+    { t: 'ms', ghost: '2024', title: 'Dartmouth', role: 'B.A., Computer Science and Human-Centered Design', date: 'Jun 2024',
+      desc: 'Honors thesis on accessible development practices.' },
+    { t: 'job', ghost: '2023', org: 'Atlassian', role: 'Support Engineer Intern', start: 'Jun 2023', end: 'Aug 2023',
+      desc: 'Communicated directly with customers, debugged issues, and conducted user research to improve the Confluence Cloud UX.' },
+    { t: 'job', ghost: '2022', org: 'JHU Applied Physics Lab', role: 'SWE Intern', start: 'Mar 2022', end: 'Jun 2022',
+      desc: 'Developed software for global health data visualization and prediction tools.' },
+    { t: 'job', ghost: '2021', org: 'DALI Lab', role: 'Software Engineer & UI/UX Designer', start: 'Apr 2021', end: 'Jun 2024',
+      desc: 'Full-stack developer, UI/UX designer, and mentor on small student teams.' },
   ];
 
   const NAV = [
@@ -81,13 +81,6 @@ export const Landing = ({ work }) => {
     ['POST', '/hire', 'Check a role fit', '/api/post-hire'],
     ['POST', '/contact', 'Send a message', '/api/post-contact'],
   ];
-  // Photos that fan out of the About Me pad
-  const ABOUT_PHOTOS = [
-    { title: 'Boston', img: '/images/me_boston.jpg' },
-    { title: 'Fall foliage', img: '/images/fall.jpg' },
-    { title: 'Dartmouth in the snow', img: '/images/dartwinter.jpg' },
-    { title: 'New England beach', img: '/images/beach.jpg' },
-  ];
 
   // Hero pond. `slot` fixes each pad's spot (positions in landing.css); `kind` is its hover preview:
   // cards (screenshots fan out below), ring (skill icons circle the pad), api (endpoint panel).
@@ -96,7 +89,7 @@ export const Landing = ({ work }) => {
     { title: 'Writing', href: '/writing/overview', slot: 2, kind: 'cards', fan: WRITING },
     { title: 'API', href: '/api/get-me', path: '/api/get-me', slot: 3, kind: 'api' },
     { title: 'Case Studies', href: '/work/overview', slot: 4, kind: 'cards', fan: WORK },
-    { title: 'About Me', href: ABOUT_ME, path: '/about/me', slot: 5, kind: 'cards', fan: ABOUT_PHOTOS },
+    { title: 'About Me', href: ABOUT_ME, path: '/about/me', slot: 5, kind: 'none' },
   ];
 
 
@@ -164,7 +157,8 @@ export const Landing = ({ work }) => {
     if (s.t === 'job') {
       return (
         <>
-          <h2 className="rv-title-job">{s.title}</h2>
+          <h2 className="rv-title-job">{s.org}</h2>
+          <p className="rv-role">{s.role}</p>
           {metaLine([s.end ? `${s.start} – ${s.end}` : s.start, s.intern && 'Internship'])}
           <p className="rv-desc">{s.desc}</p>
         </>
@@ -173,6 +167,7 @@ export const Landing = ({ work }) => {
     return (
       <>
         <h2 className="rv-title-ms">{s.title}</h2>
+        {s.role && <p className="rv-role">{s.role}</p>}
         {metaLine([s.date])}
         <p className="rv-desc">{s.desc}</p>
       </>
@@ -888,7 +883,6 @@ export const Landing = ({ work }) => {
             {rows.map(({ s, i, vis, first, ghost, x, cardSide, ghostSide, p, cls }) => (
               <section key={i} ref={(el) => { rowsRef.current[i] = el; }}
                 className={`rv-reach rv-row-${s.t}${vis ? '' : ' rv-hide'}${first ? ' rv-row-first' : ''}`}>
-                {ghost && <div className={`rv-ghost ${ghostSide}`} aria-hidden="true">{ghost}</div>}
                 <div className="rv-river">
                   {riverSegment({ d: bend(x, first ? srcX : 50), clip: `inset(0 0 ${Math.round((1 - p) * 100)}% 0)` })}
                   <span className={`rv-dot ${cls}`} style={{ left: `${x}%` }}><span className="rv-dot-ripple" />{lotus(true, 'Drag me')}</span>

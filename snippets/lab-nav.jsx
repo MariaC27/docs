@@ -6,7 +6,8 @@ export const LabNav = ({ current }) => {
     ['overview', 'Lab', '/lab/overview'],
     ['design-system', 'Design system', '/lab/design-system'],
     ['process', 'Process log', '/lab/process'],
-    ['prototypes', 'Prototypes', '/lab/prototypes'],
+    ['prototypes', 'Homepage layouts', '/lab/prototypes'],
+    ['river', 'River layouts', '/lab/river'],
     ['art-styles', 'Art direction', '/lab/art-styles'],
   ];
   return (
