@@ -9,6 +9,8 @@ export const LabNav = ({ current }) => {
     ['prototypes', 'Homepage layouts', '/lab/prototypes'],
     ['river', 'River layouts', '/lab/river'],
     ['art-styles', 'Art direction', '/lab/art-styles'],
+    ['fonts', 'Fonts', '/lab/fonts'],
+    ['ui', 'UI', '/lab/ui'],
   ];
   return (
     <nav className="al-nav" aria-label="Lab">
