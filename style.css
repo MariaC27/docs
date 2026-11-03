@@ -694,21 +694,6 @@ html.dark:has(.lab-root), html.dark:has(.lab-root) body { background: #06090D !i
 .rp-chip { padding: 3px 9px; border-radius: 999px; background: rgba(18, 163, 148, .12); color: #0B7469; font-family: 'Geist Mono', monospace !important; font-size: 11px; letter-spacing: .04em; white-space: nowrap; }
 .rp-rule { width: 48px; height: 2px; margin-top: 10px; background: #12A394; border-radius: 1px; }
 
-/* ─── Lab: fonts (snippets/font-lab.jsx) ─── */
-.fl { display: flex; flex-direction: column; gap: 56px; margin-top: 8px; }
-.fl-controls { position: sticky; top: 12px; z-index: 5; display: flex; gap: 12px; align-items: center; align-self: flex-end; padding: 8px 10px; border-radius: 999px; background: rgba(255,255,255,.85); border: 1px solid rgba(127,140,150,.25); box-shadow: 0 10px 30px -18px rgba(11,22,32,.35); backdrop-filter: blur(8px); }
-.dark .fl-controls { background: rgba(11,17,24,.85); }
-.fl-field { display: flex; align-items: center; gap: 8px; font-size: 12px; color: #5F6E7B; padding-left: 8px; }
-.fl-field input { width: 220px; padding: 6px 10px; border-radius: 999px; border: 1px solid rgba(127,140,150,.3); background: transparent; font: inherit; font-size: 14px; color: inherit; }
-.fl-toggle { padding: 6px 14px; border-radius: 999px; border: 1px solid rgba(127,140,150,.3); font-size: 13px; cursor: pointer; }
-.fl-toggle:hover { border-color: #12A394; }
-.fl-specs { display: flex; flex-wrap: wrap; gap: 6px 16px; margin-top: 8px; font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: #12A394; }
-.fl-card { display: grid; grid-template-columns: 1.35fr 1fr; gap: 48px; padding: 44px 48px; border-radius: 16px; border: 1px solid rgba(127,140,150,.25); box-shadow: 0 20px 50px -30px rgba(11,22,32,.35); }
-.fl-pads { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 34px; }
-.fl-pad { display: inline-flex; align-items: center; padding: 14px 28px 16px; border-radius: 50%; background: radial-gradient(70% 70% at 42% 38%, #EEF8F6, #CFE9E4); border: 1px solid rgba(18,163,148,.35); line-height: 1; }
-.fl-stop { padding-left: 28px; border-left: 2px solid rgba(18,163,148,.45); }
-@media (max-width: 860px) { .fl-card { grid-template-columns: 1fr; padding: 28px 22px; } .fl-field input { width: 140px; } }
-
 /* ─── Lab: backgrounds (snippets/bg-lab.jsx) ─── */
 .bl-layer { inset: 0; }
 .bl-hero { display: flex; flex-direction: column; }
@@ -734,6 +719,9 @@ html.dark:has(.lab-root), html.dark:has(.lab-root) body { background: #06090D !i
 .bl-switch-opt { display: flex; align-items: center; gap: 10px; padding: 5px 12px 5px 5px; border-radius: 12px; border: 1px solid transparent; font-size: 14px; cursor: pointer; color: inherit; }
 .bl-switch-opt:hover { border-color: rgba(127,140,150,.35); }
 .bl-switch-on, .bl-switch-on:hover { border-color: #12A394; background: rgba(18,163,148,.08); }
+.bl-switch-sep { width: 1px; align-self: stretch; margin: 4px 6px; background: rgba(127,140,150,.3); }
+.bl-font-select { padding: 7px 28px 7px 12px; border-radius: 10px; border: 1px solid rgba(127,140,150,.35); background: transparent; font: inherit; font-size: 14px; color: inherit; cursor: pointer; }
+.bl-font-spec { max-width: 180px; font-size: 11.5px; line-height: 1.35; color: #5F6E7B; }
 .bl-switch-img { width: 96px; aspect-ratio: 1672 / 941; border-radius: 8px; background-size: cover; background-position: center; }
 .bl-source { align-items: flex-start !important; max-width: 520px; }
 .bl-source-img { width: 100%; aspect-ratio: 1672 / 941; border-radius: 12px; background-size: cover; background-position: center; }
