@@ -13,8 +13,8 @@
   --rv-soft: #33424F;
   --rv-line: rgba(11, 22, 32, 0.10);
   --rv-line-strong: rgba(11, 22, 32, 0.16);
-  --rv-water: #12A394;          /* river, markers, pads */
-  --rv-accent: #0B7469;         /* buttons, project tag: needs text contrast */
+  --rv-water: #699A97;          /* river, markers, pads */
+  --rv-accent: #3B6666;         /* buttons, project tag: needs text contrast */
   --rv-on-accent: #FFFFFF;
   --rv-role: #A35A12;
   --rv-ms: #0B1620;
@@ -27,12 +27,12 @@
   --rv-img-line: rgba(11, 22, 32, 0.22);
   --rv-leaf-hi: #EEF8F6;
   --rv-leaf-lo: #CFE9E4;
-  --rv-leaf-under: rgba(18, 163, 148, 0.22);
-  --rv-leaf-vein: rgba(11, 116, 105, 0.16);
+  --rv-leaf-under: rgba(105, 154, 151, 0.22);
+  --rv-leaf-vein: rgba(59, 102, 102, 0.16);
   --rv-leaf-rim: #FFFFFF;
   --rv-leaf-shade: rgba(11, 22, 32, 0.16);
-  --rv-hero-wash: rgba(18, 163, 148, 0.10);
-  --rv-lake: rgba(18, 163, 148, 0.08);
+  --rv-hero-wash: rgba(105, 154, 151, 0.10);
+  --rv-lake: rgba(105, 154, 151, 0.08);
   --rv-shadow: 0 10px 40px rgba(11, 22, 32, 0.10);
   --rv-serif: 'Instrument Serif', Georgia, serif;
   --rv-sans: 'Geist', 'Helvetica Neue', Helvetica, sans-serif;
@@ -50,8 +50,8 @@
   --rv-soft: #C9D2DA;
   --rv-line: rgba(232, 238, 242, 0.09);
   --rv-line-strong: rgba(232, 238, 242, 0.14);
-  --rv-water: #6FE3D6;
-  --rv-accent: #6FE3D6;
+  --rv-water: #AFD1CD;
+  --rv-accent: #AFD1CD;
   --rv-on-accent: #06090D;
   --rv-role: #E9A458;
   --rv-ms: #E8EEF2;
@@ -63,12 +63,12 @@
   --rv-img-line: rgba(232, 238, 242, 0.24);
   --rv-leaf-hi: #133532;
   --rv-leaf-lo: #08171A;
-  --rv-leaf-under: rgba(111, 227, 214, 0.10);
-  --rv-leaf-vein: rgba(111, 227, 214, 0.13);
-  --rv-leaf-rim: #6FE3D6;
+  --rv-leaf-under: rgba(175, 209, 205, 0.10);
+  --rv-leaf-vein: rgba(175, 209, 205, 0.13);
+  --rv-leaf-rim: #AFD1CD;
   --rv-leaf-shade: rgba(0, 0, 0, 0.6);
   --rv-hero-wash: rgba(150, 185, 215, 0.10);
-  --rv-lake: rgba(111, 227, 214, 0.05);
+  --rv-lake: rgba(175, 209, 205, 0.05);
   --rv-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
 }
 
@@ -106,7 +106,7 @@ html:has(.rv) .almond-layout { top: 0 !important; }
 .dark .rv-shimmer {
   display: block;
   background:
-    radial-gradient(38% 28% at 28% 38%, rgba(111, 227, 214, .045), transparent 70%),
+    radial-gradient(38% 28% at 28% 38%, rgba(175, 209, 205, .045), transparent 70%),
     radial-gradient(30% 24% at 72% 66%, rgba(150, 185, 215, .04), transparent 70%);
 }
 .rv-shimmer::after {
@@ -114,8 +114,8 @@ html:has(.rv) .almond-layout { top: 0 !important; }
   inset: 0;
   position: absolute;
   background:
-    radial-gradient(26% 20% at 60% 26%, rgba(111, 227, 214, .035), transparent 70%),
-    radial-gradient(22% 18% at 36% 78%, rgba(111, 227, 214, .03), transparent 70%);
+    radial-gradient(26% 20% at 60% 26%, rgba(175, 209, 205, .035), transparent 70%),
+    radial-gradient(22% 18% at 36% 78%, rgba(175, 209, 205, .03), transparent 70%);
 }
 .rv a { color: var(--rv-text); }
 .rv a:hover { color: var(--rv-text); opacity: 0.85; }
@@ -1156,13 +1156,13 @@ html:has(.rv) .almond-layout { top: 0 !important; }
 .rv {
   --rv-petal-hi: #FFFFFF;
   --rv-petal-lo: #DCEFEB;
-  --rv-petal-edge: rgba(18, 163, 148, 0.45);
+  --rv-petal-edge: rgba(105, 154, 151, 0.45);
   --rv-lotus-heart: #D8C67A;
 }
 .dark .rv {
   --rv-petal-hi: #E9F4F2;
   --rv-petal-lo: #8FC3BA;
-  --rv-petal-edge: rgba(111, 227, 214, 0.55);
+  --rv-petal-edge: rgba(175, 209, 205, 0.55);
   --rv-lotus-heart: #CDBB6E;
 }
 .rv-lotus {
@@ -1694,7 +1694,7 @@ html:has(.rv) .almond-layout { top: 0 !important; }
 }
 .rv .rv-api-row:hover { background: var(--rv-line); opacity: 1; }
 .rv-api-m { font-family: var(--rv-code) !important; font-size: 9.5px; font-weight: 600; letter-spacing: .04em; }
-.rv-api-get { color: #12A394; }
+.rv-api-get { color: #699A97; }
 .rv-api-post { color: #3B6FD8; }
 .dark .rv-api-post { color: #8FB0F5; }
 .rv-api-path { font-family: var(--rv-code) !important; font-size: 11.5px; }
@@ -1774,3 +1774,197 @@ html:has(.rv) .almond-layout { top: 0 !important; }
 .rv-slot-4.rv-fan-n3:is(:has(:focus-visible), .rv-fan-open) .rv-fan-2 { transform: translate(calc(-50% - 170px), 48px); }
 .rv-slot-4.rv-fan-n3:is(:has(:focus-visible), .rv-fan-open) .rv-fan-3 { transform: translate(calc(-50% + 10px), 76px); }
 .rv-slot-4.rv-kind-cards:is(:has(:focus-visible), .rv-fan-open) .rv-fan::before { top: -140px; left: -330px; width: 460px; height: 260px; }
+
+/* ─── Painted pond (2026-11-03): lab /lab/ui option 06 "deep water", Pond 1, Cormorant ───
+   A painting frames the hero, its banks repeat down both sides of the page, and it returns
+   along the bottom edge. Light mode is a sunlit pond (pond-light.jpg) with a pale center, like
+   lab option 04; dark mode is deep water (pond.jpg). Pads and lotuses are watercolor assets
+   in /images/pond/. */
+.rv {
+  --rv-ground: #C6E3DC;          /* a little brighter than the painting's water (#ADD7CE) */
+  --rv-rail: #B5D8D0;
+  --rv-pill: #F4FAF8;
+  --rv-seg-on: #A9D0C7;
+  --rv-text: #0B1620;
+  --rv-muted: #2E4448;
+  --rv-label: #3F575B;
+  --rv-soft: #22363A;
+  --rv-line: rgba(11, 22, 32, 0.12);
+  --rv-line-strong: rgba(11, 22, 32, 0.2);
+  --rv-water: #50807E;   /* pond 600 */
+  --rv-accent: #3B6666;  /* pond 700 */
+  --rv-on-accent: #FFFFFF;
+  --rv-ms: #0B1620;
+  --rv-ms-tag: rgba(11, 22, 32, 0.5);
+  --rv-ghost: rgba(11, 22, 32, 0.06);
+  --rv-halo: #C6E3DC;
+  --rv-img: #DDEEEA;
+  --rv-img-line: rgba(11, 22, 32, 0.22);
+  --rv-leaf-shade: rgba(11, 40, 36, 0.3);
+  --rv-hero-wash: transparent;
+  --rv-lake: transparent;
+  --rv-shadow: 0 10px 40px rgba(11, 40, 36, 0.16);
+  --rv-paint-img: url('/images/pond/pond-light.jpg');
+  --rv-banks-img: url('/images/pond/pond-banks-light.jpg');
+  --rv-serif: 'Cormorant Garamond', Georgia, serif;
+  --rv-sans: 'Karla', 'Helvetica Neue', Helvetica, sans-serif;
+  --rv-code: 'IBM Plex Mono', ui-monospace, Menlo, monospace;
+}
+.dark .rv {
+  --rv-paint-img: url('/images/pond/pond.jpg');
+  --rv-banks-img: url('/images/pond/pond-banks.jpg');
+  --rv-ground: #2C4A4D;
+  --rv-rail: #233E41;
+  --rv-pill: #1F383B;
+  --rv-seg-on: #35575A;
+  --rv-text: #F4F8F9;
+  --rv-muted: rgba(244, 248, 249, 0.78);
+  --rv-label: rgba(244, 248, 249, 0.62);
+  --rv-soft: rgba(244, 248, 249, 0.84);
+  --rv-line: rgba(244, 248, 249, 0.12);
+  --rv-line-strong: rgba(244, 248, 249, 0.2);
+  --rv-water: #8BB6B3;   /* pond 400 */
+  --rv-accent: #CFE5E2;  /* pond 200 */
+  --rv-on-accent: #1B3536;  /* pond 900 */
+  --rv-ms: #F4F8F9;
+  --rv-ms-tag: rgba(244, 248, 249, 0.5);
+  --rv-ghost: rgba(244, 248, 249, 0.06);
+  --rv-halo: #2C4A4D;
+  --rv-img: #24403F;
+  --rv-img-line: rgba(244, 248, 249, 0.24);
+  --rv-leaf-shade: rgba(0, 0, 0, 0.45);
+  --rv-hero-wash: transparent;
+  --rv-lake: transparent;
+  --rv-shadow: 0 10px 40px rgba(0, 0, 0, 0.35);
+}
+html:has(.rv), html:has(.rv) body { background: #C6E3DC !important; }
+html.dark:has(.rv), html.dark:has(.rv) body { background: #2C4A4D !important; }
+/* Cormorant is light at 400; 500 reads at the same weight as the old serif */
+.rv h1, .rv h2, .rv h3, .rv .rv-name, .rv .rv-pad-title, .rv .wk-title { font-weight: 500 !important; }
+
+/* The painting layers sit behind everything in .rv-main (a size container, so cqw = its width).
+   The painting is 1672×941, so at full width it is 56.28cqw tall; the bank tile is 2000×811. */
+.rv-paint {
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-repeat: no-repeat;
+  background-size: 100% auto;
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
+}
+/* Hero: the full painting, cleared in the middle where the pads and name sit, fading out below */
+.rv-paint-top {
+  top: 0;
+  height: 56.28cqw;
+  background-image: var(--rv-paint-img);
+  background-position: top center;
+  -webkit-mask-image: radial-gradient(ellipse 66% 66% at 50% 60%, transparent 52%, #000 100%), linear-gradient(to bottom, #000 55%, transparent 100%);
+  mask-image: radial-gradient(ellipse 66% 66% at 50% 60%, transparent 52%, #000 100%), linear-gradient(to bottom, #000 55%, transparent 100%);
+}
+/* Down the page: a vertically seamless strip of the painting's banks, showing only at the sides. The strip
+   is the painting, then its mirror image (2000×1622), so the lotuses and pads swap sides as you scroll. */
+.rv-paint-banks {
+  top: 30cqw;
+  bottom: 30cqw;
+  background-image: var(--rv-banks-img);
+  background-repeat: repeat-y;
+  -webkit-mask-image: linear-gradient(to right, #000 0, transparent 24%, transparent 76%, #000 100%), linear-gradient(to bottom, transparent 0, #000 18cqw, #000 calc(100% - 18cqw), transparent 100%);
+  mask-image: linear-gradient(to right, #000 0, transparent 24%, transparent 76%, #000 100%), linear-gradient(to bottom, transparent 0, #000 18cqw, #000 calc(100% - 18cqw), transparent 100%);
+}
+/* Bottom: the painting's lower edge, with its pads and lotuses, bordering the end of the page */
+.rv-paint-end {
+  bottom: 0;
+  height: 56.28cqw;
+  background-image: var(--rv-paint-img);
+  background-position: bottom center;
+  -webkit-mask-image: radial-gradient(ellipse 66% 66% at 50% 40%, transparent 52%, #000 100%), linear-gradient(to top, #000 55%, transparent 100%);
+  mask-image: radial-gradient(ellipse 66% 66% at 50% 40%, transparent 52%, #000 100%), linear-gradient(to top, #000 55%, transparent 100%);
+}
+
+/* Watercolor lily pad, replacing the drawn 3D leaf */
+.rv-leaf {
+  position: absolute;
+  left: -6%;
+  width: 112%;
+  top: 50%;
+  aspect-ratio: 630 / 418;
+  transform: translateY(-50%) rotate(var(--leaf-turn, 0deg)) scaleX(var(--leaf-flip, 1));
+  background: url('/images/pond/lily-pad.png') center / contain no-repeat;
+  filter: drop-shadow(0 10px 14px rgba(6, 20, 22, 0.4));
+}
+.rv .rv-pad-title {
+  color: #FBFAF4;
+  text-shadow: 0 1px 2px rgba(10, 30, 20, 0.55), 0 0 14px rgba(10, 30, 20, 0.45);
+}
+
+/* Watercolor lotus, replacing the drawn one (river stops, free lotuses, added lotuses) */
+.rv-lotus-img {
+  position: absolute;
+  inset: -14% -8%;
+  background: url('/images/pond/lotus.png') center / contain no-repeat;
+  filter: drop-shadow(0 4px 6px rgba(6, 20, 22, 0.35));
+  transition: transform .3s ease;
+}
+.rv-lotus:hover .rv-lotus-img { transform: scale(1.08); }
+.rv-lotus-held .rv-lotus-img { transform: scale(1.12) rotate(-4deg); }
+.rv-lotus-added > .rv-lotus .rv-lotus-img { animation: rv-lotus-land .55s cubic-bezier(.3, .7, .3, 1) both; }
+@media (prefers-reduced-motion: reduce) { .rv-lotus-added > .rv-lotus .rv-lotus-img { animation: none; } }
+
+/* Photo: no ring, just a soft contact shadow */
+.rv .rv-photo { box-shadow: 0 8px 16px -6px rgba(6, 20, 22, 0.55); }
+/* Cormorant on every homepage heading: style.css's site-wide h2 rule otherwise wins on the river and project titles */
+.rv.rv h1, .rv.rv h2, .rv.rv h3 { font-family: var(--rv-serif) !important; }
+/* the leaf is a span, so keep it out of the face's flow (.rv-pad-face > span is position: relative) */
+.rv .rv-pad-face > .rv-leaf { position: absolute; }
+@container rv-main (max-width: 760px) {
+  .rv-leaf { left: 2%; width: 96%; }
+}
+
+/* Light mode: halfway between the faded frame and the full painting. The sunlit painting shows
+   at full strength at the edges and at about half in the middle, over a slightly paler water,
+   so the center is calm without looking clouded over. */
+html:not(.dark) .rv-paint-top {
+  -webkit-mask-image: radial-gradient(ellipse 66% 66% at 50% 60%, rgba(0, 0, 0, .5) 45%, #000 100%), linear-gradient(to bottom, #000 70%, transparent 100%);
+  mask-image: radial-gradient(ellipse 66% 66% at 50% 60%, rgba(0, 0, 0, .5) 45%, #000 100%), linear-gradient(to bottom, #000 70%, transparent 100%);
+}
+html:not(.dark) .rv-paint-banks {
+  -webkit-mask-image: linear-gradient(to right, #000 0, rgba(0, 0, 0, .5) 26%, rgba(0, 0, 0, .5) 74%, #000 100%), linear-gradient(to bottom, transparent 0, #000 18cqw, #000 calc(100% - 18cqw), transparent 100%);
+  mask-image: linear-gradient(to right, #000 0, rgba(0, 0, 0, .5) 26%, rgba(0, 0, 0, .5) 74%, #000 100%), linear-gradient(to bottom, transparent 0, #000 18cqw, #000 calc(100% - 18cqw), transparent 100%);
+}
+html:not(.dark) .rv-paint-end {
+  -webkit-mask-image: radial-gradient(ellipse 66% 66% at 50% 40%, rgba(0, 0, 0, .5) 45%, #000 100%), linear-gradient(to top, #000 70%, transparent 100%);
+  mask-image: radial-gradient(ellipse 66% 66% at 50% 40%, rgba(0, 0, 0, .5) 45%, #000 100%), linear-gradient(to top, #000 70%, transparent 100%);
+}
+html:not(.dark):has(.rv), html:not(.dark):has(.rv) body { background: #BDDED6 !important; }
+html:not(.dark) .rv { --rv-ground: #BDDED6; --rv-halo: #BDDED6; }
+
+/* Dark mode: the same in-between fade as light mode. The painting stays at about half strength
+   in the middle instead of dissolving into flat ground, which read as fog. Ground = pond 800. */
+html.dark .rv-paint-top {
+  -webkit-mask-image: radial-gradient(ellipse 66% 66% at 50% 60%, rgba(0, 0, 0, .5) 45%, #000 100%), linear-gradient(to bottom, #000 70%, transparent 100%);
+  mask-image: radial-gradient(ellipse 66% 66% at 50% 60%, rgba(0, 0, 0, .5) 45%, #000 100%), linear-gradient(to bottom, #000 70%, transparent 100%);
+}
+html.dark .rv-paint-banks {
+  -webkit-mask-image: linear-gradient(to right, #000 0, rgba(0, 0, 0, .5) 26%, rgba(0, 0, 0, .5) 74%, #000 100%), linear-gradient(to bottom, transparent 0, #000 18cqw, #000 calc(100% - 18cqw), transparent 100%);
+  mask-image: linear-gradient(to right, #000 0, rgba(0, 0, 0, .5) 26%, rgba(0, 0, 0, .5) 74%, #000 100%), linear-gradient(to bottom, transparent 0, #000 18cqw, #000 calc(100% - 18cqw), transparent 100%);
+}
+html.dark .rv-paint-end {
+  -webkit-mask-image: radial-gradient(ellipse 66% 66% at 50% 40%, rgba(0, 0, 0, .5) 45%, #000 100%), linear-gradient(to top, #000 70%, transparent 100%);
+  mask-image: radial-gradient(ellipse 66% 66% at 50% 40%, rgba(0, 0, 0, .5) 45%, #000 100%), linear-gradient(to top, #000 70%, transparent 100%);
+}
+html.dark:has(.rv), html.dark:has(.rv) body { background: #2C4F4F !important; }
+html.dark .rv { --rv-ground: #2C4F4F; --rv-halo: #2C4F4F; }
+
+/* Light-mode cards and panels: sea glass instead of white. Pond 100 frosted over the painting,
+   with a pond 300 edge; the river stops, fans, API card and chat panel share it via --rv-pill. */
+html:not(.dark) .rv { --rv-pill: #E5F2F0; --rv-line: rgba(44, 79, 79, 0.16); }
+html:not(.dark) .rv .wk-card {
+  background: color-mix(in srgb, #E5F2F0 82%, transparent);
+  -webkit-backdrop-filter: blur(10px) saturate(1.1);
+  backdrop-filter: blur(10px) saturate(1.1);
+  border-color: rgba(139, 182, 179, 0.55);
+}
+.rv .rv-ring-chip, .dark .rv .rv-ring-chip { background: #F2FAF8; }   /* pond 50: light enough for the logos in both modes */

@@ -485,79 +485,20 @@ export const Landing = ({ work }) => {
     el.addEventListener('pointerup', up);
     el.addEventListener('pointercancel', up);
   };
-  const lotus = (returnHome, label) => {
-    const petal = 'M0,0 C-3.6,-3.4 -3.6,-10.5 0,-13.5 C3.6,-10.5 3.6,-3.4 0,0 Z';
-    return (
-      <span className="rv-lotus" data-dx="0" data-dy="0" title={label}
-        onPointerDown={(e) => dragLotus(e, returnHome)}>
-        <svg viewBox="-20 -18 40 32" aria-hidden="true">
-          <ellipse className="rv-lotus-shadow" cx="1.5" cy="5" rx="15" ry="4.5" />
-          <g className="rv-lotus-outer">
-            <g transform="scale(1 0.48)">
-              {[0, 45, 90, 135, 180, 225, 270, 315].map((a) => (
-                <path key={a} className="rv-petal rv-petal-lo" d={petal} transform={`rotate(${a + 22})`} />
-              ))}
-            </g>
-          </g>
-          <g className="rv-lotus-inner">
-            {[-58, -30, 30, 58, 0].map((a) => (
-              <path key={a} className="rv-petal rv-petal-hi" d={petal} transform={`rotate(${a}) scale(${a === 0 ? 1 : 0.92} 1)`} />
-            ))}
-          </g>
-          <ellipse className="rv-lotus-heart" cx="0" cy="-1.5" rx="2.6" ry="1.5" />
-        </svg>
-      </span>
-    );
-  };
+  // Watercolor lotus (/images/pond/lotus.png), a background image: Mintlify wraps <img> in its click-to-zoom
+  const lotus = (returnHome, label) => (
+    <span className="rv-lotus" data-dx="0" data-dy="0" title={label}
+      onPointerDown={(e) => dragLotus(e, returnHome)}>
+      <span className="rv-lotus-img" aria-hidden="true" />
+    </span>
+  );
 
-  // 3D lily pad, drawn already in perspective (an ellipse) in a 300×190 box — the same
-  // leaf as the overview pages (snippets/pad-pond.jsx), minus the easel.
-  const LCX = 150, LCY = 120, LRX = 135, LRY = 56;
-  const lrad = (d) => (d * Math.PI) / 180;
-  const lat = (t, r) => [LCX + LRX * r * Math.cos(lrad(t)), LCY + LRY * r * Math.sin(lrad(t))];
-  const leafPath = (seed, left) => {
-    const a1 = left ? 124 : 38, a2 = left ? 142 : 56;   // the notch, facing the viewer
-    const pts = [];
-    for (let t = a2; t <= a1 + 360; t += 3) {
-      const r = 1 + 0.022 * Math.sin(lrad(5 * t + seed * 40)) + 0.012 * Math.sin(lrad(11 * t + seed * 90));
-      const [x, y] = lat(t, r);
-      pts.push(`${x.toFixed(1)},${y.toFixed(1)}`);
-    }
-    return `M${LCX},${LCY - 2} L${pts.join(' L')} Z`;
-  };
-  const leafVeins = () => {
-    const out = [];
-    for (let t = 72; t < 396; t += 26) {
-      const [ex, ey] = lat(t, 0.9), [qx, qy] = lat(t + 5, 0.5);
-      out.push(`M${LCX},${LCY - 2} Q${qx.toFixed(1)},${qy.toFixed(1)} ${ex.toFixed(1)},${ey.toFixed(1)}`);
-    }
-    return out.join(' ');
-  };
-  const leaf3d = (n) => {
-    const id = `rvp${n}`, d = leafPath(n + 3, n % 2 === 1);
-    return (
-      <svg className="rv-leaf3d" viewBox="0 0 300 190" preserveAspectRatio="none" aria-hidden="true">
-        <defs>
-          <radialGradient id={`${id}-top`} cx="42%" cy="38%" r="70%">
-            <stop offset="0" className="rv-s-hi" />
-            <stop offset="1" className="rv-s-lo" />
-          </radialGradient>
-          <linearGradient id={`${id}-rim`} gradientUnits="userSpaceOnUse" x1="0" y1={LCY - LRY} x2="0" y2={LCY + LRY}>
-            <stop offset="0.35" className="rv-s-rim" stopOpacity="0" />
-            <stop offset="1" className="rv-s-rim" />
-          </linearGradient>
-          <filter id={`${id}-blur`} x="-20%" y="-50%" width="140%" height="200%">
-            <feGaussianBlur stdDeviation="6" />
-          </filter>
-        </defs>
-        <ellipse className="rv-leaf-shadow" cx={LCX + 4} cy={LCY + 14} rx={LRX * 0.97} ry={LRY * 0.85} filter={`url(#${id}-blur)`} />
-        <path className="rv-leaf-under" d={d} transform="translate(0 3)" />
-        <path className="rv-leaf-top" d={d} fill={`url(#${id}-top)`} />
-        <path className="rv-leaf-veins" d={leafVeins()} />
-        <path className="rv-leaf-rim" d={d} stroke={`url(#${id}-rim)`} />
-      </svg>
-    );
-  };
+  // Watercolor lily pad (/images/pond/lily-pad.png), each turned a little differently and every other one mirrored
+  const LEAF_TURN = [-6, 8, -3, 5, -9];
+  const leaf = (n) => (
+    <span className="rv-leaf" aria-hidden="true"
+      style={{ '--leaf-turn': `${LEAF_TURN[n % LEAF_TURN.length]}deg`, '--leaf-flip': n % 2 ? -1 : 1 }} />
+  );
 
   // The lily-pad pond beside the intro.
   const pond = (ref, cls) => (
@@ -626,7 +567,7 @@ export const Landing = ({ work }) => {
             }}>
             <span className="rv-ripple" aria-hidden="true" />
             <span className="rv-pad-face">
-              {leaf3d(n)}
+              {leaf(n)}
               <span className="rv-pad-title">{pad.title}</span>
             </span>
           </a>
@@ -825,6 +766,11 @@ export const Landing = ({ work }) => {
       </nav>
 
       <main className="rv-main" ref={mainRef}>
+        {/* The painted pond: full painting framing the hero, its banks repeating down both sides,
+            and the painting again along the bottom edge. Styles: landing.css "Painted pond". */}
+        <span className="rv-paint rv-paint-top" aria-hidden="true" />
+        <span className="rv-paint rv-paint-banks" aria-hidden="true" />
+        <span className="rv-paint rv-paint-end" aria-hidden="true" />
         {waters && (
           <svg className="rv-waterways" style={{ height: `${waters.h}px` }} aria-hidden="true">
             <defs>

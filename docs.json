@@ -4,9 +4,9 @@
   "name": "Maria Cristoforo",
   "description": "Design Engineer based in San Francisco.",
   "colors": {
-    "primary": "#0B7469",
-    "light": "#6FE3D6",
-    "dark": "#0B7469"
+    "primary": "#3B6666",
+    "light": "#AFD1CD",
+    "dark": "#3B6666"
   },
   "appearance": {
   "default": "light"

@@ -38,7 +38,7 @@
 Whole site uses the homepage's "river" palette (changed 2026-10-15 from the old orange/cream):
 
 - **Theme:** `almond`
-- **Primary color:** `#0B7469` (teal, light mode) / `#6FE3D6` (cyan, dark mode); amber `#A35A12` / `#E9A458` as the secondary accent
+- **Primary color:** `#3B6666` (pond 700, light mode) / `#AFD1CD` (pond 300, dark mode), from the pond scale on `/lab/colors` (taken from the background painting; the old `#0B7469` teal and `#6FE3D6` cyan were removed 2026-11-03); amber `#A35A12` / `#E9A458` as the secondary accent
 - **Background:** content panel `#F3F6F8` light / `#06090D` dark (docs.json); surrounding chrome `#EAF0F3` / `#080C11` (style.css)
 - **Fonts:** Instrument Serif (headings, always weight 400 — it has no bold), Geist (body), Geist Mono (code/mono)
 - **Custom CSS:** `style.css` (whole site) and `landing.css` (homepage only, scoped to `.rv`)
@@ -90,7 +90,7 @@ Whole site uses the homepage's "river" palette (changed 2026-10-15 from the old 
 ## Homepage (river landing)
 
 - `snippets/landing.jsx` holds all homepage data (stops, nav, explore pads) and logic; `landing.css` holds its styles, all scoped under `.rv`, with light tokens on `.rv` and dark under `.dark .rv`
-- Same palette and fonts as the rest of the site (see Design system); water `#6FE3D6`/`#12A394`, amber roles
+- Painted pond (2026-11-03, from lab `/lab/ui` option 06): light mode is a sunlit pond with a pale center (`#C6E3DC`, `images/pond/pond-light.jpg`), dark mode is deep water (`#2C4A4D`, `images/pond/pond.jpg`), both with Cormorant Garamond / Karla / IBM Plex Mono (tokens in the "Painted pond" block at the end of `landing.css`). The painting frames the hero and the page bottom; a vertically seamless strip of its banks (`pond-banks-light.jpg` / `pond-banks.jpg`) runs down both sides. Pads and lotuses are watercolor PNGs (`images/pond/lily-pad.png`, `lotus.png`). Inner pages keep the river palette
 - Mintlify's navbar is hidden on the homepage; the page has its own rail nav, so keep `NAV` in the snippet in sync with `docs.json`
 - Snippet gotchas: Mintlify keeps only the imported export, so data and helpers live inside `Landing`; helpers are called as functions, not `<Tags>`; avoid bare one-letter class strings (`'r'` got rewritten to `mint-r`)
 
