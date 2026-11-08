@@ -1297,8 +1297,8 @@ html:has(.rv) .almond-layout { top: 0 !important; }
   border-color: color-mix(in srgb, var(--rv-water) 50%, transparent);
   box-shadow: 0 44px 60px -30px var(--rv-leaf-shade), 0 12px 24px -12px var(--rv-leaf-shade);
 }
-.rv .wk-media { display: block; perspective: 900px; text-decoration: none; --wk-rx: 0deg; --wk-ry: 0deg; }
-.rv .wk-media:hover { opacity: 1; }
+:is(.rv, .wk-host) .wk-media { display: block; perspective: 900px; text-decoration: none; --wk-rx: 0deg; --wk-ry: 0deg; }
+:is(.rv, .wk-host) .wk-media:hover { opacity: 1; }
 .wk-img {
   display: block;
   aspect-ratio: 16 / 10;
@@ -1324,12 +1324,12 @@ html:has(.rv) .almond-layout { top: 0 !important; }
 .wk-meta > span { display: inline-flex; gap: 8px; }
 .wk-kind { color: var(--rv-water); }
 .wk-sep { opacity: .6; }
-.rv .wk-title { margin: 0; font-family: var(--rv-serif) !important; font-weight: 400; font-size: 28px; line-height: 1.1; }
-.rv .wk-title a { color: var(--rv-text); text-decoration: none; }
-.rv .wk-title a:hover { opacity: 1; }
+:is(.rv, .wk-host) .wk-title { margin: 0; font-family: var(--rv-serif) !important; font-weight: 400; font-size: 28px; line-height: 1.1; }
+:is(.rv, .wk-host) .wk-title a { color: var(--rv-text); text-decoration: none; }
+:is(.rv, .wk-host) .wk-title a:hover { opacity: 1; }
 .wk-summary { margin: 0; font-size: 14.5px; line-height: 1.55; color: var(--rv-muted); }
 .wk-links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
-.rv .wk-pill {
+:is(.rv, .wk-host) .wk-pill {
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -1342,9 +1342,9 @@ html:has(.rv) .almond-layout { top: 0 !important; }
   text-decoration: none;
   transition: border-color .2s ease, color .2s ease;
 }
-.rv .wk-pill:hover { border-color: var(--rv-water); color: var(--rv-text); opacity: 1; }
-.rv .wk-pill-main { background: var(--rv-accent); border-color: var(--rv-accent); color: var(--rv-on-accent); }
-.rv .wk-pill-main:hover { color: var(--rv-on-accent); }
+:is(.rv, .wk-host) .wk-pill:hover { border-color: var(--rv-water); color: var(--rv-text); opacity: 1; }
+:is(.rv, .wk-host) .wk-pill-main { background: var(--rv-accent); border-color: var(--rv-accent); color: var(--rv-on-accent); }
+:is(.rv, .wk-host) .wk-pill-main:hover { color: var(--rv-on-accent); }
 
 /* the water around each card: a soft halo where it sits on the surface, and ripple rings
    spreading outward from all four edges (rounded rectangles, turned to match the card) */
@@ -1389,7 +1389,7 @@ html:has(.rv) .almond-layout { top: 0 !important; }
   .rv-projects { padding-top: 120px; }
   .wk { grid-template-columns: minmax(0, 1fr); gap: 64px; padding-top: 32px; }
   .wk-n2, .wk-n4 { margin-top: 0; }
-  .rv .wk-title { font-size: 25px; }
+  :is(.rv, .wk-host) .wk-title { font-size: 25px; }
   .wk-card { rotate: 0deg; }   /* no tilt on phones: keeps the text crisp */
   .wk-n1, .wk-n2, .wk-n3, .wk-n4 { --wk-rot: 0deg; }
 }
@@ -1840,7 +1840,7 @@ html:has(.rv) .almond-layout { top: 0 !important; }
 html:has(.rv), html:has(.rv) body { background: #C6E3DC !important; }
 html.dark:has(.rv), html.dark:has(.rv) body { background: #2C4A4D !important; }
 /* Cormorant is light at 400; 500 reads at the same weight as the old serif */
-.rv h1, .rv h2, .rv h3, .rv .rv-name, .rv .rv-pad-title, .rv .wk-title { font-weight: 500 !important; }
+.rv h1, .rv h2, .rv h3, .rv .rv-name, .rv .rv-pad-title, :is(.rv, .wk-host) .wk-title { font-weight: 500 !important; }
 
 /* The painting layers sit behind everything in .rv-main (a size container, so cqw = its width).
    The painting is 1672×941, so at full width it is 56.28cqw tall; the bank tile is 2000×811. */
@@ -1961,10 +1961,62 @@ html.dark .rv { --rv-ground: #2C4F4F; --rv-halo: #2C4F4F; }
 /* Light-mode cards and panels: sea glass instead of white. Pond 100 frosted over the painting,
    with a pond 300 edge; the river stops, fans, API card and chat panel share it via --rv-pill. */
 html:not(.dark) .rv { --rv-pill: #E5F2F0; --rv-line: rgba(44, 79, 79, 0.16); }
-html:not(.dark) .rv .wk-card {
+html:not(.dark) :is(.rv, .wk-host) .wk-card {
   background: color-mix(in srgb, #E5F2F0 82%, transparent);
   -webkit-backdrop-filter: blur(10px) saturate(1.1);
   backdrop-filter: blur(10px) saturate(1.1);
   border-color: rgba(139, 182, 179, 0.55);
 }
 .rv .rv-ring-chip, .dark .rv .rv-ring-chip { background: #F2FAF8; }   /* pond 50: light enough for the logos in both modes */
+
+/* Sea glass for the floating UI (2026-11-07): the header icons and "Ask about me" float on the
+   pond in the same frosted style as the project cards. Light: pond 100 frost, sage edge. Dark:
+   the deep surface, frosted. */
+.rv .rv-dock, .rv .rv-act-ask {
+  background: color-mix(in srgb, var(--rv-pill) 82%, transparent);
+  -webkit-backdrop-filter: blur(10px) saturate(1.1);
+  backdrop-filter: blur(10px) saturate(1.1);
+  border: 1px solid var(--rv-glass-edge);
+  box-shadow: 0 18px 30px -18px var(--rv-leaf-shade), 0 6px 14px -8px var(--rv-leaf-shade);
+}
+.rv { --rv-glass-edge: rgba(139, 182, 179, 0.55); }
+.dark .rv { --rv-glass-edge: rgba(175, 209, 205, 0.18); }
+html:not(.dark) :is(.rv, .wk-host) .wk-card { border-color: var(--rv-glass-edge); }
+.rv .rv-dock { padding: 4px 8px 4px 6px; border-radius: 999px; gap: 2px; }
+.rv .rv-dock-btn { color: var(--rv-soft); }
+.rv .rv-act-ask:hover, .rv .rv-act-ask:focus-visible { border-color: color-mix(in srgb, var(--rv-water) 70%, transparent); }
+
+/* Add-a-lotus: the watercolor lotus, with the small plus kept */
+.rv .rv-dock-lotus { margin-left: 4px; }
+.rv-dock-lotus-img {
+  position: relative;
+  z-index: 1;
+  width: 28px;
+  height: 23px;
+  background: url('/images/pond/lotus.png') center / contain no-repeat;
+  filter: drop-shadow(0 2px 3px rgba(6, 20, 22, 0.3));
+  transition: transform .4s cubic-bezier(.2, .9, .3, 1.3);
+}
+.rv-dock-lotus:hover .rv-dock-lotus-img { transform: scale(1.12); }
+.rv-dock-lotus:active .rv-dock-lotus-img { transform: scale(.85); }
+.rv .rv-dock-plus { right: 0; bottom: 2px; box-shadow: 0 0 0 2px var(--rv-pill); }
+
+/* Frosted rail (2026-11-07): the painting now runs under the left rail too, and the rail is sea
+   glass over it instead of a solid panel. The paint layers reach left by the rail's width. */
+.rv { --rv-rail-w: 64px; }
+.rv:has(.rv-rail.rv-open) { --rv-rail-w: 280px; }
+.rv-paint { left: calc(-1 * var(--rv-rail-w)); }
+.rv .rv-rail {
+  background: color-mix(in srgb, var(--rv-rail) 42%, transparent);
+  -webkit-backdrop-filter: blur(14px) saturate(1.1);
+  backdrop-filter: blur(14px) saturate(1.1);
+  border-right-color: var(--rv-glass-edge);
+}
+@media (max-width: 760px) {
+  .rv { --rv-rail-w: 0px; }
+  .rv .rv-rail { background: color-mix(in srgb, var(--rv-rail) 70%, transparent); border-bottom-color: var(--rv-glass-edge); }
+}
+/* One glass strength for the rail, the header icons and "Ask about me" */
+.rv { --rv-glass-mix: 65%; }
+.rv .rv-rail { background: color-mix(in srgb, var(--rv-rail) var(--rv-glass-mix), transparent); }
+.rv .rv-dock, .rv .rv-act-ask { background: color-mix(in srgb, var(--rv-pill) var(--rv-glass-mix), transparent); }

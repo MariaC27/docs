@@ -4,7 +4,7 @@ description: Essays and articles on design engineering and building in the start
 mode: frame
 ---
 
-import { PadPond } from '/snippets/pad-pond.jsx'
+import { Work } from '/snippets/work.jsx'
 
 <div className="max-w-6xl mx-auto px-4 md:px-8 py-10 lg:py-16">
 
@@ -14,9 +14,27 @@ import { PadPond } from '/snippets/pad-pond.jsx'
 
 <p className="text-sm italic text-gray-400 dark:text-gray-500 mt-6 mb-10">Originally published on Medium, republished here with minor edits</p>
 
-<PadPond items={[
-  { title: "The Design Process Shift", href: "/writing/the-design-process-shift", img: "/images/design_article1_graphic.png", desc: "How the design and engineering process on small teams has changed recently and what that means for design engineers." },
-  { title: "UX Friction Coefficient", href: "/writing/ux-friction-coefficient", img: "/images/ux_article1_overall.png", desc: "A metric for quantifying UX friction on task-based interfaces and how it’s useful as a conceptual reminder." }
+<div className="wk-host">
+
+<Work items={[
+  {
+    kind: "article",
+    title: "The Design Process Shift",
+    href: "/writing/the-design-process-shift",
+    img: "/images/design_article1_graphic.png",
+    meta: ["Feb 2026", "8 min read"],
+    summary: "How the design and engineering process on small teams has changed recently and what that means for design engineers."
+  },
+  {
+    kind: "article",
+    title: "UX Friction Coefficient",
+    href: "/writing/ux-friction-coefficient",
+    img: "/images/ux_article1_overall.png",
+    meta: ["Mar 2026", "5 min read"],
+    summary: "A metric for quantifying UX friction on task-based interfaces and how it’s useful as a conceptual reminder."
+  }
 ]} />
+
+</div>
 
 </div>

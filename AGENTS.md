@@ -16,11 +16,11 @@
 | `index.mdx` | Home page (`mode: custom`) — renders `<Landing work={<Work items={[...]} />} />`; `snippets/landing.jsx` (hero, pond, river) + `snippets/work.jsx` (Projects rows below the river), styled by `landing.css`. Project/article data lives in `index.mdx` |
 | `about/skills.mdx` | API-style skills reference — ACTIVE / FLUENT / FAMILIAR badges, parameter tables |
 | `about/changelog.mdx` | Career history formatted as a software changelog — versioned entries, interactive click-to-expand |
-| `work/overview.mdx` | Case studies overview (mode: frame) — `<PadPond>` lily pads from `snippets/pad-pond.jsx` |
+| `work/overview.mdx` | Case studies overview (mode: frame) — the homepage's floating project cards (`<Work>` from `snippets/work.jsx`) inside `.wk-host`, which gives them pond colors (style.css) |
 | `work/apilens.mdx` | ApiLens case study |
 | `work/canvas-annotation-revamp.mdx` | Canvas & Annotation Revamp case study |
 | `work/turn-based-audio-annotation.mdx` | Turn-Based Audio Annotation case study |
-| `writing/overview.mdx` | Writing overview (mode: frame) — `<PadPond>` lily pads |
+| `writing/overview.mdx` | Writing overview (mode: frame) — same floating cards as the Case Studies overview |
 | `writing/the-design-process-shift.mdx` | Essay: The Design Process Shift |
 | `writing/ux-friction-coefficient.mdx` | Essay: UX Friction Coefficient |
 | `lab/*.mdx` | Hidden standalone design lab (mode: custom, noindex, not in nav, no site chrome; own nav from `snippets/lab-nav.jsx`; root class `.lab-root` — not `.al`, Mintlify rewrites it to `mint-al`): `overview`, `design-system` (keep in sync with `landing.css` tokens), `process` (iteration log of the redesign), `art-styles` (art-direction prototype via `snippets/art-lab.jsx`) |
@@ -39,7 +39,7 @@ Whole site uses the homepage's "river" palette (changed 2026-10-15 from the old 
 
 - **Theme:** `almond`
 - **Primary color:** `#3B6666` (pond 700, light mode) / `#AFD1CD` (pond 300, dark mode), from the pond scale on `/lab/colors` (taken from the background painting; the old `#0B7469` teal and `#6FE3D6` cyan were removed 2026-11-03); amber `#A35A12` / `#E9A458` as the secondary accent
-- **Background:** content panel `#F3F6F8` light / `#06090D` dark (docs.json); surrounding chrome `#EAF0F3` / `#080C11` (style.css)
+- **Background:** content panel `#E5F2F0` light (pond 100, the homepage cards' off-white) / `#060E0F` dark (pond 975, near-black; turquoise only on the outside) in docs.json; surrounding chrome `#CFE5E2` / `#0F2323` (style.css). Mintlify's `#almond-background-color` overlay is cleared, and dark code blocks use pond 950 `#0C1D1D` (via `--shiki-dark-bg`)
 - **Fonts:** Instrument Serif (headings, always weight 400 — it has no bold), Geist (body), Geist Mono (code/mono)
 - **Custom CSS:** `style.css` (whole site) and `landing.css` (homepage only, scoped to `.rv`)
 

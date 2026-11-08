@@ -703,11 +703,8 @@ export const Landing = ({ work }) => {
         ))}
         <button type="button" className="rv-dock-btn rv-dock-lotus" onClick={addLotus} aria-label="Add a lotus to the pond" data-tip="Add a lotus">
           <span className="rv-dock-ring" aria-hidden="true" />
-          <svg width="22" height="18" viewBox="-14 -14 28 20" aria-hidden="true">
-            {[-56, -28, 0, 28, 56].map((a) => (
-              <path key={a} d="M0,0 C-3.2,-3 -3.2,-9.5 0,-12 C3.2,-9.5 3.2,-3 0,0 Z" transform={`rotate(${a}) scale(${a === 0 ? 1 : 0.9} 1)`} />
-            ))}
-          </svg>
+          {/* the same watercolor lotus as the pond; background image, since Mintlify wraps <img> in a zoom */}
+          <span className="rv-dock-lotus-img" aria-hidden="true" />
           <span className="rv-dock-plus" aria-hidden="true">+</span>
         </button>
       </div>
@@ -884,7 +881,6 @@ export const Landing = ({ work }) => {
                 <div className="rv-ask-log" ref={chatLogRef} aria-live="polite">
                   {chat.length === 0 && (
                     <div className="rv-ask-empty">
-                      <p>Ask anything about Maria's work, skills, or experience.</p>
                       <div className="rv-ask-starters">
                         {STARTERS.map((q) => (
                           <button key={q} type="button" onClick={() => ask(q)}>{q}</button>

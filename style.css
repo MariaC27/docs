@@ -109,14 +109,24 @@ h2.font-normal {
 
 /* ─── Background + sidebar (river palette, matching the homepage) ──────────── */
 
-/* The content panel's background (#F3F6F8 / #06090D) is set via docs.json background.color.
-   Nothing paints behind the sidebar and top bar, so give that chrome the homepage rail's tint. */
+/* The content panel's background is set via docs.json background.color: the homepage cards'
+   off-white (pond 100, #E5F2F0) in light mode and near-black (pond 975, #060E0F) in dark, so in
+   dark mode the turquoise stays on the outside.
+   Nothing paints behind the sidebar and top bar, so that chrome gets the next step out:
+   pond 200 in light, a deep teal in dark. */
 html {
-  background-color: #EAF0F3;
+  background-color: #CFE5E2;
 }
 html.dark {
-  background-color: #080C11;
+  background-color: #0F2323;   /* a deep teal just above pond 950: low contrast with the near-black panel */
 }
+/* Mintlify's almond theme lays a fixed full-screen tint over that chrome (near-black in dark mode,
+   a faint grey in light); clear it so the pond colors show */
+#almond-background-color { background-color: transparent !important; }
+/* Code blocks: Mintlify's near-black panel becomes the deepest pond step (950), and the frame
+   around code groups takes the pale card tint in light mode */
+.dark [class*="dark:bg-codeblock"] { background-color: #0C1D1D !important; --shiki-dark-bg: #0C1D1D !important; }   /* shiki paints it through this inline variable */
+html:not(.dark) .code-group { background-color: rgba(242, 250, 248, 0.7) !important; }
 
 /* ─── Portfolio: utility classes ────────────────────────────────────────────── */
 
@@ -221,22 +231,22 @@ html.dark {
 }
 
 .cl-entry {
-  background-color: rgba(255, 255, 255, 0.55);
+  background-color: rgba(242, 250, 248, 0.55);
   border-color: rgba(11, 22, 32, 0.08);
   transition: background-color 0.15s;
 }
 
 .dark .cl-entry {
-  background-color: rgba(11, 17, 24, 0.7);
+  background-color: rgba(27, 53, 54, 0.7);
   border-color: rgba(232, 238, 242, 0.08);
 }
 
 .cl-entry:hover {
-  background-color: #fff;
+  background-color: #F2FAF8;
 }
 
 .dark .cl-entry:hover {
-  background-color: #0F1720;
+  background-color: #1B3536;
 }
 
 .cl-entry.cl-active {
@@ -449,7 +459,7 @@ a.muted-link:hover {
   transform: perspective(700px) rotateX(9deg);
   transform-origin: 50% 100%;
 }
-.dark .lp-card { border-color: rgba(232, 238, 242, 0.14); background-color: #0B1118; }
+.dark .lp-card { border-color: rgba(232, 238, 242, 0.14); background-color: #1B3536; }
 .lp-card::after {
   content: '';
   position: absolute;
@@ -779,4 +789,63 @@ html.dark:has(.lab-root), html.dark:has(.lab-root) body { background: #06090D !i
   .cs-scale { grid-template-columns: repeat(6, minmax(0, 1fr)); }
   .cs-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .cs-mocks { grid-template-columns: 1fr; }
+}
+
+/* ─── Lab: lily pad options (snippets/pad-lab.jsx) ─── */
+.pl { display: flex; flex-direction: column; gap: 56px; margin-top: 8px; }
+.pl-bar { position: sticky; top: 12px; z-index: 5; align-self: flex-end; display: flex; gap: 6px; padding: 6px; border-radius: 999px; background: rgba(255,255,255,.88); border: 1px solid rgba(127,140,150,.25); box-shadow: 0 10px 30px -18px rgba(11,22,32,.35); }
+.dark .pl-bar { background: rgba(11,17,24,.88); }
+.pl-bar button { padding: 6px 14px; border-radius: 999px; font-size: 13px; cursor: pointer; border: 1px solid transparent; }
+.pl-bar button.pl-on { border-color: #3B6666; background: rgba(59,102,102,.12); }
+.pl-water { position: relative; height: 420px; border-radius: 16px; overflow: hidden; background-size: cover; background-position: center 35%; border: 1px solid rgba(127,140,150,.25); box-shadow: 0 20px 50px -30px rgba(11,22,32,.35); }
+.pl-pad { position: absolute; width: 214px; height: 142px; display: flex; align-items: center; justify-content: center; }
+.pl-p1 { left: 6%; top: 18%; } .pl-p2 { left: 30%; top: 50%; } .pl-p3 { left: 54%; top: 14%; } .pl-p4 { left: 76%; top: 48%; }
+.pl-leaf { position: absolute; inset: 0; background-size: contain; background-repeat: no-repeat; background-position: center; filter: drop-shadow(0 10px 14px rgba(6, 20, 22, .4)); }
+.pl-label { position: relative; font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: 26px; color: #FBFAF4; text-shadow: 0 1px 2px rgba(10, 30, 20, .55), 0 0 14px rgba(10, 30, 20, .45); }
+@media (max-width: 760px) { .pl-pad { width: 130px; height: 86px; } .pl-label { font-size: 17px; } .pl-water { height: 300px; } }
+
+/* ─── Overview pages: the homepage's floating project cards (snippets/work.jsx) ───
+   The card styles live in landing.css and read the homepage's --rv-* variables; .wk-host gives
+   them pond colors on inner pages, with the site's own fonts. */
+.wk-host {
+  --rv-pill: #F2FAF8;
+  --rv-img: #DDEEEA;
+  --rv-line: rgba(44, 79, 79, 0.14);
+  --rv-line-strong: rgba(44, 79, 79, 0.24);
+  --rv-glass-edge: rgba(139, 182, 179, 0.6);
+  --rv-leaf-shade: rgba(11, 40, 36, 0.2);
+  --rv-water: #50807E;
+  --rv-text: #0C1D1D;
+  --rv-soft: #22363A;
+  --rv-muted: #2E4448;
+  --rv-label: #3F575B;
+  --rv-accent: #3B6666;
+  --rv-on-accent: #FFFFFF;
+  --rv-serif: 'Instrument Serif', Georgia, serif;
+  --rv-sans: 'Geist', 'Helvetica Neue', Helvetica, sans-serif;
+  --rv-code: 'Geist Mono', ui-monospace, Menlo, monospace;
+  font-family: var(--rv-sans);
+}
+.dark .wk-host {
+  --rv-pill: #102424;
+  --rv-img: #1B3536;
+  --rv-line: rgba(175, 209, 205, 0.12);
+  --rv-line-strong: rgba(175, 209, 205, 0.22);
+  --rv-glass-edge: rgba(175, 209, 205, 0.18);
+  --rv-leaf-shade: rgba(0, 0, 0, 0.6);
+  --rv-water: #8BB6B3;
+  --rv-text: #F2FAF8;
+  --rv-soft: rgba(242, 250, 248, 0.84);
+  --rv-muted: rgba(242, 250, 248, 0.72);
+  --rv-label: rgba(242, 250, 248, 0.58);
+  --rv-accent: #CFE5E2;
+  --rv-on-accent: #1B3536;
+}
+.wk-host .wk-card { border-color: var(--rv-glass-edge); }
+.wk-host .wk-title { font-weight: 400 !important; }   /* Instrument Serif has one weight */
+.wk-host .wk { padding-top: 24px; }
+@media (max-width: 760px) {
+  .wk-host .wk { grid-template-columns: minmax(0, 1fr); gap: 56px; }
+  .wk-host .wk-n2, .wk-host .wk-n4 { margin-top: 0; }
+  .wk-host .wk-card { rotate: 0deg; }
 }

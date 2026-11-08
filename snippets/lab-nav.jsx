@@ -11,6 +11,7 @@ export const LabNav = ({ current }) => {
     ['art-styles', 'Art direction', '/lab/art-styles'],
     ['ui', 'UI & fonts', '/lab/ui'],
     ['colors', 'Colors', '/lab/colors'],
+    ['pads', 'Lily pads', '/lab/pads'],
   ];
   return (
     <nav className="al-nav" aria-label="Lab">
