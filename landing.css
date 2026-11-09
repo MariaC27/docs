@@ -2020,3 +2020,24 @@ html:not(.dark) :is(.rv, .wk-host) .wk-card { border-color: var(--rv-glass-edge)
 .rv { --rv-glass-mix: 65%; }
 .rv .rv-rail { background: color-mix(in srgb, var(--rv-rail) var(--rv-glass-mix), transparent); }
 .rv .rv-dock, .rv .rv-act-ask { background: color-mix(in srgb, var(--rv-pill) var(--rv-glass-mix), transparent); }
+
+/* Header icons: no ripple, one baseline, pond turquoise (pond 800; pond 300 on the dark bar) */
+.rv { --rv-dock-ink: #2C4F4F; }
+.dark .rv { --rv-dock-ink: #AFD1CD; }
+.rv-dock-ring { display: none; }
+.rv .rv-dock { align-items: flex-end; }
+.rv .rv-dock-btn { align-items: flex-end; padding-bottom: 8px; color: var(--rv-dock-ink); }
+.rv .rv-dock-btn:hover, .rv .rv-dock-btn:focus-visible { color: var(--rv-dock-ink); opacity: .75; }
+.rv .rv-dock-lotus { padding-bottom: 8px; }   /* lifts the lotus so its base lines up with the icons */
+/* The rail's name matches the inner pages' header name (style.css, "Sidebar: name and collapse button") */
+.rv .rv-rail-name { font-size: 22px; font-weight: 500; line-height: 1; }
+
+/* Open rail (desktop): name on the left, then light/dark and the panel button together on the
+   right. Closed, the panel button is alone at the top of the icon rail as before. */
+@media (min-width: 761px) {
+  .rv-rail.rv-open .rv-rail-name { order: 1; }
+  .rv-rail.rv-open .rv-theme-head { order: 2; margin-left: auto; }
+  .rv-rail.rv-open .rv-rail-toggle { order: 3; }
+  .rv-rail.rv-open .rv-rail-head { gap: 6px; }
+  .rv-rail.rv-open .rv-rail-name { margin-left: 4px; }
+}

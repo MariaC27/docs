@@ -31,6 +31,7 @@
 - Global anchors: Home (/) only
 - Groups: About (about/skills, about/changelog), Case Studies, Writing
 - Old `/reference/*` URLs redirect to `/about/*` via `redirects` in docs.json
+- Inner pages get a sidebar collapse button from `sidebar-toggle.js` (Mintlify loads every .js file site-wide); it shares the open/closed choice with the homepage rail via sessionStorage `rv-rail-open`. The header logo image is hidden and replaced by the name in Cormorant italic (style.css, "Sidebar: name and collapse button")
 - `mode: frame` is used on overview pages only — removes prose wrapper, enables full-width layout, but loses "On this page" TOC
 
 ## Design system

@@ -849,3 +849,60 @@ html.dark:has(.lab-root), html.dark:has(.lab-root) body { background: #06090D !i
   .wk-host .wk-n2, .wk-host .wk-n4 { margin-top: 0; }
   .wk-host .wk-card { rotate: 0deg; }
 }
+
+/* ─── Sidebar: name and collapse button, matching the homepage rail ───
+   The logo image (Instrument Serif) is swapped for the name set in Cormorant italic, like the
+   homepage. The collapse button is added by /sidebar-toggle.js. */
+#navbar a[href="/"] > img.nav-logo { display: none !important; }
+#navbar a[href="/"]:has(img.nav-logo)::after {
+  content: 'Maria Cristoforo';
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-style: italic;
+  font-weight: 500;
+  font-size: 22px;
+  line-height: 1;
+  white-space: nowrap;
+  color: #0C1D1D;
+}
+.dark #navbar a[href="/"]:has(img.nav-logo)::after { color: #F2FAF8; }
+.mc-rail-toggle { display: none; }
+@media (min-width: 1024px) {
+  .mc-rail-toggle {
+    display: flex;
+    flex: 0 0 40px;
+    width: 40px;
+    height: 40px;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    background: transparent;
+    border: 1px solid rgba(44, 79, 79, 0.22);
+    border-radius: 8px;
+    color: #0C1D1D;
+    cursor: pointer;
+    transition: background-color .2s ease;
+  }
+  .mc-rail-toggle:hover { background: rgba(44, 79, 79, 0.08); }
+  .dark .mc-rail-toggle { border-color: rgba(175, 209, 205, 0.22); color: #F2FAF8; }
+  .dark .mc-rail-toggle:hover { background: rgba(175, 209, 205, 0.08); }
+  .mc-rail-toggle:focus-visible { outline: 2px solid #50807E; outline-offset: 2px; }
+  /* open: at the sidebar's right edge; closed: slides to the left of the name, which moves over */
+  .mc-head { position: relative; }
+  .mc-head > .mc-rail-toggle {
+    position: absolute;
+    top: 50%;
+    left: var(--mc-open-left, 0px);
+    translate: 0 -50%;
+    z-index: 1;
+    transition: background-color .2s ease;
+  }
+  html.mc-rail-animating .mc-head > .mc-rail-toggle { transition: left .32s cubic-bezier(.2, .7, .2, 1), background-color .2s ease; }
+  html.mc-rail-closed .mc-head > .mc-rail-toggle { left: 0; }
+  html.mc-rail-animating .mc-head > a[href="/"] { transition: translate .32s cubic-bezier(.2, .7, .2, 1); }
+  html.mc-rail-closed .mc-head > a[href="/"] { translate: 52px 0; }
+  /* closed: the sidebar slides off and the page panel takes its space */
+  /* motion only while the button is being used (html.mc-rail-animating, set by the script) */
+  html.mc-rail-animating #sidebar-content, html.mc-rail-animating #content-container { transition: transform .28s ease, margin-left .28s ease; }
+  html.mc-rail-closed #sidebar-content { transform: translateX(-110%); }
+  html.mc-rail-closed #content-container { margin-left: 0 !important; }
+}

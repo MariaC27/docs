@@ -181,7 +181,7 @@ export const Landing = ({ work }) => {
   const [fanOpen, setFanOpen] = useState(null);      // the pad whose preview is open (its title)
   // Previews open only after resting on a pad for a moment, so sweeping the mouse across the
   // pond doesn't set them all off. (Touch: first tap opens, see the pad's onClick.)
-  const HOVER_DELAY = 500;
+  const HOVER_DELAY = 100;
   const hoverTimer = useRef(null);
   const padEnter = (e, title) => {
     if (e.pointerType !== 'mouse') return;
@@ -418,12 +418,13 @@ export const Landing = ({ work }) => {
     { label: 'Email maria.h.cristoforo@gmail.com', href: 'mailto:maria.h.cristoforo@gmail.com', icon: 'mail' },
   ];
   const dockIcon = (name) => {
+    // every glyph's bottom sits at y = 21 of its 24px box (Medium and mail are shifted down), so they share a baseline
     const p = { width: 18, height: 18, viewBox: '0 0 24 24', 'aria-hidden': 'true' };
     const line = { fill: 'none', stroke: 'currentColor', strokeWidth: 1.7, strokeLinecap: 'round', strokeLinejoin: 'round' };
     if (name === 'github') return <svg {...p} {...line}><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21" /></svg>;
     if (name === 'linkedin') return <svg {...p} {...line}><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z" /><rect x="2" y="9" width="4" height="12" /><circle cx="4" cy="4" r="2" /></svg>;
-    if (name === 'medium') return <svg {...p} fill="currentColor"><ellipse cx="7" cy="12" rx="5.5" ry="5.8" /><ellipse cx="16.2" cy="12" rx="2.7" ry="5.4" /><ellipse cx="21.3" cy="12" rx="1" ry="4.9" /></svg>;
-    return <svg {...p} {...line}><rect x="3" y="5" width="18" height="14" rx="2" /><path d="M3 7l9 6 9-6" /></svg>;
+    if (name === 'medium') return <svg {...p} fill="currentColor"><g transform="translate(0 3.2)"><ellipse cx="7" cy="12" rx="5.5" ry="5.8" /><ellipse cx="16.2" cy="12" rx="2.7" ry="5.4" /><ellipse cx="21.3" cy="12" rx="1" ry="4.9" /></g></svg>;
+    return <svg {...p} {...line}><g transform="translate(0 2)"><rect x="3" y="5" width="18" height="14" rx="2" /><path d="M3 7l9 6 9-6" /></g></svg>;
   };
 
   // Add-a-lotus: drops a new free lotus into open water on screen, with a ripple.
@@ -532,7 +533,7 @@ export const Landing = ({ work }) => {
                 const ang = (-90 + (360 / SKILLS.length) * i) * Math.PI / 180;
                 return (
                   <a key={sk.name} href="/about/skills" className="rv-ring-chip"
-                    style={{ '--x': `${(Math.cos(ang) * 150).toFixed(1)}px`, '--y': `${(Math.sin(ang) * 112).toFixed(1)}px`, transitionDelay: `${i * 0.03}s` }}>
+                    style={{ '--x': `${(Math.cos(ang) * 178).toFixed(1)}px`, '--y': `${(Math.sin(ang) * 134).toFixed(1)}px`, transitionDelay: `${i * 0.03}s` }}>
                     {/* Background image, not <img>: Mintlify wraps <img> in its click-to-zoom */}
                     <span className="rv-ring-icon" role="img" aria-label={sk.name} style={{ backgroundImage: `url('${sk.icon}')` }} />
                     <span className="rv-ring-name">{sk.name}</span>
