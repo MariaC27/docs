@@ -14,19 +14,14 @@ export const PadLab = () => {
     { key: 'd-flat', name: '4 · Flat watercolor', note: 'One soft wash in the painting’s greens with faint veins and no droplets. The least realistic: closer to an illustration.' },
   ];
   const LABELS = ['Skills', 'Writing', 'Case Studies', 'API'];
-  const [dark, setDark] = useState(true);
   return (
     <div className="pl">
-      <div className="pl-bar">
-        <button type="button" className={dark ? 'pl-on' : undefined} onClick={() => setDark(true)}>Dark pond</button>
-        <button type="button" className={!dark ? 'pl-on' : undefined} onClick={() => setDark(false)}>Light pond</button>
-      </div>
       {PADS.map((p, n) => (
         <section key={p.key} className="hp-slide">
           <header className="hp-slide-head">
             <div><h2>{p.name}</h2><p>{p.note}</p></div>
           </header>
-          <div className="pl-water" style={{ backgroundImage: `url('/images/pond/${dark ? 'pond' : 'pond-light'}.jpg')` }}>
+          <div className="pl-water" style={{ backgroundImage: "url('/images/pond/pond.jpg')" }}>
             {LABELS.map((l, i) => (
               <div key={l} className={`pl-pad pl-p${i + 1}`}>
                 <span className="pl-leaf" style={{ backgroundImage: `url('/images/lab/pads/${p.key}.png')`, transform: `rotate(${[-6, 8, -3, 5][i]}deg) scaleX(${i % 2 ? -1 : 1})` }} />

@@ -903,6 +903,7 @@ html.dark:has(.lab-root), html.dark:has(.lab-root) body { background: #06090D !i
   html.mc-rail-closed .mc-head > .mc-rail-toggle { left: 0; }
   html.mc-rail-animating .mc-head > a[href="/"] { transition: translate .32s cubic-bezier(.2, .7, .2, 1); }
   html.mc-rail-closed .mc-head > a[href="/"] { translate: 52px 0; }
+
   /* closed: the sidebar slides off and the page panel takes its space */
   /* motion only while the button is being used (html.mc-rail-animating, set by the script) */
   html.mc-rail-animating #sidebar-content, html.mc-rail-animating #content-container { transition: transform .28s ease, margin-left .28s ease; }

@@ -56,6 +56,12 @@ export const Landing = ({ work }) => {
 
   // Hero pond. `slot` fixes each pad's spot: 1 top-left, 2 top-right, 3 bottom-left, 4 bottom-right, 5 centre.
   // Article previews that fan out of the Writing pad
+  // About Me fans out three photos from the About Me page (no links: the pad itself opens the page)
+  const ABOUT_PHOTOS = [
+    { title: 'Me in Boston', img: '/images/me_boston.jpg' },
+    { title: 'Dartmouth in the snow', img: '/images/dartwinter.jpg' },
+    { title: 'Victorian houses in San Francisco', img: '/images/houses.jpg' },
+  ];
   const WRITING = [
     { title: 'The Design Process Shift', href: '/writing/the-design-process-shift', img: '/images/design_article1_graphic.png' },
     { title: 'UX Friction Coefficient', href: '/writing/ux-friction-coefficient', img: '/images/ux_article1_overall.png' },
@@ -90,7 +96,7 @@ export const Landing = ({ work }) => {
     { title: 'Writing', href: '/writing/overview', slot: 2, kind: 'cards', fan: WRITING },
     { title: 'API', href: '/api/get-me', path: '/api/get-me', slot: 3, kind: 'api' },
     { title: 'Case Studies', href: '/work/overview', slot: 4, kind: 'cards', fan: WORK },
-    { title: 'About Me', href: ABOUT_ME, path: '/about/me', slot: 5, kind: 'none' },
+    { title: 'About Me', href: ABOUT_ME, path: '/about/me', slot: 5, kind: 'cards', fan: ABOUT_PHOTOS },
   ];
 
 

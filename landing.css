@@ -1777,35 +1777,36 @@ html:has(.rv) .almond-layout { top: 0 !important; }
 
 /* ─── Painted pond (2026-11-03): lab /lab/ui option 06 "deep water", Pond 1, Cormorant ───
    A painting frames the hero, its banks repeat down both sides of the page, and it returns
-   along the bottom edge. Light mode is a sunlit pond (pond-light.jpg) with a pale center, like
-   lab option 04; dark mode is deep water (pond.jpg). Pads and lotuses are watercolor assets
+   along the bottom edge. The pond is the same deep water (pond.jpg) in light and dark mode
+   (2026-11-09); only the sidebar, the header icons and "Ask about me" switch with the theme
+   (see "Light-mode chrome" at the end). Pads and lotuses are watercolor assets
    in /images/pond/. */
 .rv {
-  --rv-ground: #C6E3DC;          /* a little brighter than the painting's water (#ADD7CE) */
-  --rv-rail: #B5D8D0;
-  --rv-pill: #F4FAF8;
-  --rv-seg-on: #A9D0C7;
-  --rv-text: #0B1620;
-  --rv-muted: #2E4448;
-  --rv-label: #3F575B;
-  --rv-soft: #22363A;
-  --rv-line: rgba(11, 22, 32, 0.12);
-  --rv-line-strong: rgba(11, 22, 32, 0.2);
-  --rv-water: #50807E;   /* pond 600 */
-  --rv-accent: #3B6666;  /* pond 700 */
-  --rv-on-accent: #FFFFFF;
-  --rv-ms: #0B1620;
-  --rv-ms-tag: rgba(11, 22, 32, 0.5);
-  --rv-ghost: rgba(11, 22, 32, 0.06);
-  --rv-halo: #C6E3DC;
-  --rv-img: #DDEEEA;
-  --rv-img-line: rgba(11, 22, 32, 0.22);
-  --rv-leaf-shade: rgba(11, 40, 36, 0.3);
+  --rv-paint-img: url('/images/pond/pond.jpg');
+  --rv-banks-img: url('/images/pond/pond-banks.jpg');
+  --rv-ground: #2C4F4F;          /* pond 800, the deep water */
+  --rv-rail: #233E41;
+  --rv-pill: #1F383B;
+  --rv-seg-on: #35575A;
+  --rv-text: #F4F8F9;
+  --rv-muted: rgba(244, 248, 249, 0.78);
+  --rv-label: rgba(244, 248, 249, 0.62);
+  --rv-soft: rgba(244, 248, 249, 0.84);
+  --rv-line: rgba(244, 248, 249, 0.12);
+  --rv-line-strong: rgba(244, 248, 249, 0.2);
+  --rv-water: #8BB6B3;
+  --rv-accent: #CFE5E2;
+  --rv-on-accent: #1B3536;
+  --rv-ms: #F4F8F9;
+  --rv-ms-tag: rgba(244, 248, 249, 0.5);
+  --rv-ghost: rgba(244, 248, 249, 0.06);
+  --rv-halo: #2C4F4F;
+  --rv-img: #24403F;
+  --rv-img-line: rgba(244, 248, 249, 0.24);
+  --rv-leaf-shade: rgba(0, 0, 0, 0.45);
   --rv-hero-wash: transparent;
   --rv-lake: transparent;
-  --rv-shadow: 0 10px 40px rgba(11, 40, 36, 0.16);
-  --rv-paint-img: url('/images/pond/pond-light.jpg');
-  --rv-banks-img: url('/images/pond/pond-banks-light.jpg');
+  --rv-shadow: 0 10px 40px rgba(0, 0, 0, 0.35);
   --rv-serif: 'Cormorant Garamond', Georgia, serif;
   --rv-sans: 'Karla', 'Helvetica Neue', Helvetica, sans-serif;
   --rv-code: 'IBM Plex Mono', ui-monospace, Menlo, monospace;
@@ -1837,7 +1838,7 @@ html:has(.rv) .almond-layout { top: 0 !important; }
   --rv-lake: transparent;
   --rv-shadow: 0 10px 40px rgba(0, 0, 0, 0.35);
 }
-html:has(.rv), html:has(.rv) body { background: #C6E3DC !important; }
+html:has(.rv), html:has(.rv) body { background: #2C4F4F !important; }
 html.dark:has(.rv), html.dark:has(.rv) body { background: #2C4A4D !important; }
 /* Cormorant is light at 400; 500 reads at the same weight as the old serif */
 .rv h1, .rv h2, .rv h3, .rv .rv-name, .rv .rv-pad-title, :is(.rv, .wk-host) .wk-title { font-weight: 500 !important; }
@@ -1938,8 +1939,7 @@ html:not(.dark) .rv-paint-end {
   -webkit-mask-image: radial-gradient(ellipse 66% 66% at 50% 40%, rgba(0, 0, 0, .5) 45%, #000 100%), linear-gradient(to top, #000 70%, transparent 100%);
   mask-image: radial-gradient(ellipse 66% 66% at 50% 40%, rgba(0, 0, 0, .5) 45%, #000 100%), linear-gradient(to top, #000 70%, transparent 100%);
 }
-html:not(.dark):has(.rv), html:not(.dark):has(.rv) body { background: #BDDED6 !important; }
-html:not(.dark) .rv { --rv-ground: #BDDED6; --rv-halo: #BDDED6; }
+html:has(.rv), html:has(.rv) body { background: #2C4F4F !important; }
 
 /* Dark mode: the same in-between fade as light mode. The painting stays at about half strength
    in the middle instead of dissolving into flat ground, which read as fog. Ground = pond 800. */
@@ -1958,15 +1958,6 @@ html.dark .rv-paint-end {
 html.dark:has(.rv), html.dark:has(.rv) body { background: #2C4F4F !important; }
 html.dark .rv { --rv-ground: #2C4F4F; --rv-halo: #2C4F4F; }
 
-/* Light-mode cards and panels: sea glass instead of white. Pond 100 frosted over the painting,
-   with a pond 300 edge; the river stops, fans, API card and chat panel share it via --rv-pill. */
-html:not(.dark) .rv { --rv-pill: #E5F2F0; --rv-line: rgba(44, 79, 79, 0.16); }
-html:not(.dark) :is(.rv, .wk-host) .wk-card {
-  background: color-mix(in srgb, #E5F2F0 82%, transparent);
-  -webkit-backdrop-filter: blur(10px) saturate(1.1);
-  backdrop-filter: blur(10px) saturate(1.1);
-  border-color: rgba(139, 182, 179, 0.55);
-}
 .rv .rv-ring-chip, .dark .rv .rv-ring-chip { background: #F2FAF8; }   /* pond 50: light enough for the logos in both modes */
 
 /* Sea glass for the floating UI (2026-11-07): the header icons and "Ask about me" float on the
@@ -1981,7 +1972,6 @@ html:not(.dark) :is(.rv, .wk-host) .wk-card {
 }
 .rv { --rv-glass-edge: rgba(139, 182, 179, 0.55); }
 .dark .rv { --rv-glass-edge: rgba(175, 209, 205, 0.18); }
-html:not(.dark) :is(.rv, .wk-host) .wk-card { border-color: var(--rv-glass-edge); }
 .rv .rv-dock { padding: 4px 8px 4px 6px; border-radius: 999px; gap: 2px; }
 .rv .rv-dock-btn { color: var(--rv-soft); }
 .rv .rv-act-ask:hover, .rv .rv-act-ask:focus-visible { border-color: color-mix(in srgb, var(--rv-water) 70%, transparent); }
@@ -2073,3 +2063,51 @@ html:not(.dark) :is(.rv, .wk-host) .wk-card { border-color: var(--rv-glass-edge)
   color: var(--rv-accent);
 }
 .dark .rv .rv-method > span { color: var(--rv-water); }
+
+/* Light-mode chrome (2026-11-09): the pond, cards and text look the same in both modes; only the
+   sidebar, the header icon bar and "Ask about me" (button and chat panel) turn light. They read
+   these variables, so scoping light values to them is enough. */
+html:not(.dark) .rv :is(.rv-rail, .rv-dock, .rv-actions, .rv-askbar) {
+  --rv-ground: #F2FAF8;   /* fields inside the chat panel */
+  --rv-halo: #F2FAF8;
+  --rv-rail: #B5D8D0;
+  --rv-pill: #E5F2F0;
+  --rv-seg-on: #A9D0C7;
+  --rv-text: #0B1620;
+  --rv-muted: #2E4448;
+  --rv-label: #3F575B;
+  --rv-soft: #22363A;
+  --rv-line: rgba(44, 79, 79, 0.16);
+  --rv-line-strong: rgba(11, 22, 32, 0.2);
+  --rv-water: #50807E;
+  --rv-accent: #3B6666;
+  --rv-on-accent: #FFFFFF;
+  --rv-img: #DDEEEA;
+  --rv-glass-edge: rgba(139, 182, 179, 0.55);
+  --rv-leaf-shade: rgba(11, 40, 36, 0.3);
+  --rv-shadow: 0 10px 40px rgba(11, 40, 36, 0.16);
+  color: var(--rv-text);
+}
+html:not(.dark) .rv { --rv-glass-edge: rgba(175, 209, 205, 0.18); }   /* cards keep the dark edge */
+
+/* About Me: three photos fanned out under the pad, closer together than the wider project cards */
+.rv-slot-5.rv-fan-n3:is(:has(:focus-visible), .rv-fan-open) .rv-fan-1 { transform: translate(calc(-50% - 124px), 30px); }
+.rv-slot-5.rv-fan-n3:is(:has(:focus-visible), .rv-fan-open) .rv-fan-2 { transform: translate(-50%, 50px); }
+.rv-slot-5.rv-fan-n3:is(:has(:focus-visible), .rv-fan-open) .rv-fan-3 { transform: translate(calc(-50% + 124px), 30px); }
+
+/* Hover previews follow the theme like the sidebar: light cards in light mode (the Skills icons
+   already sit on light circles, and their names float on the water, so they stay as they are) */
+html:not(.dark) .rv :is(.rv-fan, .rv-api) {
+  --rv-pill: #E5F2F0;
+  --rv-text: #0B1620;
+  --rv-muted: #2E4448;
+  --rv-label: #3F575B;
+  --rv-soft: #22363A;
+  --rv-line: rgba(44, 79, 79, 0.16);
+  --rv-line-strong: rgba(11, 22, 32, 0.2);
+  --rv-water: #50807E;
+  --rv-accent: #3B6666;
+  --rv-img: #DDEEEA;
+  --rv-leaf-shade: rgba(11, 40, 36, 0.3);
+  color: var(--rv-text);
+}
