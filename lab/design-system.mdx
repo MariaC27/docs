@@ -1,0 +1,105 @@
+---
+title: "Design system"
+description: "The palette, type, components and motion behind the pond redesign, as currently built."
+mode: custom
+noindex: true
+---
+
+import { LabNav } from '/snippets/lab-nav.jsx'
+import { Swatch } from '/snippets/lab-swatch.jsx'
+
+
+<div className="lab-root al-doc">
+
+<LabNav current="design-system" />
+
+<span className="al-eyebrow">Design lab</span>
+
+<h1 className="al-h1">Design system</h1>
+
+<p className="al-lede">The palette, type, components and motion behind the pond redesign, as currently built.</p>
+
+The site is a pond. The homepage is the water: a river that traces my career, lily pads to navigate by, and lotuses you can pick up and move. Everything else follows from that one image, so the system is deliberately small: a cool, watery palette, three typefaces, and a handful of components that all behave like they float.
+
+## Principles
+
+1. **One metaphor, used consistently.** Navigation floats (lily pads), progress flows (the river), and delight is optional (lotuses you can drag). New elements should fit the pond or not be added.
+2. **Calm by default, alive on interaction.** Ambient motion is slow and small; the bigger moments (ripples, fans, blooms) happen in response to the visitor.
+3. **The docs platform stays visible.** It's still Mintlify underneath: slugs on every pad, an API you can call, a changelog for a career. The theme dresses it; it doesn't hide it.
+4. **Every motion has a reduced-motion fallback.** Drifting, bobbing and ripples all stop when the visitor asks for less motion.
+
+## Color
+
+Light and dark are two versions of the same water, not inverted themes. Each swatch shows light on the left and dark on the right.
+
+<Swatch name="Ground" light="#F3F6F8" dark="#06090D" note="The water itself. Page background everywhere." />
+<Swatch name="Chrome" light="#EAF0F3" dark="#080C11" note="Rails and sidebars, a shade off the ground so they read as frame." />
+<Swatch name="Surface" light="#FFFFFF" dark="#0B1118" note="Floating things: pills, cards, the chat panel, polaroids." />
+<Swatch name="Water" light="#12A394" dark="#6FE3D6" note="The river, ripples, outlines and every accent that means water." />
+<Swatch name="Accent" light="#0B7469" dark="#6FE3D6" note="Buttons and active states. Darker than water in light mode so white text passes contrast." />
+<Swatch name="Text" light="#0B1620" dark="#E8EEF2" note="Titles and primary copy." />
+<Swatch name="Muted" light="#4A5866" dark="#A9B5BF" note="Descriptions and secondary copy." />
+<Swatch name="Label" light="#5F6E7B" dark="#8C99A5" note="Mono labels, slugs, dates." />
+<Swatch name="Leaf" light="#CFE9E4" dark="#08171A" note="Lily pad gradient (with #EEF8F6 / #133532 at the lit edge)." />
+<Swatch name="Lotus" light="#FFFFFF" dark="#E9F4F2" note="Petals, tinted mint underneath, with a pale gold heart (#D8C67A). No pink." />
+
+The old orange and cream palette was retired across the whole site so inner pages match the homepage.
+
+## Type
+
+| Role | Typeface | Where |
+|---|---|---|
+| Display | Instrument Serif, italic, weight 400 | My name, page titles, "Open to…" moments |
+| Titles | Instrument Serif, upright, 400 | River stops, pads, cards. It has one weight, so never bold |
+| Body | Geist | Descriptions, UI, buttons |
+| Labels | Geist Mono, uppercase, tracked | Slugs, dates, section tabs, eyebrows |
+
+## Components
+
+### Lily pad
+
+A leaf drawn in perspective, lying flat on the water: pale gradient lit from the top-left, hairline teal outline, curved veins, a translucent underside for thickness, and a soft shadow. The notch faces the viewer and alternates sides between pads; each edge wobbles slightly differently. Pads drift, move away from the cursor, bob when scrolled into view, and lift on hover. On the homepage they carry a title and slug; on overview pages they hold a preview on an easel.
+
+### Lotus
+
+White petals with mint undersides and a pale gold heart, in two rings that bloom open when the lotus scrolls into view. Lotuses mark each stop on the river (they drift back to their stop when dragged away) and float freely in the pond and footer. They're never placed along the river path, so they can't be mistaken for stops. Visitors can add more from the header.
+
+### River
+
+A scroll-drawn line that starts at my photo, runs faint behind the hero text, and turns full strength at the first stop. It's always drawn just past the bottom of the screen so it never looks cut off, and it trails off after the last stop.
+
+### River stop
+
+Title (serif, 34px), a quiet mono date line, and one or two sentences, alternating sides. Every stop has the same weight; the big year sits faintly behind the first stop of each year only.
+
+### Polaroid card
+
+Projects below the river: a rounded card with the screenshot on top and the description beneath, set at a slight angle in a staggered grid. Each floats: it drifts, has a halo and ripples spreading from all four edges, and straightens and lifts on hover.
+
+### Fan
+
+Hovering the Case Studies or Writing pad fans out small screenshot cards for that section, away from the screen edge. On touch, the first tap opens the fan and the second navigates.
+
+### Pills
+
+The "Ask about me" button, section tabs, link pills and the chat panel share one floating-surface style: surface color, hairline border, soft shadow, fully rounded.
+
+## Motion
+
+| Behavior | Timing | Used on |
+|---|---|---|
+| Drift | 10–17s loops, staggered so nothing moves in sync | Pads, free lotuses, polaroids |
+| Ripple | 2–7s, expands and fades | Pads, stones, stops, clicks anywhere, ambient rings in open water |
+| Bob | One 1.8s dip when scrolled into view | Pads, polaroids |
+| Bloom | 0.9s petal opening, outer ring first | River lotuses |
+| Hover lift | 0.5s ease-out, about 6px | Every floating, clickable thing |
+
+## Where it lives
+
+- `snippets/landing.jsx`: the homepage (hero, pond, river, chat, header)
+- `snippets/work.jsx`: the Projects section, fed by data in `index.mdx`
+- `snippets/pad-pond.jsx`: the overview pages' easel pads
+- `landing.css`: homepage styles, scoped under `.rv`
+- `style.css` and `docs.json`: the site-wide palette and type
+
+</div>

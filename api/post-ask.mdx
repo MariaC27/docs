@@ -1,0 +1,25 @@
+---
+title: "Ask"
+api: "POST /api/ask"
+description: "Ask a question about Maria and get an answer drawn from this site."
+---
+
+The same endpoint behind the "Ask about me" chat on the home page. Claude answers using the full text of this site as context, so answers stay in sync with every page here.
+
+<h2 style={{borderTop: 'none', paddingTop: 0, marginTop: '1.5rem'}}>Body</h2>
+
+<ParamField body="question" type="string" required>
+  Your question, up to 600 characters. For example: "What did Maria build at Ocular?"
+</ParamField>
+
+<ParamField body="history" type="array">
+  Earlier turns of the conversation, as `{ role, content }` objects with `role` set to `user` or `assistant` (optional, last 10 turns are used).
+</ParamField>
+
+<h2 style={{borderTop: 'none', paddingTop: 0, marginTop: '1.5rem'}}>Response</h2>
+
+The answer streams back as plain text, with links to relevant pages written as markdown (for example `[ApiLens case study](/work/apilens)`).
+
+<ResponseField name="error" type="string">
+  Returned as JSON instead of text when the request is invalid (400), you've asked too many questions in a short time (429), or the site content can't be loaded (503).
+</ResponseField>

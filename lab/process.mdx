@@ -1,0 +1,95 @@
+---
+title: "Process log"
+description: "How the pond redesign evolved: what I tried, what I kept, and why."
+mode: custom
+noindex: true
+---
+
+import { LabNav } from '/snippets/lab-nav.jsx'
+
+<div className="lab-root al-doc">
+
+<LabNav current="process" />
+
+<span className="al-eyebrow">Design lab</span>
+
+<h1 className="al-h1">Process log</h1>
+
+<p className="al-lede">How the pond redesign evolved: what I tried, what I kept, and why.</p>
+
+This redesign started as a prototype in Claude Design and was built out in Claude Code over about two weeks. I set the direction and made the calls; the AI did most of the typing. This log is mostly the calls, because that's where the design actually happened.
+
+Each phase lists what I tried, what stayed, and what I dropped. The dropped ideas are kept on purpose.
+
+## 1. From editorial to the river
+
+**October 14.** The site started as a magazine-style homepage: cream and orange, a drop cap, a pull quote. It was clean, but it didn't feel like *mine*. I prototyped a different idea in Claude Design: a dark page where my career is a river you scroll down, with roles, projects and milestones as stops along it.
+
+- **Kept:** the river as the spine of the homepage, the dark and light versions of the same "water", Geist and Instrument Serif.
+- **Changed on import:** I replaced the photo-less hero tagline with my own ("thinks like a designer, executes like an engineer") and made light mode match the dark design instead of keeping the old cream.
+- **Hard constraint:** it had to run inside Mintlify. Custom snippets only keep their exported component, rewrite some class names, and hide the navbar, assistant and theme toggle on custom pages, so a lot of early work was rebuilding those pieces.
+
+## 2. Becoming a pond
+
+**October 15.** The hero had a lot of empty space next to my name. I filled it with lily pads holding the main sections, the same pads that had been sitting at the bottom of the prototype. That one move turned the page from "river" into "pond", and most later decisions came from it.
+
+- **Pads:** title and slug only, with the description revealed on hover. They drift, move away from the cursor, and ripple.
+- **Ripples anywhere:** clicking anywhere on the page drops a ripple, not just near the pads.
+- **The photo**, which took four tries:
+  1. *As the center pad.* It worked visually, but it made a navigation element purely decorative.
+  2. *With a reflection beside my name.* It looked odd that only the photo reflected.
+  3. *Name and photo reflected together.* I didn't like reflections at all.
+  4. *A stone with ripple rings, with the river flowing out of it.* Kept. The faint "headwater" river now starts at my photo and runs through the hero text into the timeline, so the career path literally starts with me.
+- **Dropped:** "Open to chat", the "Now" marker, a second set of pads at the bottom, the big project numbers (01/02/03), and a hard edge between the hero and the river.
+
+## 3. One system across the site
+
+**October 15 to 19.** The inner pages were still cream and orange, so the homepage felt like a different site.
+
+- **Palette and type** moved site-wide: teal and cyan accents, the same cool ground, Geist and Geist Mono everywhere. I also fixed Instrument Serif being faux-bolded on headings.
+- **The collapsed sidebar** used to jump straight to a page when you clicked an icon. Now hovering previews the section's pages and clicking opens the sidebar.
+- **Overview pages** became lily pads too, which took three attempts:
+  1. Round pads with a cropped screenshot in the middle. The image covered the notch, the one detail that makes it read as a lily pad.
+  2. A 3D pad with the screenshot standing on an easel. A first version with a wooden easel and droplets looked childish; a pale, hairline version kept the depth and lost the cartoon.
+  3. An "expanding easel" hover. Dropped in favor of the same subtle lift every pad has.
+- **Homepage pads** got the same 3D leaf, kept small, with all the water behavior intact.
+
+## 4. Talking to the site
+
+**October 20.** Mintlify's AI assistant doesn't run on fully custom pages, so I built my own.
+
+- **"Ask about me":** a floating button opens a right sidebar, the same width as the left rail. It's backed by a new `POST /ask` endpoint on my existing API. Claude answers from the full text of this site, which it reads from the repo, so answers stay current with every edit. The endpoint is also in the API Reference, so you can call it from the playground.
+- **Privacy:** conversations aren't stored on the server; history lives in the visitor's own tab and clears when it closes.
+- **Hero copy:** "Design Engineer at Ocular AI (YC W24) · San Francisco, CA" above my name, and "Contact me" as the one call to action.
+
+## 5. Untangling the river
+
+**October 21.** The river had become cluttered: roles, milestones and big project blocks at three different weights, an orange date bar, boxed tags, and a filter pill.
+
+- **The river became a career path only:** roles and milestones, every stop the same size and style, a quiet date line, and each big year shown once.
+- **Projects moved off the river.** A row of easel pads between the hero and the river was too many pads and sat right in the river's path, so I removed it. Instead, the projects **fan out of the Case Studies pad** on hover, and Writing got the same fan.
+- **The pond lost a pad and gained one:** Experience went (the river already is the experience) and **API** came in, the most Mintlify part of the site.
+- **Stops became lotuses.** Plain rings looked boring; lotus flowers that bloom on scroll and can be dragged around (and drift back home) gave the river some life.
+- **Free lotuses:** I placed these myself after my first placement didn't work. Lotuses along the river were easy to confuse with stops, so they now live only in the pond and the footer.
+- **A Projects section** came back below the river, behind "Career path / Projects" tabs. Its first form, long alternating rows, felt clunky. **Polaroid cards floating on the water** replaced them, with ripples spreading from all four edges so they sit *on* the water rather than above it.
+
+## 6. Header, and the art question
+
+**October 26.**
+
+- **Header:** socials (GitHub, LinkedIn, Medium, email) plus a button that **adds a lotus to the pond**, which drops in with a ripple and can be dragged anywhere. A frosted pill dock came first. A "stones" version didn't look like actual stones.
+- **The bigger realization:** the graphics were all hand-built in SVG and read as "vibe coded", with no single artistic hand. Rather than adding a library, I started this lab to choose an art direction first: [soft 3D vs. watercolor](/lab/art-styles). The watercolor took two rounds; the first was faked with blur, the second is built from actual brush strokes.
+
+## What I've learned so far
+
+- **One strong metaphor makes decisions easier.** Once the page was a pond, most questions answered themselves: does this float, flow, or ripple?
+- **Rejecting directions quickly matters as much as building them.** Almost every element here had a version that looked fine and still wasn't right.
+- **AI is fast at execution and bad at taste.** It produced every iteration in minutes; choosing between them, and noticing *why* one felt off, was the work.
+
+## Up next
+
+- Choose the art direction and produce a cohesive asset set: pads, lotuses and stones.
+- Settle the header and redesign the footer.
+- Fold this process into the portfolio case study, which currently only covers the Mintlify setup.
+
+</div>

@@ -2,19 +2,19 @@
   "$schema": "https://mintlify.com/docs.json",
   "theme": "almond",
   "name": "Maria Cristoforo",
-  "description": "Designer, engineer, and writer based in San Francisco.",
+  "description": "Design Engineer based in San Francisco.",
   "colors": {
-    "primary": "#ea580c",
-    "light": "#f97316",
-    "dark": "#c2410c"
+    "primary": "#3B6666",
+    "light": "#AFD1CD",
+    "dark": "#3B6666"
   },
   "appearance": {
   "default": "light"
 },
 "background": {
     "color": {
-      "light": "#F8F5EF",
-      "dark": "#1C1917"
+      "light": "#E5F2F0",
+      "dark": "#060E0F"
     }
   },
   "favicon": "/favicon.ico",
@@ -52,6 +52,7 @@
         "icon": "user",
         "expanded": true,
         "pages": [
+          "about/me",
           "about/skills",
           "about/changelog"
         ]
@@ -86,6 +87,7 @@
           "api/get-me",
           "api/get-skills",
           "api/get-availability",
+          "api/post-ask",
           "api/post-hire",
           "api/post-contact"
         ]
