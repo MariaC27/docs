@@ -7,12 +7,13 @@ body, html {
   font-family: 'Geist', 'Helvetica Neue', Helvetica, sans-serif !important;
 }
 
-/* Headings — Instrument Serif. It has one weight, so keep it at 400 (no faux bold) */
+/* Headings — Cormorant Garamond, the homepage's display serif. Its regular weight is thin, so
+   headings use 500 */
 h1, h2,
 .prose h1, .prose h2, .prose h3,
 [class*="content"] h1, [class*="content"] h2, [class*="content"] h3:not(.sidebar-title) {
-  font-family: 'Instrument Serif', serif !important;
-  font-weight: 400 !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
+  font-weight: 500 !important;
 }
 
 /* h1 italic everywhere, matching the editorial/magazine style */
@@ -219,10 +220,10 @@ html:not(.dark) .code-group { background-color: rgba(242, 250, 248, 0.7) !import
 }
 
 .cl-title {
-  font-family: 'Instrument Serif', Georgia, serif !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
   font-style: italic !important;
-  font-size: 1.05rem !important;
-  font-weight: 400 !important;
+  font-size: 1.15rem !important;
+  font-weight: 500 !important;
   color: #0B1620;
 }
 
@@ -298,7 +299,8 @@ html:not(.dark) .code-group { background-color: rgba(242, 250, 248, 0.7) !import
 /* ─── Drop cap — float-left large italic initial ─────────────────────────────── */
 .portfolio-dropcap {
   float: left;
-  font-family: 'Instrument Serif', serif;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-weight: 500;
   font-size: 4.5rem;
   font-style: italic;
   line-height: 0.85;
@@ -328,9 +330,9 @@ html:not(.dark) .code-group { background-color: rgba(242, 250, 248, 0.7) !import
 /* ─── Card titles + content ─────────────────────────────────────────────────── */
 
 [data-component-part="card-title"] {
-  font-family: 'Instrument Serif', serif !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
   font-style: normal !important;
-  font-weight: 400 !important;
+  font-weight: 500 !important;
   font-size: 1.3rem !important;
   line-height: 1.2 !important;
 }
@@ -384,7 +386,8 @@ a.muted-link:hover {
 }
 .lp-p2, .lp-p4 { margin-top: 72px; }
 .lp-title {
-  font-family: 'Instrument Serif', Georgia, serif !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
+  font-weight: 500;
   font-size: 1.9rem;
   line-height: 1.1;
   color: var(--lp-text);
@@ -821,7 +824,7 @@ html.dark:has(.lab-root), html.dark:has(.lab-root) body { background: #06090D !i
   --rv-label: #3F575B;
   --rv-accent: #3B6666;
   --rv-on-accent: #FFFFFF;
-  --rv-serif: 'Instrument Serif', Georgia, serif;
+  --rv-serif: 'Cormorant Garamond', Georgia, serif;
   --rv-sans: 'Geist', 'Helvetica Neue', Helvetica, sans-serif;
   --rv-code: 'Geist Mono', ui-monospace, Menlo, monospace;
   font-family: var(--rv-sans);
@@ -842,7 +845,7 @@ html.dark:has(.lab-root), html.dark:has(.lab-root) body { background: #06090D !i
   --rv-on-accent: #1B3536;
 }
 .wk-host .wk-card { border-color: var(--rv-glass-edge); }
-.wk-host .wk-title { font-weight: 400 !important; }   /* Instrument Serif has one weight */
+.wk-host .wk-title { font-weight: 500 !important; }
 .wk-host .wk { padding-top: 24px; }
 @media (max-width: 760px) {
   .wk-host .wk { grid-template-columns: minmax(0, 1fr); gap: 56px; }
@@ -905,4 +908,24 @@ html.dark:has(.lab-root), html.dark:has(.lab-root) body { background: #06090D !i
   html.mc-rail-animating #sidebar-content, html.mc-rail-animating #content-container { transition: transform .28s ease, margin-left .28s ease; }
   html.mc-rail-closed #sidebar-content { transform: translateX(-110%); }
   html.mc-rail-closed #content-container { margin-left: 0 !important; }
+}
+
+/* ─── Inner sidebar: the homepage rail's font, Mintlify's layout ───
+   Bold section headings with icons, the Home link and Mintlify's row spacing stay as they were;
+   only the font changes to Karla (the homepage rail's), plus pond-colored method tags and a
+   tighter gap under the search field. */
+@media (min-width: 1024px) {
+  #sidebar-content .sidebar-group-header,
+  #sidebar-content ul.sidebar-group a,
+  #sidebar-content a.nav-anchor {
+    font-family: 'Karla', 'Helvetica Neue', sans-serif !important;
+  }
+  #sidebar-content .sidebar-group-header { font-weight: 700 !important; }
+  #navigation-items { padding-top: 10px !important; }
+  #sidebar-content .method-nav-pill > span {
+    font-family: 'IBM Plex Mono', ui-monospace, monospace !important;
+    background: rgba(80, 128, 126, 0.16) !important;
+    color: #3B6666 !important;
+  }
+  .dark #sidebar-content .method-nav-pill > span { color: #8BB6B3 !important; }
 }

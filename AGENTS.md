@@ -41,7 +41,7 @@ Whole site uses the homepage's "river" palette (changed 2026-10-15 from the old 
 - **Theme:** `almond`
 - **Primary color:** `#3B6666` (pond 700, light mode) / `#AFD1CD` (pond 300, dark mode), from the pond scale on `/lab/colors` (taken from the background painting; the old `#0B7469` teal and `#6FE3D6` cyan were removed 2026-11-03); amber `#A35A12` / `#E9A458` as the secondary accent
 - **Background:** content panel `#E5F2F0` light (pond 100, the homepage cards' off-white) / `#060E0F` dark (pond 975, near-black; turquoise only on the outside) in docs.json; surrounding chrome `#CFE5E2` / `#0F2323` (style.css). Mintlify's `#almond-background-color` overlay is cleared, and dark code blocks use pond 950 `#0C1D1D` (via `--shiki-dark-bg`)
-- **Fonts:** Instrument Serif (headings, always weight 400 — it has no bold), Geist (body), Geist Mono (code/mono)
+- **Fonts:** Cormorant Garamond (titles and headings site-wide, weight 500 since its regular is thin; the name in the top bar), Geist (inner-page body), Geist Mono (code/mono); the homepage uses Cormorant / Karla / IBM Plex Mono, and the inner sidebar uses Karla. The lab pages still use Instrument Serif
 - **Custom CSS:** `style.css` (whole site) and `landing.css` (homepage only, scoped to `.rv`)
 
 ## Magazine/editorial styling

@@ -23,23 +23,24 @@ export const Landing = ({ work }) => {
     { group: 'About', icon: 'about', links: [['About Me', '/about/me'], ['Skills', '/about/skills'], ['Changelog', '/about/changelog']] },
     { group: 'Case Studies', icon: 'work', links: [
       ['Overview', '/work/overview'],
-      ['Canvas Annotation Revamp', '/work/canvas-annotation-revamp'],
+      ['Canvas & Annotation Revamp', '/work/canvas-annotation-revamp'],
       ['Turn-Based Audio Annotation', '/work/turn-based-audio-annotation'],
       ['ApiLens', '/work/apilens'],
-      ['This Portfolio', '/work/portfolio'],
+      ['Portfolio', '/work/portfolio'],
     ] },
     { group: 'Writing', icon: 'writing', links: [
       ['Overview', '/writing/overview'],
       ['The Design Process Shift', '/writing/the-design-process-shift'],
       ['UX Friction Coefficient', '/writing/ux-friction-coefficient'],
     ] },
-    { group: 'API Reference', icon: 'api', code: true, links: [
-      ['GET /me', '/api/get-me'],
-      ['GET /skills', '/api/get-skills'],
-      ['GET /availability', '/api/get-availability'],
-    ['POST /ask', '/api/post-ask'],
-      ['POST /hire', '/api/post-hire'],
-      ['POST /contact', '/api/post-contact'],
+    // Labels match the inner pages' sidebar (page titles, with the method as a small tag)
+    { group: 'API Reference', icon: 'api', links: [
+      ['Profile', '/api/get-me', 'GET'],
+      ['Skills', '/api/get-skills', 'GET'],
+      ['Availability', '/api/get-availability', 'GET'],
+      ['Ask', '/api/post-ask', 'POST'],
+      ['Hire', '/api/post-hire', 'POST'],
+      ['Contact', '/api/post-contact', 'POST'],
     ] },
   ];
 
@@ -101,6 +102,11 @@ export const Landing = ({ work }) => {
   // still joins into one line; it bows toward the side the card sits on.
   const bend = (x, sx = 50) => `M${sx},0 C${sx},30 ${x},20 ${x},50 C${x},80 50,70 50,100`;
 
+  const openSearch = () => {
+    const entry = document.getElementById('search-bar-entry');
+    if (entry) entry.click();
+    else document.dispatchEvent(new KeyboardEvent('keydown', { key: 'k', metaKey: true, ctrlKey: true, bubbles: true }));
+  };
   const railIcon = ({ name }) => {
     const paths = {
       panel: <><rect x="3" y="4" width="18" height="16" rx="2" /><path d="M9 4v16" /></>,
@@ -735,8 +741,8 @@ export const Landing = ({ work }) => {
                   <div className="rv-fly-panel">
                     <div className="rv-fly-card">
                       <div className="rv-tree-label">{g.group}</div>
-                      {g.links.map(([label, href]) => (
-                        <a key={href} href={href} className={g.code ? 'rv-tree-code' : undefined}>{label}</a>
+                      {g.links.map(([label, href, method]) => (
+                        <a key={href} href={href}>{method && <span className="rv-method"><span>{method}</span></span>}{label}</a>
                       ))}
                     </div>
                   </div>
@@ -750,11 +756,18 @@ export const Landing = ({ work }) => {
           )}
           {open && (
             <div className="rv-tree">
+              {/* Same search field as the inner pages' sidebar: opens Mintlify's search, which is
+                  still on this page with the hidden navbar */}
+              <button type="button" className="rv-search" onClick={openSearch}>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="M20 20l-3.5-3.5" /></svg>
+                <span>Search...</span>
+                <kbd>⌘K</kbd>
+              </button>
               {NAV.map((g) => (
                 <div key={g.group} className="rv-tree-group">
                   <div className="rv-tree-label">{g.group}</div>
-                  {g.links.map(([label, href]) => (
-                    <a key={href} href={href} className={g.code ? 'rv-tree-code' : undefined}>{label}</a>
+                  {g.links.map(([label, href, method]) => (
+                    <a key={href} href={href}>{method && <span className="rv-method"><span>{method}</span></span>}{label}</a>
                   ))}
                 </div>
               ))}

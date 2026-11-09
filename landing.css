@@ -2041,3 +2041,35 @@ html:not(.dark) :is(.rv, .wk-host) .wk-card { border-color: var(--rv-glass-edge)
   .rv-rail.rv-open .rv-rail-head { gap: 6px; }
   .rv-rail.rv-open .rv-rail-name { margin-left: 4px; }
 }
+
+/* Sidebar parity with the inner pages (2026-11-09): the same search field at the top of the open
+   rail, and API pages listed by title with a small method tag, like Mintlify's sidebar. The tag
+   sits in a 32px slot with a 12px gap so titles line up, matching the inner pages. */
+.rv .rv-search {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 36px;
+  margin: 0 0 4px;
+  padding: 0 12px 0 14px;
+  border: 1px solid var(--rv-line-strong);
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--rv-pill) 70%, transparent);
+  color: var(--rv-label);
+  font: 400 14px/1 var(--rv-sans);
+  cursor: pointer;
+  text-align: left;
+}
+.rv .rv-search span { flex: 1; }
+.rv .rv-search kbd { font: 500 11.5px/1 var(--rv-sans); color: var(--rv-label); background: none; border: 0; padding: 0; }
+.rv .rv-search:hover { border-color: color-mix(in srgb, var(--rv-water) 60%, transparent); color: var(--rv-soft); }
+.rv .rv-method { flex: 0 0 32px; display: flex; margin-right: 12px; }
+.rv .rv-method > span {
+  padding: 1px 5px;
+  border-radius: 5px;
+  font: 600 9.5px/1.4 var(--rv-code);
+  letter-spacing: .02em;
+  background: color-mix(in srgb, var(--rv-water) 16%, transparent);
+  color: var(--rv-accent);
+}
+.dark .rv .rv-method > span { color: var(--rv-water); }
