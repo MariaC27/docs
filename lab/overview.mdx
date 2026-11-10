@@ -1,6 +1,6 @@
 ---
 title: "Lab"
-description: "Where the design of this site gets worked out."
+description: "A design lab: compare iterations side by side, make the call, and keep a record of why."
 mode: custom
 noindex: true
 ---
@@ -15,37 +15,76 @@ import { LabNav } from '/snippets/lab-nav.jsx'
 
 <h1 className="al-h1">The Lab</h1>
 
-<p className="al-lede">The working side of this portfolio. The rest of the site is the finished story; this is where I keep the design system it's built on, a log of how the redesign got here, and the prototypes I'm still deciding on.</p>
+<p className="al-lede">A place to put iterations side by side, decide what's actually best, and keep a record of why. Everything on this site was worked out here first.</p>
 
-<div className="al-cards">
-  <a className="al-card" href="/lab/design-system">
-    <span className="al-card-k">01</span>
-    <span className="al-card-t">Design System</span>
-    <span className="al-card-d">The current palette, type, components and motion rules, as they're built today.</span>
-  </a>
-  <a className="al-card" href="/lab/process">
-    <span className="al-card-k">02</span>
-    <span className="al-card-t">Process Log</span>
-    <span className="al-card-d">How the "pond" redesign evolved, iteration by iteration, including the directions I dropped.</span>
-  </a>
-  <a className="al-card" href="/lab/prototypes">
-    <span className="al-card-k">03</span>
-    <span className="al-card-t">Prototypes</span>
-    <span className="al-card-d">Side-by-side "slides" of layout options before they touch the real site, starting with the homepage.</span>
-  </a>
-  <a className="al-card" href="/lab/art-styles">
-    <span className="al-card-k">04</span>
-    <span className="al-card-t">Art Direction</span>
-    <span className="al-card-d">Prototype: the same assets in soft 3D and watercolor, to choose a style for the final graphics.</span>
-  </a>
+## Why it exists
+
+My favorite and most used feature of Figma was alt-dragging a frame to duplicate it, then making one adjustment. I'd build rows and rows of versions, each slightly different, compare them side by side, ask teammates for feedback and comment right on them.
+
+Most vibecoding workflows lose that. You see one output, it generally looks "good", and there's little incentive to iterate on it or to make a real human decision about what to keep and what to change. That's why so many vibecoded sites end up looking the same: once people see something, they don't change it.
+
+## The idea
+
+I think design sense comes from two things: being able to come up with different options, and deciding which one brings delight, serves the project, or gives the best experience. More chances to make those decisions means more chances to sharpen that sense.
+
+So alongside the actual site, the project gets a lab:
+
+- **Options, side by side.** The coding agent generates several versions of a screen or feature, each as its own frame, so I can compare them like rows of Figma frames.
+- **Toggles to mix and match.** Backgrounds, fonts and colors can be switched across every option at once, to see how a choice holds up in different layouts.
+- **A record of decisions.** Each round of what I tried, kept and dropped goes in the process log, so earlier versions stay visible instead of being implemented and reverted.
+- **Only then, the real site.** When something wins, it gets built into the site, and the design system documents what shipped.
+
+The result is less pressure on any single attempt, more deliberate choices, and a clear trail from the first prototype to the final site.
+
+## The pages
+
+<div className="al-groups">
+  <div className="al-group">
+    <span className="al-group-k">Layouts</span>
+    <a className="al-card" href="/lab/prototypes">
+      <span className="al-card-t">Homepage layouts</span>
+      <span className="al-card-d">The same first screen arranged six ways, as side-by-side slides.</span>
+    </a>
+    <a className="al-card" href="/lab/river">
+      <span className="al-card-t">River layouts</span>
+      <span className="al-card-d">Ways to show each career stop's title, role and dates along the river.</span>
+    </a>
+  </div>
+  <div className="al-group">
+    <span className="al-group-k">Art</span>
+    <a className="al-card" href="/lab/art-styles">
+      <span className="al-card-t">Art direction</span>
+      <span className="al-card-d">The same pond assets in soft 3D and watercolor, to pick one artistic hand.</span>
+    </a>
+    <a className="al-card" href="/lab/pads">
+      <span className="al-card-t">Lily pads</span>
+      <span className="al-card-d">Softer, less realistic takes on the watercolor lily pad.</span>
+    </a>
+  </div>
+  <div className="al-group">
+    <span className="al-group-k">UI</span>
+    <a className="al-card" href="/lab/ui">
+      <span className="al-card-t">Backgrounds & fonts</span>
+      <span className="al-card-d">Painted pond backgrounds with pickers to swap the painting and the font pairing.</span>
+    </a>
+    <a className="al-card" href="/lab/colors">
+      <span className="al-card-t">Colors</span>
+      <span className="al-card-d">One tinted scale taken from the painting, and an audit of every color the site used.</span>
+    </a>
+  </div>
+  <div className="al-group">
+    <span className="al-group-k">Record</span>
+    <a className="al-card" href="/lab/process">
+      <span className="al-card-t">Process log</span>
+      <span className="al-card-d">How the redesign evolved, round by round, including the directions I dropped.</span>
+    </a>
+    <a className="al-card" href="/lab/design-system">
+      <span className="al-card-t">Design system</span>
+      <span className="al-card-d">The palette, type, components and motion, as built.</span>
+    </a>
+  </div>
 </div>
 
-## How I use it
-
-- **Prototypes start here.** New directions get a lab page before they touch the real site, so I can compare options side by side and decide by eye.
-- **Decisions get written down.** Every iteration in the process log records what I tried, what I kept, and why. The rejected directions are as useful as the kept ones.
-- **The design system is the source of truth.** It documents what's actually in the code (`landing.css`, `style.css` and the snippets), so it stays honest.
-
-<p className="al-note">The lab isn't linked from anywhere on the site. Parts of it will feed into the portfolio case study.</p>
+<p className="al-note">The lab isn't linked from anywhere on the site and isn't indexed.</p>
 
 </div>
