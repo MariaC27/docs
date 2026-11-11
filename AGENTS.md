@@ -105,8 +105,8 @@ The site uses the "pond" palette, a tinted scale taken from the homepage paintin
 ## Lab
 
 - `lab/*.mdx` is a hidden, standalone design lab: `mode: custom`, noindex, not in the nav, no site chrome, its own nav from `snippets/lab-nav.jsx`, root class `.lab-root` (not `.al` — Mintlify rewrites that to `mint-al`). Its styles are at the end of `style.css`, and its prototypes live in `snippets/*-lab.jsx` and `snippets/*-protos.jsx`
-- Purpose: a place to compare iterations side by side, decide, and record why (the lab home, `lab/overview.mdx`, explains the idea)
-- Header (`LabNav`): the same on every page — every lab page keeps a 1240px frame, and reading pages (`al-doc` without `al-wide`) hold their text to 820px below it. Groups open on hover or focus: Layouts (`prototypes` homepage layouts, `river`), Art (`art-styles`, `pads`), UI (`ui` backgrounds & fonts, `colors`), plus Process log (`process`) and Design system (`design-system`) as their own links. Add new pages to a group in `snippets/lab-nav.jsx` and to the cards on the lab home
+- Purpose: a place to compare iterations side by side, decide, and record why (the lab home, `lab/index.mdx` at `/lab`, explains the idea; `/lab/overview` redirects there)
+- Header (`LabNav`): the same on every page — every lab page keeps a 1240px frame, and reading pages (`al-doc` without `al-wide`) hold their text to 820px below it. Process log (`process`) and Design system (`design-system`) come first as their own links, then groups that open on hover or focus: Layouts (`prototypes` homepage layouts, `river`), Art (`art-styles`, `pads`, `styles` style iterations, `blueprint`), UI (`ui` backgrounds & fonts, `colors`). Add new pages to a group in `snippets/lab-nav.jsx` and to the cards on the lab home
 - **The lab is due for a full audit and reorganization in the next PR.** Until then its pages (the design system and process log especially) may describe earlier versions of the site; this file and the README describe the current one
 
 ## Known Tailwind gotchas

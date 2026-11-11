@@ -1,11 +1,13 @@
 // Header shared by every lab page (/lab/*). The lab is a standalone, unlisted area: no site
-// sidebar or navbar, only this bar. Pages are grouped into Layouts, Art and UI menus (open on
-// hover, or on focus/tap), with the process log and design system as their own links.
+// sidebar or navbar, only this bar. The process log and design system come first as their own
+// links, then the Layouts, Art and UI menus (open on hover, or on focus/tap). The lab home is /lab.
 // Styles in /style.css (.al-nav*). Every lab page sits in the same 1240px frame, so this bar
 // is in the same place on every page.
 
 export const LabNav = ({ current }) => {
   const NAV = [
+    { key: 'process', label: 'Process log', href: '/lab/process' },
+    { key: 'design-system', label: 'Design system', href: '/lab/design-system' },
     { group: 'Layouts', pages: [
       ['prototypes', 'Homepage layouts', '/lab/prototypes'],
       ['river', 'River layouts', '/lab/river'],
@@ -13,18 +15,18 @@ export const LabNav = ({ current }) => {
     { group: 'Art', pages: [
       ['art-styles', 'Art direction', '/lab/art-styles'],
       ['pads', 'Lily pads', '/lab/pads'],
+      ['styles', 'Style iterations', '/lab/styles'],
+      ['blueprint', 'Blueprint', '/lab/blueprint'],
     ] },
     { group: 'UI', pages: [
       ['ui', 'Backgrounds & fonts', '/lab/ui'],
       ['colors', 'Colors', '/lab/colors'],
     ] },
-    { key: 'process', label: 'Process log', href: '/lab/process' },
-    { key: 'design-system', label: 'Design system', href: '/lab/design-system' },
   ];
   const on = (key) => (key === current ? 'al-nav-on' : undefined);
   return (
     <nav className="al-nav" aria-label="Lab">
-      <a className={`al-nav-mark${current === 'overview' ? ' al-nav-mark-on' : ''}`} href="/lab/overview">Maria’s Design Lab</a>
+      <a className={`al-nav-mark${current === 'overview' ? ' al-nav-mark-on' : ''}`} href="/lab">Maria’s Design Lab</a>
       <div className="al-nav-links">
         {NAV.map((item) => (item.group ? (
           <div key={item.group} className={`al-nav-group${item.pages.some(([k]) => k === current) ? ' al-nav-group-on' : ''}`}>

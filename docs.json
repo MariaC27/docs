@@ -124,7 +124,8 @@
   },
   "redirects": [
     { "source": "/reference/skills", "destination": "/about/skills" },
-    { "source": "/reference/changelog", "destination": "/about/changelog" }
+    { "source": "/reference/changelog", "destination": "/about/changelog" },
+    { "source": "/lab/overview", "destination": "/lab" }
   ],
   "footer": {
     "socials": {
